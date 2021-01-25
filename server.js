@@ -42,8 +42,9 @@ mongoose
 
 // ###################################################################### server connection
 const port = process.env.PORT || 9000;
-const server = app.listen(port, (err) => {
-  d(suc(`server is running on port :${port}`))
+const host = process.env.HOST || "0.0.0.0";
+const server = app.listen(port,host, (err) => {
+  d(suc(`server is running on port :${port} and host:${host}`))
   if (err) {
     d(er("Couln't start the server something is wrong with the server.", err))
     process.exit(1)
