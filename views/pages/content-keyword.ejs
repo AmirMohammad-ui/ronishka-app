@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+	<%- include("../partials/meta.ejs") %>
+	<%- include("../partials/links.ejs") %>
+</head>
+
+<body>
+	<%- include("../partials/header.ejs") %>
+  <div class="container mx-auto my-4 row">
+    <% data.forEach(el => { %>
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="container">
+          <div class="mb-3 text-right rounded card">
+            <img data-src="/uploads/images/content-cover-images/<%- el.coverImage %>"
+              class="card-img-top card-image-height cover lazy animate__animated animate__fadeInUp " alt="<%- el.topic %>" />
+            <div class="p-0 card-body">
+              <h5 class="px-3 py-2 card-title card-text-height line-clamp-2"><%- el.topic %></h5>
+              <p class="px-3 overflow-hidden card-text line-clamp">
+                <%- el.summary %>
+              </p>
+              <div class="m-0 divider w-100 bg-dark"></div>
+              <div class="px-3 py-2 text-right bg-black-transparent-3 text-dark">
+                <div class="row">
+                  <div class="col-6">
+                    <span class="text-dark">تاریخ : </span>
+                    <span
+                      class="mr-3 text-white Parastoo"><%- el.persianDate %></span>
+                  </div>
+                  <div class="col-6">
+                    <span class="text-dark">بازدید : </span>
+                    <span class="mr-3 text-white Parastoo"><%- el.views %></span>
+                  </div>
+                  <% if (isCreator === "admin") { %>
+                    <div class="divider"></div>
+                    <div class="col-12">
+                      <span class="pb-2 mr-4 font-small">
+                        <span>آیدی محصول :</span>
+                        <span class="text-info Balsamiq"><%- el._id %></span>
+                      </span>
+                    </div>
+                  <% } %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <a href="/content/<%- el.slug %>"
+                    class="btn btn-outline-dark mt-md-0 rounded-0 w-100">ادامه</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+  <%- include("../partials/loader.ejs") %>
+	<%- include("../partials/privacy-policy.ejs") %>
+	<%- include("../partials/scripts.ejs") %>
+</body>
+<!-- ################################## FOOTER ################################### -->
+<%- include("../partials/footer.ejs") %>
+
+</html>

@@ -1,0 +1,114 @@
+<header id="back-top" class="pt-0 pb-0 w-100 nav-color pt-md-5">
+	<div class="container">
+		<div class="row animate__animated animate__fadeInDown">
+			<div class="pb-2 mt-4 text-center col-md-6 float-md-right mt-md-0">
+				<ul class="p-0 list-unstyled">
+					<li class="py-2">
+						<a href="/" class="">
+							<img id="logo-header" src="/img/logo-main5.png" alt="لوگو" />
+						</a>
+					</li>
+					<li class="py-2">
+						<a href="/" class="text-white">
+							<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="align-text-top bi bi-house-fill" viewBox="0 0 16 16">
+								<path fill-rule="evenodd" d="M8 3.293l6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+								<path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+							</svg>
+							صفحه اصلی
+						</a>
+					</li>
+					<% if(isCreator === 'content-creator'||isCreator === "admin" && isLoggedIn ===1) {%>
+					<% if(isLoggedIn === 1) {%>
+					<li class="py-2">
+						<a href="/creators-panel" class="text-white">
+							<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="px-1 pt-1 align-bottom bi bi-person-circle fas fa-user-circle font-2" viewBox="0 0 16 16">
+								<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+								<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+							</svg>
+							<span class="pb-2">پروفایل</span>
+						</a>
+					</li>
+					<li class="py-2">
+						<a href="/user/logout" class="text-white">
+							<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="text-white align-text-top bi bi-door-open-fill" viewBox="0 0 16 16">
+								<path d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15H1.5zM11 2h.5a.5.5 0 0 1 .5.5V15h-1V2zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z"/>
+							</svg>
+							<span class="pb-2">خروج از حساب کاربری</span>
+						</a>
+					</li>
+					<% }else{ %>
+					<li class="py-2">
+						<a href="/signup-login" class="text-white ">
+							<span class="">ثبت نام / ورود</span>
+						</a>
+					</li>
+					<% } %>
+					<% } %>
+				</ul>
+			</div>
+			<div class="float-right my-auto text-white col-md-6">
+				<form id="searchOperation" class="form-inline ml-sm-auto">
+					<input id="search-input-operation" type="search"
+						class="p-2 text-right bg-transparent form-control Parastoo inline-inp input-header w-100"
+						placeholder="جستجو ..." />
+				</form>
+			</div>
+		</div>
+		<!-- ---------------------- navbar ----------------------- -->
+		<div class="container">
+			<nav class="pb-3 my-3 py-sm-0 nav-color-primary">
+				<ul
+					class="p-0 mb-0 text-center justify-content-center animate__animated animate__backInRight list-unstyled d-lg-flex">
+					<li class="py-2 d-lg-inline-block">
+						<a class="px-3 py-2 text-white nav-link-hover-effect" href="/category/دیجیتال/1">دیجیتال</a>
+					</li>
+					<li class="py-2 d-lg-inline-block">
+						<a class="px-3 py-2 text-white nav-link-hover-effect" href="/category/مد-و-پوشاک/1">مد و
+							پوشاک</a>
+					</li>
+					<li class="py-2 d-lg-inline-block">
+						<a class="px-3 py-2 text-white nav-link-hover-effect" href="/category/خوراکی-نوشیدنی/1">خوراکی
+							نوشیدنی</a>
+					</li>
+					<li class="py-2 d-lg-inline-block">
+						<a class="px-3 py-2 text-white nav-link-hover-effect" href="/category/زیبایی/1">زیبایی</a>
+					</li>
+					<li class="py-2 d-lg-inline-block">
+						<a class="px-3 py-2 text-white nav-link-hover-effect" href="/category/ابزار-سلامت/1">ابزار
+							سلامت</a>
+					</li>
+					<li class="py-2 d-lg-inline-block">
+						<a class="px-3 py-2 text-white nav-link-hover-effect" href="/category/تفریحی-ورزشی/1">ورزشی
+							تفریحی</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<!-- ################################ newest  ############################### -->
+	<section class="mt-5 newest-header d-none d-sm-block bg-black-transparent-6">
+		<div class="container animate__animated animate__fadeInUp">
+			<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+				<div class="carousel-inner carousel-min-width">
+					<div class="clearfix py-2 row py-md-0">
+						<div class="col-12 text-truncate float-sm-left ml-lg-auto py-md-2">
+							<% for( let i = 0; i < contents.length; i++ ) { %>
+							<% if (i===0) { %>
+							<div class="h-0 carousel-item active">
+								<% }else {%>
+								<div class="h-0 carousel-item">
+									<% } %>
+									<a href="/content/<%- contents[i].slug %>">
+										<p class="mb-0 text-white">
+											<%- contents[i].summary %>
+										</p>
+									</a>
+								</div>
+								<% } %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	</section>
+</header>

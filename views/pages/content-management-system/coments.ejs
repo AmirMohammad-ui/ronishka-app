@@ -1,0 +1,97 @@
+ <div class="collapse fade" id="section-coments" data-parent="#accordion">
+ 	<div class="container mt-5 row max-width-1300">
+ 		<div class="text-center col-12">
+      <h2 class="p-2 text-white rounded shadow bg-info">
+        جستجو :
+      </h2>
+      <div class="my-2 form-inline">
+        <input id="commentserchInput" placeholder="آیدی کامنت را وارد کنید" class="p-2 w-75 custom-input bg-black-transparent-2" type="text">
+        <button id="commentserchInput_btn" class="px-3 py-1 btn rounded-0 btn-secondary">پیدا کن</button>
+      </div>
+      <div id="searchResultComent" class="mb-4">
+        
+      </div>
+ 		</div>
+     <div class="divider"></div>
+ 		<div class="text-center col-12">
+      <h2 class="p-2 rounded shadow text-light bg-info">
+        جدید ترین :
+      </h2>
+      <% reviews.forEach(el => { %>
+      <div class="p-2 mb-3 bg-dark row">
+        <div class="p-2 text-right text-muted">متن کامنت : </div>
+        <div class="p-2 col-12">
+          <p class="p-2 text-break mb-0 text-right text-white bg-secondary">
+            <%- el.text %> 
+          </p>
+        </div>
+        <div class="pt-2 pb-1 text-right col-12 col-lg-3 col-sm-6">
+          <span class="text-muted">ایمیل :</span>
+          <span class="text-info eng-font"><%- el.fromUser.email %></span>
+        </div>
+        <div class="pt-2 pb-1 text-right col-12 col-lg-3 col-sm-6">
+          <span class="text-muted">نام :</span>
+          <span class="text-info"><%- el.fullname %></span>
+        </div>
+        <div class="pt-2 pb-1 text-right col-12 col-lg-3 col-sm-6">
+          <span class="text-muted">آیدی کامنت :</span>
+          <span class="text-info eng-font"><%- el._id %></span>
+        </div>
+        <div class="pt-2 pb-1 text-right col-12 col-lg-3 col-sm-6">
+          <span class="text-muted">آیدی محتوا :</span>
+          <span class="text-info eng-font"><%- el.forContent %></span>
+        </div>
+        <div class="pt-2 pb-1 text-right col-12 col-lg-3 col-sm-6">
+          <span class="text-muted">وضعیت تأیید :</span>
+          <span class="text-<%- el.isConfirmed ? "success" : "danger" %>"><%- el.isConfirmed ? "تأیید شده" : "تأیید نشده" %></span>
+        </div>
+        <div class="pt-2 pb-1 text-right col-12 col-lg-3 col-sm-6">
+          <div class="btn-group" role="group" aria-label="button group">
+            <a href="/confirm-comment/<%- el._id %>" target="_blank" class="px-3 btn btn-primary rounded-0">تأیید</a>
+            <a href="/unconfirm-comment/<%- el._id %>" target="_blank" class="px-3 btn btn-danger rounded-0">رد</a>
+          </div>
+        </div>
+        <% if (el.replies.length > 0) { %>
+         <% el.replies.forEach(e => { %>
+          <div class="p-2 m-3 bg-secondary row">
+            <div class="p-2 text-right text-dark">متن کامنت : </div>
+            <div class="p-2 col-12">
+              <p class="p-2 text-break mb-0 text-right text-secondary bg-dark">
+                <%- e.text %> 
+              </p>
+            </div>
+            <div class="pt-2 pb-1 text-right col-12 col-lg-3 col-sm-6">
+              <span class="text-dark">ایمیل :</span>
+              <span class="text-dark eng-font"><%- e.fromUser.email %></span>
+            </div>
+            <div class="pt-2 pb-1 text-right col-12 col-lg-3 col-sm-6">
+              <span class="text-dark">نام :</span>
+              <span class="text-dark"><%- e.fullname %></span>
+            </div>
+            <div class="pt-2 pb-1 text-right col-12 col-lg-3 col-sm-6">
+              <span class="text-dark">آیدی پاسخ :</span>
+              <span class="text-dark eng-font"><%- e._id %></span>
+            </div>
+            <div class="pt-2 pb-1 text-right col-12 col-lg-3 col-sm-6">
+              <span class="text-dark">آیدی کامنت :</span>
+              <span class="text-dark eng-font"><%- e.forContent %></span>
+            </div>
+            <div class="pt-2 pb-1 text-right col-12 col-lg-3 col-sm-6">
+              <span class="text-dark">وضعیت تأیید :</span>
+              <span class="text-<%- e.isConfirmed ? "success" : "danger" %>"><%- e.isConfirmed ? "تأیید شده" : "تأیید نشده" %></span>
+            </div>
+            <div class="pt-2 pb-1 text-right col-12 col-lg-3 col-sm-6">
+              <div class="btn-group" role="group" aria-label="button group">
+                <a href="/confirm-comment/<%- e._id %>" target="_blank" class="px-3 btn btn-primary rounded-0">تأیید</a>
+                <a href="/unconfirm-comment/<%- e._id %>" target="_blank" class="px-3 btn btn-danger rounded-0">رد</a>
+              </div>
+            </div>
+          </div>
+         <% }) %>
+        <% } %>
+      </div>
+      <% }) %>
+ 		</div>
+ 	</div>
+ 	<div class="my-3 divider"></div>
+ </div>

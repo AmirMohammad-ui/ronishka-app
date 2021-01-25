@@ -1,0 +1,70 @@
+<div class="collapse fade" id="section-upload" data-parent="#accordion">
+	<h2 class="pr-4 mt-5 text-right max-width-1300"> جستجو برای پست </h2>
+	<div class="text-right row max-width-1300 ">
+		<div class="my-2 col-lg-6">
+			<form id="upload-content-section-form-by-name" class="needs-validation was-validated" novalidate>
+				<label for="search_for_post_by_topic_upload" class="m-0">موضوع پست : </label>
+				<input name="search_for_post_by_topic_upload" type="text" id="search_for_post_by_topic_upload"
+					class="py-2 my-2 form-control custom-input input-border-bottom-black rounded-0 w-100 "
+					placeholder="برنامه منظم برای پیاده روی و لاغری" required>
+				<div class="invalid-feedback text-danger"> پر کردن این فیلد ضروریست.</div>
+				<button id="searchForUploadBtn" class="my-2 btn btn-secondary btn-block">
+					جستجو </button>
+			</form>
+		</div>
+		<div class="my-2 col-lg-6">
+			<form class="needs-validation was-validated" novalidate>
+				<label for="search_for_post_by_id_upload" class="m-0">آیدی پست :
+				</label>
+				<input name="search_for_post_by_id_upload" type="text" id="search_for_post_by_id_upload"
+					class="py-2 my-2 form-control custom-input input-border-bottom-black rounded-0 w-100 "
+					placeholder="کفش مخصوص پیاده روی آلپاچینو" required>
+				<div class="invalid-feedback text-danger">
+					پر کردن این فیلد ضروریست.
+				</div>
+				<button id="upload_content_by_id_btn" type="button" class="my-2 btn btn-secondary btn-block">جستجو</button>
+			</form>
+		</div>
+	</div>
+	<div class="my-4 divider"></div>
+	<h2 class="pr-4 text-right max-width-1300">
+		جستجو برای محصول </h2>
+	<div class="text-right row max-width-1300">
+		<div class="my-2 col-lg-6">
+			<form id="upload-product-section-form-by-name" class="needs-validation was-validated" novalidate>
+				<label for="search_for_product_by_name_upload" class="m-0">نام محصول : </label>
+				<input name="search_for_product_by_name_upload" type="text" id="search_for_product_by_name_upload"
+					class="py-2 my-2 form-control custom-input input-border-bottom-black rounded-0 w-100 "
+					placeholder="کفش مخصوص پیاده روی آلپاچینو" required>
+				<div class="invalid-feedback text-danger">
+					پر کردن این فیلد ضروریست.
+				</div>
+				<button id="search_for_product_by_name_upload_btn" type="button"
+					class="my-2 btn btn-secondary btn-block">جستجو</button>
+			</form>
+		</div>
+		<div class="my-2 col-lg-6">
+			<form class="needs-validation was-validated" novalidate>
+				<label for="search_for_product_by_id_upload" class="m-0">آیدی محصول :</label>
+				<input name="search_for_product_by_id_upload" type="text" id="search_for_product_by_id_upload"
+					class="py-2 my-2 form-control custom-input input-border-bottom-black rounded-0 w-100 "
+					placeholder="5fdb8c0dc662906aa4912f6e" required>
+				<div class="invalid-feedback text-danger">
+					پر کردن این فیلد ضروریست.
+				</div>
+				<button id="upload_product_by_id_btn" type="button" class="my-2 btn btn-secondary btn-block">جستجو</button>
+			</form>
+		</div>
+	</div>
+<div class="my-4 divider"></div>
+<!-- result -->
+<h1 class="mb-4 text-center max-width-1300">نتیجه ی جستجو</h1>
+<div class="my-2 row max-width-1300">
+	<div class="mx-auto col-12 col-lg-9">
+		<div id="searchResults_upload"></div>
+	</div>
+</div>
+<div class="my-4 divider"></div>
+<div id="productResultContainer" class="container"></div>
+</div>
+</div>

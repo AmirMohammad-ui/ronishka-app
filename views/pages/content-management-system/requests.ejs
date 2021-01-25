@@ -1,0 +1,37 @@
+<div class="collapse fade" id="section-requests" data-parent="#accordion">
+  <div class="container mt-5 row max-width-1300">
+    <div class="text-center col-12">
+      <h2 class="p-2 rounded shadow text-light bg-info">
+        جدید ترین :
+      </h2>
+      <% requests.forEach(el => { %>
+      <div class="p-2 mb-3 bg-dark row">
+        <div class="pt-2 pb-1 text-right col-12">
+          <span class="text-muted">نوع درخواست :</span>
+          <span class="text-info"><%- el.name %></span>
+        </div>
+        <div class="pt-2 pb-1 text-right col-12 col-lg-3 col-sm-6">
+          <span class="text-muted">آیدی محتوا :</span>
+          <span class="text-info eng-font"><%- el.textMessage %></span>
+        </div>
+        <div class="pt-2 pb-1 text-right col-12 col-lg-3 col-sm-6">
+          <span class="text-muted">ایمیل :</span>
+          <span class="text-info eng-font"><%- el.email %></span>
+        </div>
+        <div class="pt-2 pb-1 text-right col-12 col-lg-3 col-sm-6">
+          <span class="text-muted">آیدی درخواست :</span>
+          <span class="text-info eng-font"><%- el._id %></span>
+        </div>
+        <div class="pt-2 pb-1 text-right col-12 col-lg-3 col-sm-6">
+          <div class="btn-group" role="group" aria-label="button group">
+            <a href="/new/delete/content/<%- el._id %>" target="_blank" class="px-3 btn btn-danger rounded-0">حذف محتوا</a>
+          </div>
+          <div class="btn-group" role="group" aria-label="button group">
+            <a href="/new/delete-message/<%- el._id %>" target="_blank" class="px-3 btn btn-outline-danger rounded-0">حذف درخواست</a>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</div>

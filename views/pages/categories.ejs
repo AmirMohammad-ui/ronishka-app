@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+	<%- include("../partials/meta.ejs") %>
+	<%- include("../partials/links.ejs") %>
+</head>
+
+<body>
+	<%- include("../partials/header.ejs") %>
+	<main class="container py-3">
+		<div class="m-0 mb-2 col-12 row">
+			<% if (ads.length > 0) { %>
+				<% for( let i = 0; i <= 3; i++ ) { %>
+					<% if (ads[i]) { %>
+						<div class="px-1 my-1 col-6 col-lg-3">
+							<div class="position-relative">
+								<% if (isCreator && isCreator === "admin") { %>
+									<div class="p-2 text-center text-white w-100 zIndex-1000 bg-black-transparent-7 Balsamiq font-small pos-absolute-top"><%- ads[i]._id %></div>
+								<% } %>
+								<a href="<%- ads[i].adLink %>" target="_blank">
+									<img src="/uploads/ads/<%- ads[i].image %>" class="lazy animate__animated animate__fadeInUp cover w-100" alt="<%- ads[i].name %>">
+									<% if (ads[i].name !== "" && ads[i].name) { %>
+										<div class="p-2 text-right text-white bg-black-transparent-7 w-100 font-small pos-absolute-bottom"><%- ads[i].name %></div>
+									<% } %>
+								</a>
+							</div>
+						</div>
+					<% } %>
+				<% } %>
+			<% } %>
+		</div>
+		<div class="carousel slide carousel-fade" data-ride="carousel">
+			<div class="carousel-inner">
+				<% for(let i =0; i<contents.length; i++) {%>
+				<% if(i===0){ %>
+				<div class="carousel-item active">
+					<% }else{ %>
+					<div class="carousel-item">
+						<% } %>
+						<div class="row">
+							<div class="col-12">
+								<div class="rounded box-main box-shadow-muted">
+									<div class="container p-0">
+										<div class="my-2 card">
+											<div class="row no-gutters">
+												<div class="col-lg-12">
+													<div
+														class="px-3 py-2 mt-4 mr-4 text-right rounded shadow bg-black-transparent-6 w-75 pos-absolute-right-top row text-light">
+														<h1 class="text-right font-3">
+															<%- contents[i].topic %>
+														</h1>
+													</div>
+													<a href="/content/<%- contents[i].slug %>">
+														<img src="/uploads/images/content-cover-images/<%- contents[i].coverImage %> "
+															class="card-img h-100 img-cover"
+															alt="<%- contents[i].topic %>" />
+													</a>
+												</div>
+												<div class="text-right col-lg-12">
+													<div
+														class="p-2 pb-0 my-3 text-justify card-body">
+														<a href="/content/<%- contents[i].slug %>" class="text-info">
+														</a>
+														<p class="mx-3 overflow-hidden text-justify card-text line-clamp font-small-3">
+															<%- contents[i].summary %>
+														</p>
+														<div
+															class="px-3 py-2 mx-2 mt-5 text-right shadow bg-black-transparent-1 row text-dark">
+															<div class="my-2 text-center col-6 col-md-3">
+																<span class="text-dark">تاریخ : </span>
+																<span
+																	class="text-info Parastoo"><%- contents[i].persianDate %></span>
+															</div>
+															<div class="my-2 text-center col-6 col-md-3">
+																<span class="text-dark">بازدید : </span>
+																<span
+																	class="text-info Parastoo"><%- contents[i].views %></span>
+															</div>
+															<div class="my-2 text-center col-6 col-md-3">
+																<span class="text-dark">کامنت ها : </span>
+																<span
+																	class="text-info Parastoo"><%- contents[i].reviews.length %></span>
+															</div>
+															<div class="my-2 text-center col-6 col-md-3">
+																<a class="rounded-0"
+																	href="/content/<%- contents[i].slug %>">
+																	<span class="text-danger">ادامه</span>
+																	<span class="text-dark">&larr;</span>
+																</a>
+															</div>
+															<% if (isCreator === "admin") { %>
+																<div class="divider"></div>
+																<div class="my-2 text-center col-12">
+																	<span class="text-dark">آیدی محتوا :</span>
+																	<span
+																		class="text-info Balsamiq"><%- contents[i]._id %></span>
+																</div>
+															<% } %>
+														</div>
+													</div>
+													<div class="p-2 mt-sm-5 d-none d-sm-flex">
+														<% if (contents[i].products.length > 0) { %>
+														<div class="my-2 shadow card">
+															<div class="row no-gutters">
+																<div class="col-md-4">
+																	<img data-src="/uploads/images/products/<%- contents[i].products[contents[i].products.length -1].image %>"
+																		class="card-img lazy animate__animated animate__fadeInUp cover"
+																		alt="<%- contents[i].products[contents[i].products.length -1].name %>" />
+																</div>
+																<div class="text-right col-md-8 product-card">
+																	<div class="p-2 card-body">
+																		<% if (contents[i].products[contents[i].products.length -1].discount > 0) { %>
+																		<div class="float-left text-center">
+																			<span class="font-small"> تخفیف : </span>
+																			<span
+																				class="text-danger font-3"><%- contents[i].products[contents[i].products.length -1].discountPercentage %>
+																				%</span>
+																		</div>
+																		<% } %>
+																		<h5 class="px-2 pt-3 card-title font-1">
+																			<%- contents[i].products[contents[i].products.length -1].name %>
+																		</h5>
+																		<p class="p-3 text-justify font-small-3 card-text">
+																			<%- contents[i].products[contents[i].products.length -1].explanation %>
+																		</p>
+																	</div>
+																</div>
+															</div>
+															<div class="m-0 divider w-100"></div>
+															<div class="p-2 text-center font-1 bg-black-transparent-2">
+																<span
+																	class="float-none mx-3 my-2 float-sm-right mx-md-5">
+																	<span class="ml-3 card-text d-none-on-xxsm">
+																		قیمت :
+																	</span>
+																	<span class="card-text">
+																		<span class="Parastoo">
+																			<%- contents[i].products[contents[i].products.length -1].price %>
+																		</span>
+																		<span class="card-text font-small">
+																			تومان
+																		</span>
+																	</span>
+																	<% if (isCreator === "admin") { %>
+																		<span class="mr-4 text-small">آیدی محصول :</span>
+																		<span class="text-info Balsamiq"><%- contents[i].products[contents[i].products.length -1]._id %></span>
+																	<% } %>
+																</span>
+																<a href="<%- contents[i].products[contents[i].products.length -1].linkToProductPage %>"
+																	class="float-none px-5 m-2 btn btn-danger float-sm-left">سفارش</a>
+															</div>
+														</div>
+														<% } %>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<% } %>
+				</div>
+			</div>
+			<div class="container my-3">
+				<div class="m-0 mb-2 col-12 row">
+					<% if (ads.length > 4) { %>
+						<% for( let i = 4; i <= 11; i++ ) { %>
+							<% if (ads[i]) { %>
+								<div class="px-1 my-1 col-6 col-lg-3">
+									<div class="position-relative">
+										<% if (isCreator && isCreator === "admin") { %>
+											<div class="p-2 text-center text-white w-100 zIndex-1000 bg-black-transparent-7 Balsamiq font-small pos-absolute-top"><%- ads[i]._id %></div>
+										<% } %>
+										<a href="<%- ads[i].adLink %>" target="_blank">
+											<img src="/uploads/ads/<%- ads[i].image %>" class="lazy animate__animated animate__fadeInUp cover w-100" alt="<%- ads[i].name %>">
+											<% if (ads[i].name !== "" && ads[i].name) { %>
+												<div class="p-2 text-right text-white bg-black-transparent-7 w-100 font-small pos-absolute-bottom"><%- ads[i].name %></div>
+											<% } %>
+										</a>
+									</div>
+								</div>
+							<% } %>
+						<% } %>
+					<% } %>
+				</div>
+			</div>
+			<div class="container my-3">
+				<div class="text-center row no-gutters">
+					<div class="p-0 my-2 col-lg-4 col-md-6">
+						<div class="rounded box-main scrollify max-height-1463">
+							<h2 class="p-2 text-center">جدید ترین</h2>
+							<% for( let i = 0; i < newestCategory.length; i++ ) { %>
+							<div class="p-0 mb-3 text-right rounded card">
+								<img data-src="/uploads/images/content-cover-images/<%- newestCategory[i].coverImage %>"
+									class="p-0 card-img-top lazy card-image-height cover animate__animated animate__fadeInUp " alt="<%- newestCategory[i].topic %>" />
+								<div class="p-0 card-body ">
+									<h5 class="px-3 pt-4 overflow-hidden card-title card-text-height line-clamp-2">
+										<%- newestCategory[i].topic %></h5>
+									<p class="px-3 overflow-hidden card-text line-clamp">
+										<%- newestCategory[i].summary %>
+									</p>
+									<div class="w-100 position-relative">
+										<div class="m-0 divider w-100 bg-dark"></div>
+										<div class="py-2 text-right bg-black-transparent-3 text-dark">
+											<div class="row">
+												<div class="pr-5 col-6">
+													<span class="text-dark">تاریخ : </span>
+													<span
+														class="mr-3 text-white Parastoo"><%- newestCategory[i].persianDate %></span>
+												</div>
+												<% if (isCreator === "admin") { %>
+												 	<div class="divider"></div>
+														<div class="pb-2 text-center col-12 font-small">
+															<span>آیدی محتوا :</span>
+													 		<span class="Balsamiq text-info"><%- newestCategory[i]._id %></span>
+														</div>
+												<% } %>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-12">
+											<a href="/content/<%- newestCategory[i].slug %>"
+												class="btn btn-outline-dark mt-md-0 rounded-0 w-100">ادامه</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<% } %>
+						</div>
+					</div>
+					<div class="p-0 my-2 col-lg-4 col-md-6">
+						<div class="rounded box-main scrollify max-height-1463">
+							<h2 class="p-2 text-center">پربازدید ترین</h2>
+							<% for( let i = 0; i < mostViewed.length; i++ ) { %>
+							<div class="p-0 mb-3 text-right rounded card">
+								<img data-src="/uploads/images/content-cover-images/<%- mostViewed[i].coverImage %>"
+									class="p-0 card-img-top lazy card-image-height cover animate__animated animate__fadeInUp " alt="<%- mostViewed[i].topic %>" />
+								<div class="p-0 card-body ">
+									<h5 class="px-3 pt-4 overflow-hidden card-title card-text-height line-clamp-2">
+										<%- mostViewed[i].topic %></h5>
+									<p class="px-3 overflow-hidden card-text line-clamp">
+										<%- mostViewed[i].summary %>
+									</p>
+									<div class="w-100 position-relative">
+										<div class="m-0 divider w-100 bg-dark"></div>
+										<div class="py-2 text-right bg-black-transparent-3 text-dark">
+											<div class="row">
+												<div class="pr-5 col-6">
+													<span class="text-dark">بازدید : </span>
+													<span
+														class="mr-3 text-white Parastoo"><%- mostViewed[i].views %></span>
+												</div>
+												<% if (isCreator === "admin") { %>
+												 	<div class="divider"></div>
+														<div class="pb-2 text-center col-12 font-small">
+															<span>آیدی محتوا :</span>
+													 		<span class="Balsamiq text-info"><%- mostViewed[i]._id %></span>
+														</div>
+												<% } %>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-12">
+											<a href="/content/<%- mostViewed[i].slug %>"
+												class="btn btn-outline-dark mt-md-0 rounded-0 w-100">ادامه</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<% } %>
+						</div>
+					</div>
+					<div class="p-0 mx-0 my-2 col-lg-4 col-md-6 mx-sm-auto">
+						<div class="rounded box-main scrollify max-height-1463">
+							<h2 class="p-2 text-center">پیشنهاد ما</h2>
+							<% for( let i = 0; i < ourSuggestion.length; i++ ) { %>
+							<div class="p-0 mb-3 text-right rounded card">
+								<img data-src="/uploads/images/content-cover-images/<%- ourSuggestion[i].coverImage %>"
+									class="p-0 card-img-top lazy card-image-height cover animate__animated animate__fadeInUp " alt="<%- ourSuggestion[i].topic %>" />
+								<div class="p-0 card-body ">
+									<h5 class="px-3 pt-4 overflow-hidden card-title card-text-height line-clamp-2">
+										<%- ourSuggestion[i].topic %></h5>
+									<p class="px-3 overflow-hidden card-text line-clamp">
+										<%- ourSuggestion[i].summary %>
+									</p>
+									<div class="w-100 position-relative">
+										<div class="m-0 divider w-100 bg-dark"></div>
+										<div class="py-2 text-right bg-black-transparent-3 text-dark">
+											<div class="row">
+												<div class="pr-5 col-6">
+													<span class="text-dark">رضایت : </span>
+													<span
+														class="mr-3 text-white Parastoo"><%- ourSuggestion[i].isUseful %></span>
+												</div>
+												<% if (isCreator === "admin") { %>
+												 	<div class="divider"></div>
+													<div class="pb-2 text-center col-12 font-small">
+														<span>آیدی محتوا :</span>
+														<span class="Balsamiq text-info"><%- ourSuggestion[i]._id %></span>
+													</div>
+												<% } %>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-12">
+											<a href="/content/<%- ourSuggestion[i].slug %>"
+												class="btn btn-outline-dark mt-md-0 rounded-0 w-100">ادامه</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<% } %>
+						</div>
+					</div>
+				</div>
+			</div>
+	</main>
+	<% if (highestDiscountProducts.length > 0) { %>
+	<div class="my-4 divider"></div>
+	<div class="container my-3">
+		<div class="col-12">
+			<div class="container mb-4 text-center text-lg-right">
+				<h2 class="mb-5">بیشترین تخفیف</h2>
+			</div>
+			<section class="mt-3 rounded box-shadow-muted box-main">
+				<div class="container p-0 max-height-903 w-100">
+					<% highestDiscountProducts.forEach(product => { %>
+					<div class="my-2 card">
+						<div class="row no-gutters">
+							<div class="col-md-4">
+								<img data-src="/uploads/images/products/<%- product.image %>" class="card-img lazy animate__animated animate__fadeInUp"
+									alt="<%- product.name %>" />
+							</div>
+							<div class="text-right col-md-8 product-card">
+								<div class="p-4 card-body">
+									<% if (product.discount > 0) { %>
+									<div class="float-left text-center">
+										<span class="font-small-3"> تخفیف : </span>
+										<span class="text-danger font-4"><%- product.discountPercentage %> %</span>
+									</div>
+									<% } %>
+									<h5 class="card-title font-3"><%- product.name %></h5>
+									<p class="text-justify card-text font-small-3">
+										<%- product.explanation %>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="m-0 divider w-100"></div>
+						<div class="p-2 text-center font-1 bg-black-transparent-2">
+							<span class="float-none mx-3 my-2 float-sm-right mx-md-5">
+								<span class="ml-3 card-text d-none-on-xxsm">
+									قیمت :
+								</span>
+								<span class="card-text">
+									<span class="Parastoo">
+										<%- product.price %>
+									</span>
+									<span class="card-text font-small">
+										تومان
+									</span>
+								</span>
+								<% if (isCreator === "admin") { %>
+									<span class="mr-4 font-small">
+										<span>آیدی محصول :</span>
+										<span class="text-info Balsamiq"><%- product._id %></span>
+									</span>
+								<% } %>
+							</span>
+							<a href="<%- product.linkToProductPage %>"
+								class="float-none px-5 m-2 btn btn-danger float-sm-left">سفارش</a>
+						</div>
+					</div>
+					<% }) %>
+				</div>
+			</section>
+		</div>
+	</div>
+	<% } %>
+	<% if (bestProducts.length > 0) { %>
+	<div class="my-4 divider"></div>
+	<div class="container my-3">
+		<div class="col-12">
+			<div class="container mb-4 text-center text-lg-right">
+				<h2 class="mb-5">محصولات برگزیده</h2>
+			</div>
+			<section class="mt-3 rounded box-shadow-muted box-main">
+				<div class="container p-0 max-height-903 w-100">
+					<% bestProducts.forEach(product => { %>
+					<div class="my-2 card">
+						<div class="row no-gutters">
+							<div class="col-md-4">
+								<img data-src="/uploads/images/products/<%- product.image %>" class=" lazy animate__animated animate__fadeInUp card-img"
+									alt="<%- product.name %>" />
+							</div>
+							<div class="text-right col-md-8 product-card">
+								<div class="p-4 card-body">
+									<% if (product.discount > 0) { %>
+									<div class="float-left text-center">
+										<span class="font-small-3"> تخفیف : </span>
+										<span class="text-danger font-4"><%- product.discountPercentage %> %</span>
+									</div>
+									<% } %>
+									<h5 class="card-title font-3"><%- product.name %></h5>
+									<p class="text-justify card-text font-small-3">
+										<%- product.explanation %>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="m-0 divider w-100"></div>
+						<div class="p-2 text-center font-1 bg-black-transparent-2">
+							<span class="float-none mx-3 my-2 float-sm-right mx-md-5">
+								<span class="ml-3 card-text d-none-on-xxsm">
+									قیمت :
+								</span>
+								<span class="card-text">
+									<span class="Parastoo">
+										<%- product.price %>
+									</span>
+									<span class="card-text font-small">
+										تومان
+									</span>
+								</span>
+								<% if (isCreator === "admin") { %>
+									<span class="mr-4 font-small">
+										<span>آیدی محصول :</span>
+										<span class="text-info Balsamiq"><%- product._id %></span>
+									</span>
+								<% } %>
+							</span>
+							<a href="<%- product.linkToProductPage %>"
+								class="float-none px-5 m-2 btn btn-danger float-sm-left">سفارش</a>
+						</div>
+					</div>
+					<% }) %>
+				</div>
+			</section>
+		</div>
+	</div>
+	<% } %>
+	<!-- <div class="flex-column sticky-bottom-right">
+		<ul class="pb-5 text-right list-unstyled">
+			<li>
+				<a href="#" class="text-danger font-4">
+					<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bell-fill" fill="currentColor"
+						xmlns="http://www.w3.org/2000/svg">
+						<path
+							d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
+					</svg>
+				</a>
+			</li>
+		</ul>
+	</div> -->
+	<%- include("../partials/loader.ejs") %>
+	<%- include("../partials/privacy-policy.ejs") %>
+</body>
+<%- include("../partials/footer.ejs") %>
+
+</html>

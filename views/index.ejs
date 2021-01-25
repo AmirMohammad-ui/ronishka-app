@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+	<%- include("./partials/meta.ejs") %>
+	<%- include("./partials/links.ejs") %>
+</head>
+
+<body>
+	<%- include("./partials/header.ejs") %>
+	<main class="container py-3">
+		<div class="row">
+			<div class="mx-1 mb-2 col-12 row d-lg-none">
+				<% if (adStar && adStar !== null) { %>
+					<div class="px-1 my-1 col-6">
+						<div class="position-relative">
+							<% if (isCreator && isCreator === "admin") { %>
+								<div class="p-2 text-center text-white w-100 zIndex-1000 bg-black-transparent-7 Balsamiq font-small pos-absolute-top"><%- adStar._id %></div>
+							<% } %>
+							<a href="<%- adStar.adLink %>" target="_blank">
+								<img src="/uploads/ads/<%- adStar.image %>" class="lazy animate__animated animate__fadeInUp cover w-100" alt="<%- adStar.name %>">
+								<% if (adStar.name !== "" && adStar.name) { %>
+									<div class="p-2 text-right text-white bg-black-transparent-7 w-100 font-small pos-absolute-bottom"><%- adStar.name %></div>
+								<% } %>
+							</a>
+						</div>
+					</div>
+				<% } %>
+				<% if (adStar2 && adStar2 !== null) { %>
+					<div class="px-1 my-1 col-6">
+						<div class="position-relative">
+							<% if (isCreator && isCreator === "admin") { %>
+								<div class="p-2 text-center text-white w-100 zIndex-1000 bg-black-transparent-7 Balsamiq font-small pos-absolute-top"><%- adStar2._id %></div>
+							<% } %>
+							<a href="<%- adStar2.adLink %>" target="_blank">
+								<img src="/uploads/ads/<%- adStar2.image %>" class="lazy animate__animated animate__fadeInUp cover w-100" alt="<%- adStar2.name %>">
+								<% if (adStar2.name !== "" && adStar2.name) { %>
+									<div class="p-2 text-right text-white bg-black-transparent-7 w-100 font-small pos-absolute-bottom"><%- adStar2.name %></div>
+								<% } %>
+							</a>
+						</div>
+					</div>
+				<% } %>
+			</div>
+			<div class="col-12 col-lg-8">
+				<div class="rounded box-shadow-muted box-main homeContentCarousel">
+					<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+						<div class="carousel-inner">
+							<% for(let i =0;i<contents.length;i++) { %>
+							<% if (i===0) { %>
+							<a href="/content/<%- contents[i].slug %>" class="carousel-item active">
+								<% }else{ %>
+								<a href="/content/<%- contents[i].slug %>" class="carousel-item">
+									<% } %>
+									<div class="homeContentCarousel--image">
+										<img src="/uploads/images/content-cover-images/<%- contents[i].coverImage %>"
+											class="d-block lazy animate__animated animate__fadeInUp cover w-100" alt="<%- contents[i].topic %>" />
+										<div
+											class="float-right overflow-hidden text-right carousel-caption-right w-75">
+											<h5><%- contents[i].topic %></h5>
+											<p class="overflow-hidden text-justify w-100 line-clamp">
+												<%- contents[i].summary %>
+												<span class="float-left mx-2 "> ادامه &larr;</span>
+											</p>
+										</div>
+									</div>
+								</a>
+								<% } %>
+						</div>
+					</div>
+				</div>
+				<div class="container p-0 mt-4 mb-3 text-center text-lg-right">
+					<div class="font-5">عناوین</div>
+				</div>
+				<section class="mt-3 rounded box-shadow-muted box-main">
+					<div class="container p-0 text-center">
+						<div class="m-0 mb-3 font-3">ورزشی تفریحی</div>
+						<div class="row max-height-903 w-100">
+							<!-- cards -->
+							<% sportCategory.forEach(el => {%>
+							<div class="mt-2 col-md-6 index-100">
+								<div class="text-right rounded card card-height">
+									<img data-src="/uploads/images/content-cover-images/<%- el.coverImage %>"
+										class="card-img-top animate__animated animate__fadeInUp lazy card-image-height cover w-100 " alt="<%- el.topic %>" />
+									<div class="p-0 card-body ">
+										<h5 class="p-3 pt-4 overflow-hidden card-title card-text-height line-clamp-2">
+											<%- el.topic %></h5>
+										<p class="px-3 overflow-hidden card-text line-clamp">
+											<%- el.summary %>
+										</p>
+										<div class="w-100 position-relative">
+											<div class="m-0 divider w-100 bg-dark"></div>
+											<div class="py-2 text-right bg-black-transparent-3 text-dark">
+												<div class="row">
+													<div class="pr-5 col-6">
+														<span class="text-dark">تاریخ : </span>
+														<span
+															class="mr-3 text-white Parastoo"><%- el.persianDate %></span>
+													</div>
+													<div class="pr-5 col-6">
+														<span class="text-dark">بازدید : </span>
+														<span class="mr-3 text-white Parastoo"><%- el.views %></span>
+													</div>
+													<% if (isCreator === "admin") { %>
+														<div class="divider"></div>
+														<div class="col-12">
+															<span class="pb-2 mr-4 font-small">
+																<span>آیدی محصول :</span>
+																<span class="text-info Balsamiq"><%- el._id %></span>
+															</span>
+														</div>
+													<% } %>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-12">
+												<a href="/content/<%- el.slug %>"
+													class="btn btn-outline-dark mt-md-0 rounded-0 w-100">ادامه</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<% }) %>
+						</div>
+					</div>
+					<div class="mt-4 text-left text-center">
+						<a href="/category/تفریحی-ورزشی/1" class="text-dark w-50"> بیشتر <span
+								class="mx-2">&larr;</span></a>
+					</div>
+					<div class="divider w-100"></div>
+					<div class="container p-0 mt-3 text-center">
+						<div class="m-0 mb-3 font-3">ابزار سلامت</div>
+						<div class="row max-height-903 w-100">
+							<!-- cards -->
+							<% healthCategory.forEach(el => {%>
+							<div class="mt-2 col-md-6 index-100">
+								<div class="text-right rounded card card-height">
+									<img data-src="/uploads/images/content-cover-images/<%- el.coverImage %>"
+										class="card-img-top lazy animate__animated animate__fadeInUp card-image-height cover w-100 " alt="<%- el.topic %>" />
+									<div class="p-0 card-body ">
+										<h5 class="p-3 pt-4 overflow-hidden card-title card-text-height line-clamp-2">
+											<%- el.topic %></h5>
+										<p class="px-3 overflow-hidden card-text line-clamp">
+											<%- el.summary %>
+										</p>
+										<div class="w-100 position-relative">
+											<div class="m-0 divider w-100 bg-dark"></div>
+											<div class="py-2 text-right bg-black-transparent-3 text-dark">
+												<div class="row">
+													<div class="pr-5 col-6">
+														<span class="text-dark">تاریخ : </span>
+														<span
+															class="mr-3 text-white Parastoo"><%- el.persianDate %></span>
+													</div>
+													<div class="pr-5 col-6">
+														<span class="text-dark">بازدید : </span>
+														<span class="mr-3 text-white Parastoo"><%- el.views %></span>
+													</div>
+													<% if (isCreator === "admin") { %>
+														<div class="divider"></div>
+														<div class="col-12">
+															<span class="pb-2 mr-4 font-small">
+																<span>آیدی محصول :</span>
+																<span class="text-info Balsamiq"><%- el._id %></span>
+															</span>
+														</div>
+													<% } %>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-12">
+												<a href="/content/<%- el.slug %>"
+													class="btn btn-outline-dark mt-md-0 rounded-0 w-100">ادامه</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<% }) %>
+						</div>
+					</div>
+					<div class="mt-4 text-left text-center">
+						<a href="/category/ابزار-سلامت/1" class="text-dark w-50"> بیشتر <span
+								class="mx-2">&larr;</span></a>
+					</div>
+					<div class="divider w-100"></div>
+					<div class="container p-0 mt-3 text-center">
+						<div class="m-0 mb-3 font-3">زیبایی</div>
+						<div class="row max-height-903 w-100">
+							<!-- cards -->
+							<% beautyCategory.forEach(el => {%>
+							<div class="mt-2 col-md-6 index-100">
+								<div class="text-right rounded card card-height">
+									<img data-src="/uploads/images/content-cover-images/<%- el.coverImage %>"
+										class="card-img-top lazy animate__animated animate__fadeInUp card-image-height cover w-100 " alt="<%- el.topic %>" />
+									<div class="p-0 card-body ">
+										<h5 class="p-3 pt-4 overflow-hidden card-title card-text-height line-clamp-2">
+											<%- el.topic %></h5>
+										<p class="px-3 overflow-hidden card-text line-clamp">
+											<%- el.summary %>
+										</p>
+										<div class="w-100 position-relative">
+											<div class="m-0 divider w-100 bg-dark"></div>
+											<div class="py-2 text-right bg-black-transparent-3 text-dark">
+												<div class="row">
+													<div class="pr-5 col-6">
+														<span class="text-dark">تاریخ : </span>
+														<span
+															class="mr-3 text-white Parastoo"><%- el.persianDate %></span>
+													</div>
+													<div class="pr-5 col-6">
+														<span class="text-dark">بازدید : </span>
+														<span class="mr-3 text-white Parastoo"><%- el.views %></span>
+													</div>
+													<% if (isCreator === "admin") { %>
+														<div class="divider"></div>
+														<div class="col-12">
+															<span class="pb-2 mr-4 font-small">
+																<span>آیدی محصول :</span>
+																<span class="text-info Balsamiq"><%- el._id %></span>
+															</span>
+														</div>
+													<% } %>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-12">
+												<a href="/content/<%- el.slug %>"
+													class="btn btn-outline-dark mt-md-0 rounded-0 w-100">ادامه</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<% }) %>
+						</div>
+					</div>
+					<div class="mt-4 text-left text-center">
+						<a href="/category/زیبایی/1" class="text-dark w-50"> بیشتر <span class="mx-2">&larr;</span></a>
+					</div>
+					<div class="divider w-100"></div>
+					<div class="container p-0 mt-3 text-center">
+						<div class="m-0 mb-3 font-3">دیجیتال</div>
+						<div class="row max-height-903 w-100">
+							<!-- cards -->
+							<% techCategory.forEach(el => {%>
+							<div class="mt-2 col-md-6 index-100">
+								<div class="text-right rounded card card-height">
+									<img data-src="/uploads/images/content-cover-images/<%- el.coverImage %>"
+										class="card-img-top lazy animate__animated animate__fadeInUp card-image-height cover w-100 " alt="<%- el.topic %>" />
+									<div class="p-0 card-body ">
+										<h5 class="p-3 pt-4 overflow-hidden card-title card-text-height line-clamp-2">
+											<%- el.topic %></h5>
+										<p class="px-3 overflow-hidden card-text line-clamp">
+											<%- el.summary %>
+										</p>
+										<div class="w-100 position-relative">
+											<div class="m-0 divider w-100 bg-dark"></div>
+											<div class="py-2 text-right bg-black-transparent-3 text-dark">
+												<div class="row">
+													<div class="pr-5 col-6">
+														<span class="text-dark">تاریخ : </span>
+														<span
+															class="mr-3 text-white Parastoo"><%- el.persianDate %></span>
+													</div>
+													<div class="pr-5 col-6">
+														<span class="text-dark">بازدید : </span>
+														<span class="mr-3 text-white Parastoo"><%- el.views %></span>
+													</div>
+													<% if (isCreator === "admin") { %>
+														<div class="divider"></div>
+														<div class="col-12">
+															<span class="pb-2 mr-4 font-small">
+																<span>آیدی محصول :</span>
+																<span class="text-info Balsamiq"><%- el._id %></span>
+															</span>
+														</div>
+													<% } %>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-12">
+												<a href="/content/<%- el.slug %>"
+													class="btn btn-outline-dark mt-md-0 rounded-0 w-100">ادامه</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<% }) %>
+						</div>
+					</div>
+					<div class="mt-4 text-left text-center">
+						<a href="/category/دیجیتال/1" class="text-dark w-50"> بیشتر <span class="mx-2">&larr;</span></a>
+					</div>
+					<div class="divider w-100"></div>
+					<div class="container p-0 mt-3 text-center w-100">
+						<div class="m-0 mb-3 font-3">نوشیدنی و خوراکی</div>
+						<div class="row max-height-903 w-100">
+							<!-- cards -->
+							<% foodCategory.forEach(el => {%>
+							<div class="mt-2 col-md-6 index-100">
+								<div class="text-right rounded card card-height">
+									<img data-src="/uploads/images/content-cover-images/<%- el.coverImage %>"
+										class="card-img-top lazy animate__animated animate__fadeInUp card-image-height cover w-100 " alt="<%- el.topic %>" />
+									<div class="p-0 card-body ">
+										<h5 class="p-3 pt-4 overflow-hidden card-title card-text-height line-clamp-2">
+											<%- el.topic %></h5>
+										<p class="px-3 overflow-hidden card-text line-clamp">
+											<%- el.summary %>
+										</p>
+										<div class="w-100 position-relative">
+											<div class="m-0 divider w-100 bg-dark"></div>
+											<div class="py-2 text-right bg-black-transparent-3 text-dark">
+												<div class="row">
+													<div class="pr-5 col-6">
+														<span class="text-dark">تاریخ : </span>
+														<span
+															class="mr-3 text-white Parastoo"><%- el.persianDate %></span>
+													</div>
+													<div class="pr-5 col-6">
+														<span class="text-dark">بازدید : </span>
+														<span class="mr-3 text-white Parastoo"><%- el.views %></span>
+													</div>
+													<% if (isCreator === "admin") { %>
+														<div class="divider"></div>
+														<div class="col-12">
+															<span class="pb-2 mr-4 font-small">
+																<span>آیدی محصول :</span>
+																<span class="text-info Balsamiq"><%- el._id %></span>
+															</span>
+														</div>
+													<% } %>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-12">
+												<a href="/content/<%- el.slug %>"
+													class="btn btn-outline-dark mt-md-0 rounded-0 w-100">ادامه</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<% }) %>
+						</div>
+					</div>
+					<div class="mt-4 text-left text-center">
+						<a href="/category/خوراکی-نوشیدنی/1" class="text-dark w-50"> بیشتر <span
+								class="mx-2">&larr;</span></a>
+					</div>
+					<div class="divider w-100"></div>
+					<div class="container p-0 mt-3 text-center w-100">
+						<div class="m-0 mb-3 font-3">مد و پوشاک</div>
+						<div class="row max-height-903 w-100">
+							<!-- cards -->
+							<% fashionCategory.forEach(el => {%>
+							<div class="mt-2 col-md-6 index-100">
+								<div class="text-right rounded card card-height">
+									<img data-src="/uploads/images/content-cover-images/<%- el.coverImage %>"
+										class="card-img-top lazy animate__animated animate__fadeInUp card-image-height cover w-100 " alt="<%- el.topic %>" />
+									<div class="p-0 card-body ">
+										<h5 class="p-3 pt-4 overflow-hidden card-title card-text-height line-clamp-2">
+											<%- el.topic %></h5>
+										<p class="px-3 overflow-hidden card-text line-clamp">
+											<%- el.summary %>
+										</p>
+										<div class="w-100 position-relative">
+											<div class="m-0 divider w-100 bg-dark"></div>
+											<div class="py-2 text-right bg-black-transparent-3 text-dark">
+												<div class="row">
+													<div class="pr-5 col-6">
+														<span class="text-dark">تاریخ : </span>
+														<span
+															class="mr-3 text-white Parastoo"><%- el.persianDate %></span>
+													</div>
+													<div class="pr-5 col-6">
+														<span class="text-dark">بازدید : </span>
+														<span class="mr-3 text-white Parastoo"><%- el.views %></span>
+													</div>
+													<% if (isCreator === "admin") { %>
+														<div class="divider"></div>
+														<div class="col-12">
+															<span class="pb-2 mr-4 font-small">
+																<span>آیدی محصول :</span>
+																<span class="text-info Balsamiq"><%- el._id %></span>
+															</span>
+														</div>
+													<% } %>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-12">
+												<a href="/content/<%- el.slug %>"
+													class="btn btn-outline-dark mt-md-0 rounded-0 w-100">ادامه</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<% }) %>
+						</div>
+					</div>
+					<div class="mt-3 text-left text-center">
+						<a href="/category/مد-و-پوشاک/1" class="text-dark w-50"> بیشتر <span
+								class="mx-2">&larr;</span></a>
+					</div>
+					<div class="divider w-100"></div>
+				</section>
+			</div>
+			<!-- --------------- social media ----------------- -->
+			<div class="px-0 col-md-4 d-none d-lg-inline-block">
+				<div class="overflow-hidden">
+					<ul class="p-0 text-center list-unstyled flex-column">
+						<li class="mx-2 font-4 d-inline-block">
+							<a href="https://www.instagram.com/ronishka.com/">
+								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="fa-instagram bi bi-instagram" viewBox="0 0 16 16">
+									<path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/>
+								</svg>
+							</a>
+						</li>
+						<li class="mx-2 font-4 d-inline-block">
+							<a href="tg://join?invite=ronishka_com">
+								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-telegram fa-telegram" viewBox="0 0 16 16">
+									<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.287 5.906c-.778.324-2.334.994-4.666 2.01-.378.15-.577.298-.595.442-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294.26.006.549-.1.868-.32 2.179-1.471 3.304-2.214 3.374-2.23.05-.012.12-.026.166.016.047.041.042.12.037.141-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8.154 8.154 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629.093.06.183.125.27.187.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.426 1.426 0 0 0-.013-.315.337.337 0 0 0-.114-.217.526.526 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09z"/>
+								</svg>
+							</a>
+						</li>
+						<li class="mx-2 font-4 d-inline-block">
+							<a href="https://wa.me/989158964046">
+								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-whatsapp fa-whatsapp" viewBox="0 0 16 16">
+									<path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+								</svg>
+							</a>
+						</li>
+						<li>
+							با ما در تماس باشید
+						</li>
+					</ul>
+				</div>
+				<% if (adStar&& adStar !== null) { %>
+					<div class="mb-3 position-relative">
+						<% if (isCreator && isCreator === "admin") { %>
+							<div class="p-2 text-center text-white w-100 zIndex-1000 bg-black-transparent-7 Balsamiq font-small pos-absolute-top"><%- adStar._id %></div>
+						<% } %>
+						<a href="<%- adStar.adLink %>" target="_blank">
+							<img src="/uploads/ads/<%- adStar.image %>" class="lazy animate__animated animate__fadeInUp cover w-100" alt="<%- adStar.name %>">
+							<% if (adStar.name !== "" && adStar.name) { %>
+								<div class="p-2 text-right text-white bg-black-transparent-7 w-100 font-small pos-absolute-bottom"><%- adStar.name %></div>
+							<% } %>
+						</a>
+					</div>
+				<% } %>
+				<!-- ############################ main sidebar ############################ -->
+				<!-- first sidbar -->
+				<div class="box-main box-shadow-muted">
+					<div class="">
+						<!-- ----------------- nav-sidebar ----------------- -->
+						<ul class="p-0 nav nav-tabs" id="myTab" role="tablist">
+							<li class="nav-item" role="presentation">
+								<a class="nav-link text-dark font-small-1 active" id="last-content-tab"
+									data-toggle="tab" href="#last-content" role="tab" aria-controls="last-content"
+									aria-selected="true">جدیدترین</a>
+							</li>
+							<li class="nav-item" role="presentation">
+								<a class="nav-link text-dark font-small" id="suggestions-tab" data-toggle="tab"
+									href="#suggestions" role="tab" aria-controls="suggestions"
+									aria-selected="false">بیشترین بازدید</a>
+							</li>
+						</ul>
+						<!-- ----------------- nav-sidebar-contents ----------------- -->
+						<!-- ----------------- nav-sidebar-contents last-contents ----------------- -->
+						<div class="tab-content" id="myTabContent">
+							<div class="tab-pane fade show active" id="last-content" role="tabpanel"
+								aria-labelledby="last-content-tab">
+								<% contentsSideBar.forEach(el => { %>
+								<div class="mb-3 text-right rounded card">
+									<img data-src="/uploads/images/content-cover-images/<%- el.coverImage %>"
+										class="card-img-top card-image-height cover lazy animate__animated animate__fadeInUp " alt="<%- el.topic %>" />
+									<div class="p-0 card-body ">
+										<h5 class="px-3 py-2 card-title "><%- el.topic %></h5>
+										<p class="px-3 overflow-hidden card-text line-clamp">
+											<%- el.summary %>
+										</p>
+										<div class="m-0 divider w-100 bg-dark"></div>
+										<div class="px-3 py-2 text-right bg-black-transparent-3 text-dark">
+											<span class="text-dark">تاریخ : </span>
+											<span class="mr-3 text-white Parastoo"><%- el.persianDate %></span>
+											<% if (isCreator === "admin") { %>
+												<div class="divider"></div>
+												<span class="pb-2 mr-4 font-small">
+													<span>آیدی محصول :</span>
+													<span class="text-info Balsamiq"><%- el._id %></span>
+												</span>
+											<% } %>
+										</div>
+										<div class="row">
+											<div class="col-12">
+												<a href="/content/<%- el.slug %>"
+													class="mt-2 btn btn-outline-dark mt-md-0 rounded-0 w-100">ادامه</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<% }) %>
+							</div>
+							<!-- ----------------- nav-sidebar-contents suggestions ----------------- -->
+							<div class="tab-pane fade" id="suggestions" role="tabpanel"
+								aria-labelledby="suggestions-tab">
+								<% contentsMostViews.forEach(el => { %>
+								<div class="mb-3 text-right rounded card">
+									<img data-src="/uploads/images/content-cover-images/<%- el.coverImage %>"
+										class="card-img-top lazy cover card-image-height animate__animated animate__fadeInUp " alt="<%- el.topic %>" />
+									<div class="p-0 card-body ">
+										<h5 class="px-3 py-2 card-title "><%- el.topic %></h5>
+										<p class="px-3 overflow-hidden card-text line-clamp">
+											<%- el.summary %>
+										</p>
+										<div class="m-0 divider w-100 bg-dark"></div>
+										<div class="px-3 py-2 text-right bg-black-transparent-3 text-dark">
+											<span class="text-dark">بازدید : </span>
+											<span class="mr-3 text-white Parastoo"><%- el.views %></span>
+											<% if (isCreator === "admin") { %>
+												<div class="divider"></div>
+												<span class="pb-2 mr-4 font-small">
+													<span>آیدی محصول :</span>
+													<span class="text-info Balsamiq"><%- el._id %></span>
+												</span>
+											<% } %>
+										</div>
+										<div class="row">
+											<div class="col-12">
+												<a href="/content/<%- el.slug %>"
+													class="mt-2 btn btn-outline-dark mt-md-0 rounded-0 w-100">ادامه</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<% }) %>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row no-gutters">
+					<% if (adStar2 && adStar2 !== null) { %>
+						<div class="mt-3 col-12 position-relative">
+							<% if (isCreator && isCreator === "admin") { %>
+								<div class="p-2 text-center text-white w-100 zIndex-1000 bg-black-transparent-7 Balsamiq font-small pos-absolute-top"><%- adStar2._id %></div>
+							<% } %>
+							<a href="<%- adStar2.adLink %>" target="_blank">
+								<img src="/uploads/ads/<%- adStar2.image %>" class="lazy animate__animated animate__fadeInUp cover w-100" alt="<%- adStar2.name %>">
+								<% if (adStar2.name !== "" && adStar2.name) { %>
+									<div class="p-2 text-right text-white bg-black-transparent-7 w-100 font-small pos-absolute-bottom"><%- adStar2.name %></div>
+								<% } %>
+							</a>
+						</div>
+					<% } %>
+					<% if (adsTop.length  > 0) { %>
+						<% for(let i = 0; i <= 3 ; i++) { %>
+							<% if (adsTop[i] && adsTop[i] !== null) { %>
+								<div class="px-1 my-1 col-12 col-xl-6">
+									<div class="position-relative">
+										<% if (isCreator && isCreator === "admin") { %>
+											<div class="p-2 text-center text-white w-100 zIndex-1000 bg-black-transparent-7 Balsamiq font-small pos-absolute-top"><%- adsTop[i]._id %></div>
+										<% } %>
+										<a href="<%- adsTop[i].adLink %>" target="_blank">
+											<img src="/uploads/ads/<%- adsTop[i].image %>" class="lazy animate__animated animate__fadeInUp cover w-100" alt="<%- adsTop[i].name %>">
+											<% if (adsTop[i].name !== "" && adsTop[i].name) { %>
+												<div class="p-2 text-right text-white bg-black-transparent-7 w-100 font-small pos-absolute-bottom"><%- adsTop[i].name %></div>
+											<% } %>
+										</a>
+									</div>
+								</div>
+							<% } %>
+						<% } %>
+					<% } %>
+				</div>
+			</div>
+		</div>
+	</main>
+	<% if (products.length > 0) { %>
+	<div class="container">
+		<div class="divider"></div>
+	</div>
+	<div class="container py-3">
+		<div class="row">
+			<div class="col-12 col-lg-9">
+				<div class="container mb-3 text-center text-lg-right">
+					<h1>محصولات</h1>
+				</div>
+				<section class="mt-3 rounded box-shadow-muted box-main">
+					<div class="container p-0 scroll-d-none scrollify max-height-1463 w-100">
+						<!-- card -->
+						<% products.forEach(product => { %>
+						<div class="my-2 card">
+							<div class="row no-gutters">
+								<div class="col-md-4">
+									<img data-src="/uploads/images/products/<%- product.image %>" class=" lazy animate__animated animate__fadeInUp card-img"
+										alt="<%- product.name %>" />
+								</div>
+								<div class="text-right col-md-8 product-card">
+									<div class="p-2 card-body">
+										<% if (product.discount > 0) { %>
+										<div class="float-left text-center">
+											<span class="font-small"> تخفیف : </span>
+											<span class="text-danger font-3"><%- product.discountPercentage %> %</span>
+										</div>
+										<% } %>
+										<h5 class="mt-3 card-title"><%- product.name %></h5>
+										<p class="card-text">
+											<%- product.explanation %>
+										</p>
+									</div>
+								</div>
+							</div>
+							<div class="m-0 divider w-100"></div>
+							<div class="p-2 text-center font-1 bg-black-transparent-2">
+								<span class="float-none mx-3 my-2 float-sm-right mx-md-5">
+									<span class="ml-3 card-text d-none-on-xxsm">
+										قیمت :
+									</span>
+									<span class="card-text">
+										<span class="Parastoo">
+											<%- product.price %>
+										</span>
+										<span class="card-text font-small">
+											تومان
+										</span>
+									</span>
+									<% if (isCreator === "admin") { %>
+										<span class="pb-2 mr-4 font-small">
+											<span>آیدی محصول :</span>
+											<span class="text-info Balsamiq"><%- product._id %></span>
+										</span>
+									<% } %>
+								</span>
+								<a href="<%- product.linkToProductPage %>"
+									class="float-none px-5 m-2 btn btn-danger float-sm-left">سفارش</a>
+							</div>
+						</div>
+						<% }) %>
+					</div>
+				</section>
+			</div>
+			<div class="px-0 col-md-3 d-none d-lg-inline-block">
+				<div class="box-main box-shadow-muted">
+					<div class="">
+						<ul class="p-0 nav nav-tabs" id="myTab" role="tablist">
+							<li class="nav-item" role="presentation">
+								<a class="nav-link text-dark active font-small" id="newest-products-tab"
+									data-toggle="tab" href="#newest-product" role="tab" aria-controls="newest-product"
+									aria-selected="true">بیشترین تخفیف</a>
+							</li>
+							<li class="nav-item" role="presentation">
+								<a class="nav-link text-dark font-small" id="best-deals-tab" data-toggle="tab"
+									href="#best-deals" role="tab" aria-controls="best-deals"
+									aria-selected="false">بهترین کیفیت</a>
+							</li>
+						</ul>
+						<div class="tab-content" id="myTabContent">
+							<div class="tab-pane fade show active" id="newest-product" role="tabpanel"
+								aria-labelledby="newest-products-tab">
+								<% sideBarProducts.forEach(prod => { %>
+								<% if(prod.discount > 0) {%>
+								<div class="text-right rounded card">
+									<img data-src="/uploads/images/products/<%- prod.image %>"
+										class="p-1 card-img-top cover card-image-height lazy animate__animated animate__fadeInUp w-100" alt="<%- prod.name %>" />
+									<div class="p-1 card-body">
+										<h5 class="card-title"><%- prod.name %></h5>
+										<div class="row">
+											<div class="col-6">
+												<a href="<%- prod.linkToProductPage %>"
+													class="m-2 mt-4 btn btn-danger w-100">سفارش</a>
+											</div>
+											<div class="px-1 py-2 text-center col-6">
+												<span class="font-small">تخفیف</span>
+												<br>
+												<span class="text-danger font-1"><%- prod.discountPercentage %> %</span>
+											</div>
+										</div>
+										<div class="m-0 divider text-dark w-100"></div>
+										<div class="py-2 text-center text-light bg-black-transparent-4">
+											<span>قیمت : </span>
+											<span class="Parastoo">
+												<%- prod.price %>
+											</span>
+											<span class="font-small">تومان</span>
+											<% if (isCreator === "admin") { %>
+												<span class="pb-2 mr-4 font-small">
+													<span>آیدی محصول :</span>
+													<span class="text-info Balsamiq"><%- prod._id %></span>
+												</span>
+											<% } %>
+										</div>
+									</div>
+								</div>
+								<% } %>
+								<% }) %>
+							</div>
+							<!-- ----------------- nav-sidebar-contents best-deals-tab ----------------- -->
+							<div class="tab-pane fade" id="best-deals" role="tabpanel" aria-labelledby="best-deals-tab">
+								<% sideBarBestProducts.forEach(prod => { %>
+								<div class="text-right rounded card">
+									<img data-src="/uploads/images/products/<%- prod.image %>"
+										class="p-1 card-img-top lazy cover card-image-height animate__animated animate__fadeInUp w-100" alt="<%- prod.name %>" />
+									<div class="p-1 card-body">
+										<h5 class="card-title"><%- prod.name %></h5>
+										<div class="row">
+											<% if(prod.discount > 0) {%>
+											<div class="col-6">
+												<a href="<%- prod.linkToProductPage %>"
+													class="m-2 mt-4 btn btn-danger w-100">سفارش</a>
+											</div>
+											<div class="px-1 py-2 text-center col-6">
+												<span class="font-small">تخفیف</span>
+												<br>
+												<span class="text-danger font-1"><%- prod.discountPercentage %> %</span>
+											</div>
+											<% } else {%>
+											<div class="text-center col-12">
+												<a href="<%- prod.linkToProductPage %>"
+													class="m-2 mt-4 btn btn-danger w-50">سفارش</a>
+											</div>
+											<% } %>
+										</div>
+										<div class="m-0 divider text-dark w-100"></div>
+										<div class="py-2 text-center text-light bg-black-transparent-4">
+											<span>قیمت : </span>
+											<span class="Parastoo">
+												<%- prod.price %>
+											</span>
+											<span class="font-small">تومان</span>
+											<% if (isCreator === "admin") { %>
+												<span class="pb-2 mr-4 font-small">
+													<span>آیدی محصول :</span>
+													<span class="text-info Balsamiq"><%- prod._id %></span>
+												</span>
+											<% } %>
+										</div>
+									</div>
+								</div>
+								<% }) %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<% } %>
+	<!-- <div class="flex-column sticky-bottom-right">
+		<ul class="pb-5 text-right list-unstyled">
+			<li>
+				<a href="#" class="text-danger font-4">
+					<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bell-fill" fill="currentColor"
+						xmlns="http://www.w3.org/2000/svg">
+						<path
+							d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
+					</svg>
+				</a>
+			</li>
+		</ul>
+	</div> -->
+	</div>
+	</div>
+	<%- include("./partials/loader.ejs") %>
+	<%- include("./partials/privacy-policy.ejs") %>
+	<%- include("./partials/scripts.ejs") %>
+</body>
+<!-- ################################## FOOTER ################################### -->
+<%- include("./partials/footer.ejs") %>
+
+</html>

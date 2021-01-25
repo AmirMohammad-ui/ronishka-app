@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+	<%- include("../partials/meta.ejs") %>
+	<%- include("../partials/links.ejs") %>
+</head>
+
+<body style="background-image: url('/img/complainment.jpeg')">
+	<%- include("../partials/header.ejs") %>
+	<main class="container py-3 text-right">
+		<div class="p-3 mt-3 rounded box-shadow-muted bg-white-transparent-8">
+			<h1 class="px-4 py-2 text-center text-light bg-black-transparent-6">ثبت شکایت یا انتقاد</h1>
+			<p class="text-justify ">
+				کاربر گرامی در صورت داشتن هر گونه شکایت و انتقاد نسبت به محتوا یا خدمات سایت <a href="./index.html"
+					class="mx-2"><strong class="text-info">رونیشکا</strong></a> میتوانید با پر کردن فرم زیر شکایت خود را
+				با ما در
+				میان بگذارید.
+			</p>
+			<div class="container p-0 w-100">
+				<form action="" class="text-right needs-validation was-validated" novalidate>
+					<div class="row">
+						<div class="my-2 col-sm-6">
+							<label for="fName">نام : </label>
+							<input type="text" name="fName"
+								class="form-control custom-input input-border-bottom-black bg-white-transparent-8 rounded-0"
+								minlength="3" maxlength="20" placeholder="امیرمحمد" required>
+							<div class="invalid-feedback text-danger">
+								پر کردن این فیلد ضروریست.
+							</div>
+						</div>
+						<div class="my-2 col-sm-6">
+							<label for="fName">نام خانوادگی : </label>
+							<input type="text" name="fName"
+								class="form-control custom-input input-border-bottom-black bg-white-transparent-8 rounded-0"
+								minlength="3" maxlength="20" placeholder="میرزائی" required>
+							<div class="invalid-feedback text-danger">
+								پر کردن این فیلد ضروریست.
+							</div>
+						</div>
+						<div class="my-2 col-sm-6">
+							<label for="email">ایمیل : </label>
+							<input type="email" name="email"
+								class="form-control custom-input input-border-bottom-black bg-white-transparent-8 rounded-0"
+								placeholder="email@example.com" required>
+							<div class="invalid-feedback text-danger">
+								پر کردن این فیلد ضروریست.
+							</div>
+							<small class="text-info">لطفا ایمیل خود را درست وارد کنید تا ما بتوانیم با شما در ارتباط
+								باشیم.</small>
+						</div>
+						<div class="my-2 col-12">
+							<label for="message" class="m-0">توضیحات محصول : </label>
+							<textarea name="message" id="message"
+								class="py-2 my-2 border form-control bg-white-transparent-8" rows="10"
+								placeholder="متن پیام خود را اینجا بنویسید." maxlength="800" required></textarea>
+							<div class="invalid-feedback text-danger">
+								پر کردن این فیلد ضروریست.
+							</div>
+						</div>
+					</div>
+					<button type="submit" class="my-3 btn btn-outline-danger">ارسال</button>
+				</form>
+			</div>
+		</div>
+	</main>
+	<%- include("../partials/loader.ejs") %>
+	<%- include("../partials/privacy-policy.ejs") %>
+	<%- include("../partials/scripts.ejs") %>
+</body>
+<%- include("../partials/footer.ejs") %>
+
+</html>

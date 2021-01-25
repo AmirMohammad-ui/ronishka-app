@@ -1,0 +1,36 @@
+<div class="collapse fade" id="section-messages" data-parent="#accordion">
+  <div class="container mt-5 row max-width-1300">
+    <div class="text-center col-12">
+      <h2 class="p-2 rounded shadow text-light bg-info">
+        جدید ترین :
+      </h2>
+      <% messages.forEach(el => { %>
+      <div class="p-2 mb-3 bg-dark row">
+        <div class="p-2 text-right text-muted">متن پیام : </div>
+        <div class="p-2 col-12">
+          <p class="p-2 mb-0 text-right text-white text-break bg-secondary">
+            <%- el.textMessage %> 
+          </p>
+        </div>
+        <div class="pt-2 pb-1 text-right col-12 col-lg-3 col-sm-6">
+          <span class="text-muted">ایمیل :</span>
+          <span class="text-info eng-font"><%- el.email %></span>
+        </div>
+        <div class="pt-2 pb-1 text-right col-12 col-lg-3 col-sm-6">
+          <span class="text-muted">نام :</span>
+          <span class="text-info"><%- el.name %></span>
+        </div>
+        <div class="pt-2 pb-1 text-right col-12 col-lg-3 col-sm-6">
+          <span class="text-muted">آیدی پیام :</span>
+          <span class="text-info eng-font"><%- el._id %></span>
+        </div>
+        <div class="pt-2 pb-1 text-right col-12 col-lg-3 col-sm-6">
+          <div class="btn-group" role="group" aria-label="button group">
+            <a href="/new/delete-message/<%- el._id %>" target="_blank" class="px-3 btn btn-danger rounded-0">حذف پیام</a>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</div>

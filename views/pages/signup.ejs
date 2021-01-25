@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+	<%- include("../partials/meta.ejs") %>
+	<%- include("../partials/links.ejs") %>
+	<link rel="stylesheet" href="/css/persian-calendar.css">
+</head>
+<body
+	style="background-image: url('/img/welcom-to-ronishka.png');background-position: center;background-repeat: no-repeat;background-size: cover;">
+	<div class="row no-gutters my-5">
+		<div class="col-md-8 col-lg-6 col-12 mx-auto">
+			<ul class="nav nav-tabs" id="myTab" role="tablist">
+				<li class="nav-item" role="presentation">
+					<a class="nav-link nav-link-signlogin active" id="signup-tab" data-toggle="tab" href="#signup"
+						role="tab" aria-controls="signup" aria-selected="true">ثبت نام - کاربر عادی</a>
+				</li>
+				<li class="nav-item" role="presentation">
+					<a class="nav-link nav-link-signlogin" id="signup-as-creator-tab" data-toggle="tab"
+						href="#signup-as-creator" role="tab" aria-controls="signup-as-creator" aria-selected="false">ثبت
+						نام - تولیدکننده محتوا</a>
+				</li>
+				<li class="nav-item" role="presentation">
+					<a class="nav-link nav-link-signlogin" id="login-tab" data-toggle="tab" href="#login" role="tab"
+						aria-controls="login" aria-selected="false">ورود</a>
+				</li>
+			</ul>
+			<div class="tab-content" id="myTabContent">
+				<!-- sign up users -->
+				<%- include("./signup-login/signup-user.ejs") %>
+				<!-- sign up content creators -->
+				<%- include("./signup-login/signup-content-creators.ejs") %>
+				<!-- login -->
+				<%- include("./signup-login/login.ejs") %>
+
+			</div>
+		</div>
+	</div>
+	<%- include("../partials/loader.ejs") %>
+	<%- include("../partials/privacy-policy.ejs") %>
+	<script src="/scripts/persian-calendar.js"></script>
+</body>
+
+</html>

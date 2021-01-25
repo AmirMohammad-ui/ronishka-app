@@ -1,0 +1,244 @@
+ <div class="collapse fade" id="section-ads" data-parent="#accordion">
+ 	<div class="container mt-5 row max-width-1300">
+ 		<div class="text-center col-12 col-sm-6">
+ 			تعداد کل تبلیغات ها :
+ 			<span id="numberOfAllAds" class="Parastoo font-2"><%- ads.length %></span>
+ 		</div>
+ 		<div class="text-center col-12 col-sm-6">
+ 			تأیید شده ها :
+ 			<span id="numberOfAllApprovedAds" class="Parastoo font-2"><%- approved.length %></span>
+ 		</div>
+ 	</div>
+ 	<div class="my-3 divider"></div>
+ 	<div class="container mx-auto my-5 row">
+		<div class="shadow col-md-6 col-12">
+			<h5 class="text-center">ثبت تبلیغ جدید :</h5>
+			<div class="mb-3 text-right rounded card">
+				<img src="/img/ads.png"
+					class="card-img-top card-image-height animate__animated animate__fadeInUp cover" alt="ads" />
+				<div class="p-0 card-body">
+					<div class="justify-center">
+						<div class="w-100 nowrap">
+							<input type="file" id="actual-file-button" hidden="true" class="p-2 border w-100 custom-file-selector custom-input border-bottom" >
+							<button id="custom-file-button" class="mt-2 btn btn-outline-primary mt-md-0 rounded-0 w-25">انتخاب</button>
+							<span id="custom-file-text" class="py-2 mr-2 text-muted font-small">تصویری انتخاب نشده هنوز .</span>
+						</div> 
+						<div class="w-100">
+							<input type="text" id="theOwnerOfAd" class="p-2 border w-100 custom-input border-bottom" placeholder="اسم وبسایت ، یا فروشنده یا ... ">
+						</div> 
+						<div class="w-100">
+							<input type="text" id="triggerContentIdForAd" class="p-2 w-100 custom-input border-bottom" placeholder="آیدی صفحه هدف">
+						</div>
+						<div class="w-100">
+							<input type="text" id="targetPageLink" class="p-2 w-100 custom-input border-bottom" placeholder="لینک تبلیغ">
+						</div>
+						<div class="w-100">
+							<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+								<label for="adForSportCategory" class="ml-auto text-info form-check-label">تفریحی ورزشی</label>
+								<input type="checkbox" id="adForSportCategory" class="ml-2 form-check-input border-bottom" value="تفریحی-ورزشی">
+							</div>
+							<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+								<label for="adForBeautyCategory" class="ml-auto text-info form-check-label">زیبایی</label>
+								<input type="checkbox" id="adForBeautyCategory" class="ml-2 form-check-input border-bottom" value="زیبایی">
+							</div>
+							<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+								<label for="adForHealthCategory" class="ml-auto text-info form-check-label">ابزار سلامت</label>
+								<input type="checkbox" id="adForHealthCategory" class="ml-2 form-check-input border-bottom" value="ابزار-سلامت">
+							</div>
+							<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+								<label for="adForClothsCategory" class="ml-auto text-info form-check-label">مد و پوشاک</label>
+								<input type="checkbox" id="adForClothsCategory" class="ml-2 form-check-input border-bottom" value="مد-و-پوشاک">
+							</div>
+							<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+								<label for="adForFoodCategory" class="ml-auto text-info form-check-label">خوراکی و پوشاک</label>
+								<input type="checkbox" id="adForFoodCategory" class="ml-2 form-check-input border-bottom" value="خوراکی-نوشیدنی">
+							</div>
+							<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+								<label for="adForDigitalCategory" class="ml-auto text-info form-check-label">دیجیتال</label>
+								<input type="checkbox" id="adForDigitalCategory" class="ml-2 form-check-input border-bottom" value="دیجیتال">
+							</div>
+						</div>
+						<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+							<label for="adStar" class="ml-auto text-danger w-100 form-check-label">تبلیغ ویژه</label>
+							<input id="adStar" type="checkbox" class="ml-2 form-check-input border-bottom" value="1">
+						</div>
+						<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+							<label for="adStar2" class="ml-auto text-warning w-100 form-check-label">تبلیغ طلایی</label>
+							<input id="adStar2" type="checkbox" class="ml-2 form-check-input border-bottom" value="1">
+						</div>
+						<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+							<label for="adStarHome" class="ml-auto text-danger w-100 form-check-label"> تبلیغ ویژه (صفحه اصلی)</label>
+							<input id="adStarHome" type="checkbox" class="ml-2 form-check-input border-bottom" value="1">
+						</div>
+						<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+							<label for="adStar2Home" class="ml-auto text-warning w-100 form-check-label">تبلیغ طلایی (صفحه اصلی)</label>
+							<input id="adStar2Home" type="checkbox" class="ml-2 form-check-input border-bottom" value="1">
+						</div>
+						<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+							<label for="incategoryPageApply" class="ml-auto text-success w-100 form-check-label">آیا در صفحه دسته بندی مربوطه هم قرار گیرد؟</label>
+							<input type="checkbox" id="incategoryPageApply" class="ml-2 form-check-input border-bottom" value="1">
+						</div>
+						<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+							<label for="homePageAd" class="ml-auto text-success w-100 form-check-label">آیا در صفحه اول هم قرار گیرد؟</label>
+							<input type="checkbox" id="homePageAd" class="ml-2 form-check-input border-bottom" value="1">
+						</div>
+						<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+							<label for="confirmAd" class="ml-auto text-success w-100 form-check-label">تأیید تبلیغ</label>
+							<input type="checkbox" id="confirmAd" class="ml-2 form-check-input border-bottom" value="1">
+						</div>
+						<div class="w-100">
+							<button id="registerNewAd" class="mt-2 btn btn-outline-success mt-md-0 rounded-0 w-100">ثبت</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="shadow col-sm-6 col-12">
+			<h5 class="text-center">جستجو برای تبلیغ :</h5>
+			<div class="form-inline">
+				<input type="text" id="searchForAd" class="p-2 border w-50 custom-input eng-font border-bottom" placeholder="آیدی تبلیغ را وارد کنید ... ">
+				<button id="findTheAdBtn" class="btn btn-outline-info rounded-0">پیدا کن</button>
+			</div>
+			<div id="adSearchBox">
+				<div class="mb-3 text-right rounded card">
+					<img src="/img/ads.png"
+						class="card-img-top card-image-height animate__animated animate__fadeInUp cover" alt="ads" />
+					<div class="p-0 card-body">
+						<div class="justify-center"> 
+							<div class="w-100">
+								<input readonly type="text" class="p-2 border w-100 custom-input border-bottom" placeholder="اسم وبسایت ، یا فروشنده یا ... ">
+							</div> 
+							<div class="w-100">
+								<input readonly type="text" class="p-2 Balsamiq w-100 custom-input border-bottom" placeholder="آیدی صفحه هدف">
+							</div>
+							<div class="w-100">
+								<input readonly type="text" class="p-2 w-100 custom-input border-bottom" placeholder="لینک تبلیغ">
+							</div>
+							<div class="w-100">
+								<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+									<label class="ml-auto text-info form-check-label">تفریحی ورزشی</label>
+									<input readonly type="checkbox" class="ml-2 form-check-input border-bottom" value="تفریحی-ورزشی">
+								</div>
+								<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+									<label class="ml-auto text-info form-check-label">زیبایی</label>
+									<input readonly type="checkbox" class="ml-2 form-check-input border-bottom" value="زیبایی">
+								</div>
+								<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+									<label class="ml-auto text-info form-check-label">ابزار سلامت</label>
+									<input readonly type="checkbox" class="ml-2 form-check-input border-bottom" value="ابزار-سلامت">
+								</div>
+								<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+									<label class="ml-auto text-info form-check-label">مد و پوشاک</label>
+									<input readonly type="checkbox" class="ml-2 form-check-input border-bottom" value="مد-و-پوشاک">
+								</div>
+								<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+									<label class="ml-auto text-info form-check-label">خوراکی و نوشیدنی</label>
+									<input readonly type="checkbox" class="ml-2 form-check-input border-bottom" value="خوراکی-نوشیدنی">
+								</div>
+								<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+									<label class="ml-auto text-info form-check-label">دیجیتال</label>
+									<input readonly type="checkbox" class="ml-2 form-check-input border-bottom" value="دیجیتال">
+								</div>
+							</div>
+							<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+								<label class="ml-auto text-success w-100 form-check-label">آیا در صفحه دسته بندی مربوطه هم قرار گیرد؟</label>
+								<input readonly type="checkbox" class="ml-2 form-check-input border-bottom">
+							</div>
+							<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+								<label class="ml-auto text-success w-100 form-check-label">آیا در صفحه اول هم قرار گیرد؟</label>
+								<input readonly type="checkbox" class="ml-2 form-check-input border-bottom">
+							</div>
+							<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+								<label class="ml-auto text-success w-100 form-check-label">تأیید تبلیغ</label>
+								<input readonly type="checkbox" class="ml-2 form-check-input border-bottom">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<% for( let i = 0; i < ads.length; i++ ) { %>
+		<div class="shadow col-md-4 col-sm-6 col-12">
+			<div class="mb-3 text-right rounded card">
+				<img src="/uploads/ads/<%- ads[i].image %>"
+					class="card-img-top card-image-height animate__animated animate__fadeInUp cover" alt="ads" />
+				<div class="p-0 card-body">
+					<div class="justify-center"> 
+						<form target="_blank" method="POST" action="/new/advertizement/save/<%- ads[i]._id %>">
+							<div class="w-100">
+								<input name="name" type="text" value="<%- ads[i].name === "notset" ? "" : ads[i].name %>" class="p-2 border w-100 custom-input border-bottom" placeholder="اسم وبسایت ، یا فروشنده یا ... ">
+							</div> 
+							<div class="w-100">
+								<input name="forContent" type="text" value="<%- ads[i].forContent === "notset" ? "" : ads[i].forContent %>" class="p-2 Balsamiq w-100 custom-input border-bottom" placeholder="آیدی صفحه هدف">
+							</div>
+							<div class="w-100">
+								<input name="adLink" type="text" value="<%- ads[i].adLink === "notset" ? "" : ads[i].adLink %>" class="p-2 w-100 custom-input border-bottom" placeholder="لینک تبلیغ">
+							</div>
+							<div class="w-100">
+								<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+									<label for="<%- ads[i]._id %>-sportCategory" class="ml-auto text-info form-check-label">تفریحی ورزشی</label>
+									<input id="<%- ads[i]._id %>-sportCategory" name="sportCategory" type="checkbox" <%- ads[i].sportCategory ? "checked" : "" %> class="ml-2 form-check-input border-bottom" value="تفریحی-ورزشی">
+								</div>
+								<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+									<label for="<%- ads[i]._id %>-beautyCategory" class="ml-auto text-info form-check-label">زیبایی</label>
+									<input id="<%- ads[i]._id %>-beautyCategory" name="beautyCategory" type="checkbox" <%- ads[i].beautyCategory ? "checked" : "" %> class="ml-2 form-check-input border-bottom" value="زیبایی">
+								</div>
+								<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+									<label for="<%- ads[i]._id %>-healthCategory" class="ml-auto text-info form-check-label">ابزار سلامت</label>
+									<input id="<%- ads[i]._id %>-healthCategory" name="healthCategory" type="checkbox" <%- ads[i].healthCategory ? "checked" : "" %> class="ml-2 form-check-input border-bottom" value="ابزار-سلامت">
+								</div>
+								<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+									<label for="<%- ads[i]._id %>-clothCategory" class="ml-auto text-info form-check-label">مد و پوشاک</label>
+									<input id="<%- ads[i]._id %>-clothCategory" name="clothCategory" type="checkbox" <%- ads[i].clothCategory ? "checked" : "" %> class="ml-2 form-check-input border-bottom" value="مد-و-پوشاک">
+								</div>
+								<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+									<label for="<%- ads[i]._id %>-foodCategory" class="ml-auto text-info form-check-label">خوراکی و نوشیدنی</label>
+									<input id="<%- ads[i]._id %>-foodCategory" name="foodCategory" type="checkbox" <%- ads[i].foodCategory ? "checked" : "" %> class="ml-2 form-check-input border-bottom" value="خوراکی-نوشیدنی">
+								</div>
+								<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+									<label for="<%- ads[i]._id %>-digitalCategory" class="ml-auto text-info form-check-label">دیجیتال</label>
+									<input id="<%- ads[i]._id %>-digitalCategory" name="digitalCategory" type="checkbox" <%- ads[i].digitalCategory ? "checked" : "" %> class="ml-2 form-check-input border-bottom" value="دیجیتال">
+								</div>
+							</div>
+							<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+								<label for="<%- ads[i]._id %>-adStar" class="ml-auto text-danger w-100 form-check-label">تبلیغ ویژه</label>
+								<input id="<%- ads[i]._id %>-adStar" <%- ads[i].star ? "checked" : "" %> name="star" type="checkbox" class="ml-2 form-check-input border-bottom" value="1">
+							</div>
+							<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+								<label for="<%- ads[i]._id %>-adStar2" class="ml-auto text-warning w-100 form-check-label">تبلیغ طلایی</label>
+								<input id="<%- ads[i]._id %>-adStar2" <%- ads[i].star2 ? "checked" : "" %> name="star2" type="checkbox" class="ml-2 form-check-input border-bottom" value="1">
+							</div>
+							<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+								<label for="<%- ads[i]._id %>-adStarHome" class="ml-auto text-danger w-100 form-check-label"> تبلیغ ویژه (صفحه اصلی)</label>
+								<input id="<%- ads[i]._id %>-adStarHome" <%- ads[i].adStarHome ? "checked" : "" %> name="adStarHome" type="checkbox" class="ml-2 form-check-input border-bottom" value="1">
+							</div>
+							<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+								<label for="<%- ads[i]._id %>-adStar2Home" class="ml-auto text-warning w-100 form-check-label">تبلیغ طلایی (صفحه اصلی)</label>
+								<input id="<%- ads[i]._id %>-adStar2Home" <%- ads[i].adStar2Home ? "checked" : "" %> name="adStar2Home" type="checkbox" class="ml-2 form-check-input border-bottom" value="1">
+							</div>
+							<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+								<label for="<%- ads[i]._id %>-inCategoryPage" class="ml-auto text-success w-100 form-check-label">آیا در صفحه دسته بندی مربوطه هم قرار گیرد؟</label>
+								<input id="<%- ads[i]._id %>-inCategoryPage" <%- ads[i].inCategoryPage ? "checked" : "" %> name="inCategoryPage" type="checkbox" class="ml-2 form-check-input border-bottom" value="1">
+							</div>
+							<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+								<label for="<%- ads[i]._id %>-inHomePage" class="ml-auto text-success w-100 form-check-label">آیا در صفحه اول هم قرار گیرد؟</label>
+								<input id="<%- ads[i]._id %>-inHomePage" <%- ads[i].inHomePage ? "checked" : "" %> name="inHomePage" type="checkbox" class="ml-2 form-check-input border-bottom" value="1">
+							</div>
+							<div class="py-2 mx-0 w-100 form-check form-check-inline reverse">
+								<label for="<%- ads[i]._id %>-confirmed" class="ml-auto text-success w-100 form-check-label">تأیید تبلیغ</label>
+								<input id="<%- ads[i]._id %>-confirmed" <%- ads[i].confirmed ? "checked" : "" %> name="confirmed" type="checkbox" class="ml-2 form-check-input border-bottom" value="1">
+							</div>
+							<div class="w-100">
+								<button type="submit" class="mt-2 btn btn-info mt-md-0 rounded-0 w-100">ذخیره</button>
+							</div>
+							<div class="w-100">
+								<a class="mt-2 btn btn-danger mt-md-0 rounded-0 w-100" target="_blank" href="/new/advertizement/delete/<%- ads[i]._id %>">حذف</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	<% } %>
+ 	</div>
+ </div>

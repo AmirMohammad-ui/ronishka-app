@@ -1,0 +1,36 @@
+.fancy-inline-input-button {
+
+    .inline-inp,
+    .inline-btn {
+        border-radius: 100px;
+    }
+}
+
+.input-header:focus {
+    outline: none !important;
+    border-right: hidden !important;
+    border-left: hidden !important;
+    border-top: hidden !important;
+    border-bottom: 2px solid black !important;
+}
+
+
+.input-header::placeholder {
+    color: black !important;
+}
+
+.input-header {
+    transition: all 2s !important;
+    backface-visibility: hidden !important;
+    color: black !important;
+    background-color: transparent !important;
+    background-image: url("/img/search.png");
+    background-position-x: 15px;
+    background-position-y: center;
+    background-size: 15px;
+    backface-visibility: hidden !important;
+    background-repeat: no-repeat;
+    border-radius: 100px;
+    border: 2px solid black !important;
+    cursor: default;
+}

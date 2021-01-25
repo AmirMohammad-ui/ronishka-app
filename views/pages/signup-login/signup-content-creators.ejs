@@ -1,0 +1,175 @@
+<div class="tab-pane fade" id="signup-as-creator" role="tabpanel" aria-labelledby="signup-as-creator-tab">
+    <div class="container py-3 text-right">
+        <div class="mt-3 bg-black-transparent-3 rounded box-shadow-muted p-3">
+            <form id="register-creators-form" class="text-right needs-validation was-validated" novalidate>
+                <div class="row">
+                    <div class="col-12 my-2">
+                        <label for="fName_signup_creator" class="text-white">نام : </label>
+                        <input type="text" name="fName_signup_creator" id="fName_signup_creator"
+                            class="justpersian form-control custom-input input-border-bottom-black bg-white-transparent-4 rounded-0"
+                            minlength="3" maxlength="20" placeholder="امیرمحمد" required>
+                        <small class="text-info justpersian">
+                            فقط حروف فارسی قابل قبول هستند.
+                        </small>
+                        <div class="invalid-feedback text-warning">
+                            پر کردن این فیلد ضروریست.
+                        </div>
+                    </div>
+                    <div class="col-12 my-2">
+                        <label for="lName_signup_creator" class="text-white">نام خانوادگی : </label>
+                        <input type="text" name="lName_signup_creator" id="lName_signup_creator"
+                            class="justpersian form-control custom-input input-border-bottom-black bg-white-transparent-4 rounded-0"
+                            minlength="3" maxlength="20" placeholder="میرزائی" required>
+                        <small class="text-info justpersian">
+                            فقط حروف فارسی قابل قبول هستند.
+                        </small>
+                        <div class="invalid-feedback text-warning">
+                            پر کردن این فیلد ضروریست.
+                        </div>
+                    </div>
+                    <div class="col-12 my-2">
+                        <label for="email_signup_creator" class="text-white">ایمیل : </label>
+                        <input type="email" name="email_signup_creator" id="email_signup_creator"
+                            class="form-control custom-input input-border-bottom-black bg-white-transparent-4 rounded-0"
+                            placeholder="email@example.com" required>
+                        <div class="invalid-feedback text-warning">
+                            پر کردن این فیلد ضروریست.
+                        </div>
+                    </div>
+                    <div class="col-12 my-2">
+                        <label for="phone_number_signup_creator" class="text-white">شماره همراه :
+                        </label>
+                        <input type="number" name="phone_number_signup_creator" id="phone_number_signup_creator"
+                            class="form-control custom-input input-border-bottom-black bg-white-transparent-4 rounded-0"
+                            placeholder="09001234567" required>
+                        <div class=" invalid-feedback text-warning">
+                            پر کردن این فیلد ضروریست.
+                        </div>
+                    </div>
+                    <div class="col-12 my-2">
+                        <label for="province_signup_creator" class="text-white">استان : </label>
+                        <input type="text" name="province_signup_creator" id="province_signup_creator"
+                            class="justpersian form-control custom-input input-border-bottom-black bg-white-transparent-4 rounded-0"
+                            minlength="3" maxlength="20" placeholder="اصفهان" required>
+                        <small class="text-info justpersian">
+                            فقط حروف فارسی قابل قبول هستند.
+                        </small>
+                        <div class="invalid-feedback text-warning">
+                            پر کردن این فیلد ضروریست.
+                        </div>
+                    </div>
+                    <div class="col-12 my-2">
+                        <label for="city_signup_creator" class="text-white">شهر : </label>
+                        <input type="text" name="city_signup_creator" id="city_signup_creator"
+                            class="justpersian form-control custom-input input-border-bottom-black bg-white-transparent-4 rounded-0"
+                            minlength="3" maxlength="20" placeholder="اصفهان" required>
+                        <small class="text-info justpersian">
+                            فقط حروف فارسی قابل قبول هستند.
+                        </small>
+                        <div class="invalid-feedback text-warning">
+                            پر کردن این فیلد ضروریست.
+                        </div>
+                    </div>
+                    <div class="col-12 my-2 h-95px">
+                        <label for="dateofbirth_signup_creator" class="text-white">تاریخ تولد : </label>
+                        <input id="persian-calendar" type="text" name="dateofbirth_signup_creator"
+                            class="form-control custom-input text-right input-border-bottom-black bg-white-transparent-4 rounded-0 pdate"
+                            placeholder="روز/ماه/سال" required>
+                        <div class=" invalid-feedback text-warning">
+                            پر کردن این فیلد ضروریست.
+                        </div>
+                    </div>
+                    <div class="col-12 my-2">
+                        <div class="form-group">
+                            <label for="" class="text-white">در
+                                کدام دسته بندی ها قصد فعالیت دارید : </label>
+                            <br>
+                            <label for="category_signup_creator_1" class="text-white">انتخاب اول
+                                :</label>
+                            <select class="custom-select custom-input input-border-bottom-black rounded-0 py-2 my-2"
+                                name="category_signup_creator_1" id="category_signup_creator_1" required>
+                                <option value="تفریحی-ورزشی">ورزشی تفریحی</option>
+                                <option value="زیبایی">زیبایی</option>
+                                <option value="ابزار-سلامت">ابزار سلامت</option>
+                                <option value="مد-و-پوشاک">مد و پوشاک</option>
+                                <option value="خوراکی-نوشیدنی">خوراکی نوشیدنی</option>
+                                <option value="دیجیتال">دیجیتال</option>
+                            </select>
+                            <div class="invalid-feedback text-warning">
+                                پر کردن این فیلد ضروریست.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 my-2">
+                        <label for="category_signup_creator_2" class="text-white">انتخاب دوم :</label>
+                        <select class="custom-select custom-input input-border-bottom-black rounded-0 py-2 my-2"
+                            name="category_signup_creator_2" id="category_signup_creator_2">
+                            <option value="choose">انتخاب کنید</option>
+                            <option value="تفریحی-ورزشی">ورزشی تفریحی</option>
+                            <option value="زیبایی">زیبایی</option>
+                            <option value="ابزار-سلامت">ابزار سلامت</option>
+                            <option value="مد-و-پوشاک">مد و پوشاک</option>
+                            <option value="خوراکی-نوشیدنی">خوراکی نوشیدنی</option>
+                            <option value="دیجیتال">دیجیتال</option>
+                        </select>
+                    </div>
+                    <div class="col-12 my-2">
+                        <label for="category_signup_creator_3" class="text-white">انتخاب سوم :</label>
+                        <select class="custom-select custom-input input-border-bottom-black rounded-0 py-2 my-2"
+                            name="category_signup_creator_3" id="category_signup_creator_3">
+                            <option value="choose">انتخاب کنید</option>
+                            <option value="تفریحی-ورزشی">ورزشی تفریحی</option>
+                            <option value="زیبایی">زیبایی</option>
+                            <option value="ابزار-سلامت">ابزار سلامت</option>
+                            <option value="مد-و-پوشاک">مد و پوشاک</option>
+                            <option value="خوراکی-نوشیدنی">خوراکی نوشیدنی</option>
+                            <option value="دیجیتال">دیجیتال</option>
+                        </select>
+                    </div>
+                    <div class="col-12 my-2">
+                        <label for="password_signup_creator" class="text-white">رمز : </label>
+                        <input type="password" name="password_signup_creator" id="password_signup_creator"
+                            class="form-control custom-input input-border-bottom-black bg-white-transparent-4 rounded-0"
+                            placeholder="**********" minlength="8" maxlength="32" required>
+                        <small class="text-warning">
+                            رمز حداقل باید دارای 8 کاراکتر باشد.
+                        </small>
+                        <br>
+                        <small class="text-warning">
+                            رمز امن باید حداقل شامل یک حرف بزرگ انگلیسی ، یک حرف کوچک انگلیسی و یکی از
+                            کاراکترهای زیر باشد.
+                            <br>
+                            / \ @ # $ % ^ & ( ) * - + ! [ ]
+                        </small>
+                        <br>
+                        <div class=" invalid-feedback text-warning">
+                            پر کردن این فیلد ضروریست.
+                        </div>
+                    </div>
+                    <div class="col-12 my-2">
+                        <label for="passwordConfrim_signup_creator" class="text-white">تکرار رمز :
+                        </label>
+                        <input type="password" name="passwordConfrim_signup_creator" id="passwordConfrim_signup_creator"
+                            class="form-control custom-input input-border-bottom-black bg-white-transparent-4 rounded-0"
+                            placeholder="**********" minlength="8" maxlength="32" required>
+                        <div class=" invalid-feedback text-warning">
+                            پر کردن این فیلد ضروریست.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 my-2 py-2  bg-white text-center clearfix">
+                    <a href="/" class="btn btn-outline-info float-md-left mx-2 my-3">بازگشت به سایت</a>
+                    <button type="submit" class="btn btn-success float-md-left mx-2 my-3">ثبت
+                        نام</button>
+                    <div class="custom-control custom-checkbox my-md-3 pt-md-2 mr-sm-2 float-md-right">
+                        <input name="privacy_policy_creator" type="checkbox" class="custom-control-input float-md-right"
+                            id="privacy_policy_creator" value="yes" required>
+                        <label class="custom-control-label" for="privacy_policy_creator">
+                            با تمام <a href="/rules" class="text-info">شرایط و ضوابط</a> وبسایت رونیشکا
+                            موافقم</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

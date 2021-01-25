@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("../partials/meta.ejs")  %>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/managment.css">
+    <link rel="stylesheet" href="/css/custom-alert-style.css">
+    <<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+    <script src="/scripts/jquery.min.js"></script>
+    <script src="/dist/bundle.js" defer></script>
+</head>
+
+<body>
+    <div id="check-container">
+        <div class="container my-4 text-center">
+            <div class="text-center ">
+                لطفا قبل از استفاده از این ابزار ،<a href="/create-post-guide" target="_blank" class="text-primary">
+                    راهنما</a> را مطالعه کرده و بعد به استفاده از این ابزار بپردازید. با تشکر
+                <br>
+                <span class="text-danger">
+                    <h3 class="mt-3 text-center text-white bg-warning"> نکته : </h3>
+                    در صورت عدم مطالعه راهنما و استفاده از این ابزار ممکن است به علت عدم آگاهی شما در استفاده ی درست
+                    وصحیح
+                    از
+                    این ابزار ، محتوای تولید شده ی شما حذف شود و وبسایت رونیشکا هیچگونه مسئولیتی در این قبال نخواهد
+                    داشت.
+                </span>
+            </div>
+            <br>
+            <lable class="">آیدی پست را وارد کنید:</lable>
+            <input type="text" id="checkContentId" class="p-2 custom-input bg-white-transparent-5"
+                placeholder="h34h634jk634l6g3lg634hgb">
+            <button id="checkContentIdButton" class="btn rounded-0 btn-outline-dark">چک کن</button>
+            <div class="mb-3 divider"></div>
+        </div>
+    </div>
+    <div id="editorjsContainer">
+        <div id="editorjs" class="my-4 text-right"></div>
+        <div class="mt-4">
+            <div class="my-2 text-center col-12">
+                <button id="editorData" class="btn btn-outline-success w-50">ذخیره</button>
+                <a href="/creators-panel" class="my-2 btn btn-outline-danger w-50">بازگشت به پنل</a>
+                <a href="/" class="btn btn-outline-info w-50">بازگشت به سایت</a>
+                <div class="my-1 custom-control custom-checkbox text-info mr-sm-2">
+                    <input name="content_isPublished" type="checkbox" class="float-right custom-control-input"
+                        id="content_isPublished" value="yes">
+                    <label class="custom-control-label" for="content_isPublished">این پست را آپلود
+                        کن</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include("../partials/scripts.ejs") %>
+</body>
+
+</html>

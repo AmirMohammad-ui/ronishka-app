@@ -1,0 +1,70 @@
+[{
+  "_id": {
+    "$oid": "5ff0bfce98be6d0cb0b8738e"
+  },
+  "contents": [
+    {
+      "$oid": "5fff05c7c446fa1b6c0b2ca0"
+    },
+    {
+      "$oid": "5fff06d2c446fa1b6c0b2ca1"
+    },
+    {
+      "$oid": "600a9ad85f7d4e330023abf9"
+    }
+  ],
+  "name": "دیجیتال",
+  "slug": "دیجیتال",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ff0bfce98be6d0cb0b87390"
+  },
+  "contents": [
+    {
+      "$oid": "5ff0bfda5d1eee799435065b"
+    }
+  ],
+  "name": "تفریحی ورزشی",
+  "slug": "تفریحی-ورزشی",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ff0bfce98be6d0cb0b8738f"
+  },
+  "contents": [],
+  "name": "ابزار سلامت",
+  "slug": "ابزار-سلامت",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ff0bfce98be6d0cb0b87392"
+  },
+  "contents": [
+    {
+      "$oid": "6009e87e837d9045883b74e1"
+    },
+    {
+      "$oid": "6009ea22db64b53210c382a0"
+    }
+  ],
+  "name": "مدوپوشاک",
+  "slug": "مد-و-پوشاک",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ff0bfce98be6d0cb0b87393"
+  },
+  "contents": [],
+  "name": "زیبایی",
+  "slug": "زیبایی",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ff0bfce98be6d0cb0b87391"
+  },
+  "contents": [],
+  "name": "خوراکی نوشیدنی",
+  "slug": "خوراکی-نوشیدنی",
+  "__v": 0
+}]

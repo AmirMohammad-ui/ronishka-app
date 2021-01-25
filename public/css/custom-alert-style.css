@@ -1,0 +1,11 @@
+.alert__failed {
+    transform: translateX(-50%) !important;
+}
+
+.alert__success {
+    transform: translateX(-50%) !important;
+}
+
+body {
+    background-color: aliceblue !important;
+}
