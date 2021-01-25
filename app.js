@@ -26,11 +26,11 @@ const reviews = require("./routes/reviews")
 const ads = require("./routes/ads")
 const messages = require("./routes/messages")
 // ###################################################################### development settings
+const morgan = require("morgan")
 const fs = require("fs")
 const accessLogStream = fs.createWriteStream(path.join(__dirname, "access.log"), {flags:'a'})
 const app = express()
 if (process.env.NODE_ENV === 'production') {
-	const morgan = require("morgan")
 	app.use(morgan("combined",{stream:accessLogStream}))
 	app.use(morgan("dev"))
 }
