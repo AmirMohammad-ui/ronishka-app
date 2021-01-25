@@ -1,6 +1,6 @@
 {
 	"name": "ronishka",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Ronishka / this website provides you the most uptodated content in your field of intrests.",
 	"main": "server.js",
 	"scripts": {
