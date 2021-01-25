@@ -11,8 +11,8 @@
 		"parcel:dev": "parcel watch ./public/scripts/index.js --out-dir ./public/dist --out-file bundle.js",
 		"parcel:prod": "parcel build ./public/scripts/index.js --out-dir ./public/dist --out-file bundle.js"
 	},
-	"engines":{
-		"node":"^12"
+	"engines": {
+		"node": "^12"
 	},
 	"keywords": [],
 	"author": "AmirMohammad MirzaeiRad",
