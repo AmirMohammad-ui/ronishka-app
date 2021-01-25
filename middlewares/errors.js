@@ -49,12 +49,14 @@ const devErrors = (err, res) => {
 const prodErrors = (err, res) => {
 	if (err.isOperational) {
 		res.render("pages/error", {
+			title: 'خطای داخلی از سرور',
 			status: err.status,
 			statusCode: err.statusCode,
 			message: err.message
 		})
 	} else {
 		res.render("pages/error", {
+			title: 'خطای داخلی از سرور',
 			status: "خطای داخلی از سرور",
 			statusCode: 500,
 			message: 'خطای داخلی از سرور ، لطفا بعدا دوباره امتحان کنید.'

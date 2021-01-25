@@ -1,0 +1,14 @@
+{
+  "JwtSecret": "JWTPRIVATEKEY",
+  "session": {
+    "secret": "SESSIONSECRET"
+  },
+  "database":{
+    "pass":"MONGODB_PASS"
+  },
+	"email": {
+		"auth": {
+			"pass": "MAIL_PASS"
+		}
+	}
+}

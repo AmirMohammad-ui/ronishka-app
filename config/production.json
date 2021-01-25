@@ -1,0 +1,19 @@
+{
+	"Name": "Ronishka-production",
+	"database": {
+		"host": "bgm0ithcbbfx6wb-mongodb.services.clever-cloud.com",
+    "db": "bgm0ithcbbfx6wb",
+    "username": "u8auavb7xgtcyczpndzi",
+    "port": "27017",
+		"pass": "MONGODB_PASS"
+	},
+	"email": {
+		"from": "Ronishka <support@ronishka.com>",
+		"host": "smtp.mailtrap.io",
+		"port": 2525,
+		"auth": {
+			"user": "34c039a84fbfb4",
+			"pass": "MAIL_PASS"
+		}
+	}
+}

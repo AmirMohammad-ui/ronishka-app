@@ -1,0 +1,10 @@
+{
+  "JwtSecret": "",
+  "JwtExpires": 90,
+  "CookieExpires": 1,
+  "rememberMeExpires": 2,
+  "session": {
+    "secret": "",
+    "expires": 1
+  }
+}

@@ -31,7 +31,7 @@ const db_pass = config.get("database.pass");
 const db_host = config.get("database.host");
 const db_port = config.get("database.port");
 const db_name = config.get("database.db");
-const DB = `mongodb://${db_user}:${db_pass}@${db_host}:${db_port}/${db_name}`;
+const DB = process.env.NODE_ENV === 'production' ? `mongodb://${db_user}:${db_pass}@${db_host}:${db_port}/${db_name}` : 'mongodb://localhost/ronishka';
 mongoose
     .connect(DB, {
         useCreateIndex: true,
