@@ -20,6 +20,7 @@
 	"dependencies": {
 		"@babel/runtime": "^7.12.5",
 		"bcryptjs": "^2.4.3",
+		"debug": "^4.3.1",
 		"compression": "^1.7.4",
 		"config": "^3.3.3",
 		"connect-mongo": "^3.2.0",
@@ -67,7 +68,6 @@
 		"babel-loader": "^8.2.2",
 		"chalk": "^4.1.0",
 		"css-loader": "^5.0.1",
-		"debug": "^4.3.1",
 		"eslint": "^7.16.0",
 		"jquery": "^3.5.1",
 		"morgan": "^1.10.0",
