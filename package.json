@@ -41,6 +41,7 @@
 		"normalize.css": "^8.0.1",
 		"slugify": "^1.4.6",
 		"validator": "^13.5.2",
+		"chalk": "^4.1.0",
 		"vanilla-lazyload": "^17.3.0",
 		"xss-clean": "^0.1.1"
 	},
@@ -66,7 +67,6 @@
 		"@popperjs/core": "^2.6.0",
 		"axios": "^0.21.1",
 		"babel-loader": "^8.2.2",
-		"chalk": "^4.1.0",
 		"css-loader": "^5.0.1",
 		"eslint": "^7.16.0",
 		"jquery": "^3.5.1",
