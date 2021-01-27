@@ -1,6 +1,16 @@
-const merge = require("webpack-merge")
+const {merge} = require("webpack-merge")
 const common = require("./webpack.config.common")
 module.exports = merge(common,{
 	mode: 'development',
 	devtool: 'cheap-module-source-map',
+	module:{
+		rules:[{
+			test: /\.css$/,
+			use: [{
+				loader: 'style-loader'
+			}, {
+				loader: 'css-loader'
+			}]
+		}]
+	}
 })

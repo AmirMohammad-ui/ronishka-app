@@ -23,16 +23,6 @@ module.exports = {
 			use: {
 				loader: 'file-loader', // Or `url-loader` or your other loader
 			}
-		}, {
-			test: /\.css$/,
-			use: [{
-				loader: 'style-loader'
-			}, {
-				loader: 'css-loader'
-			}]
-		}, {
-			test: /\.ejs$/,
-			loader: 'ejs-loader'
-		}, ]
+		}]
 	},
 }
