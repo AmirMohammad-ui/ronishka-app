@@ -1,4 +1,3 @@
-
 import axios from "axios"
 export const hideAlert = () => {
 	const el = document.getElementById("alert");

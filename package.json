@@ -9,7 +9,7 @@
 		"scss:windows": "node-sass --watch ./public/scss -o ./public/css",
 		"webpack:dev": "webpack serve --open --config webpack.config.dev.js",
 		"webpack:build": "webpack --config webpack.config.prod.js",
-		"postcss": "postcss ./public/css/*.css --dir ./public/css-test/"
+		"postcss": "postcss ./public/css/*.css --dir ./public/css/"
 	},
 	"engines": {
 		"node": "^12"
@@ -78,6 +78,7 @@
 		"style-loader": "^2.0.0",
 		"webpack": "^5.11.1",
 		"webpack-cli": "^4.3.1",
+		"webpack-dev-server": "^3.11.2",
 		"webpack-merge": "^5.7.3"
 	}
 }
