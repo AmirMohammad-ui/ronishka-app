@@ -5,6 +5,9 @@ module.exports = {
     purgecss({
       content: ['./views/*.ejs']
     }),
-    require('autoprefixer')
+    require('autoprefixer'),
+    require("cssnano")({
+      preset:'default'
+    })
   ]
 }

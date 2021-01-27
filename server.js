@@ -18,11 +18,18 @@ process.on("uncaughtException", (err) => {
   process.exit(1)
 })
 // ###################################################################### database connection
-const db_user = config.get("database.username");
-const db_pass = config.get("database.pass");
-const db_host = config.get("database.host");
-const db_port = config.get("database.port");
-const db_name = config.get("database.db");
+let db_user = '';
+let db_pass = '';
+let db_host = '';
+let db_port = '';
+let db_name = '';
+if(process.env.NODE_ENV === 'production') {
+  db_user = config.get("database.username");
+  db_pass = config.get("database.pass");
+  db_host = config.get("database.host");
+  db_port = config.get("database.port");
+  db_name = config.get("database.db");
+}
 const DB = process.env.NODE_ENV === 'production' ? `mongodb://${db_user}:${db_pass}@${db_host}:${db_port}/${db_name}` : 'mongodb://localhost/ronishka';
 mongoose
   .connect(DB, {
@@ -32,7 +39,9 @@ mongoose
     useNewUrlParser: true
   })
   .then(() => {
-    d(suc("Connected to the database mongodb..."))
+    app.listen(process.env.PORT || 9000, (err) => {
+      d(suc("running on port :" + (process.env.PORT || 9000)))
+    })
   })
   .catch((err) => {
     d(er("Couln't connect to the database !", err))
@@ -41,19 +50,19 @@ mongoose
 
 
 // ###################################################################### server connection
-const host = process.env.HOST || "0.0.0.0";
-const server = app.listen(process.env.PORT || 9000, (err) => {
-  console.log(`server is running on port :${process.env.PORT || 9000} and host:${host}`)
-  if (err) {
-    process.exit(1)
-  }
-})
+// const host = process.env.HOST || "0.0.0.0";
+// // const server = app.listen(process.env.PORT || 9000, (err) => {
+// //   console.log(`server is running on port :${process.env.PORT || 9000} and host:${host}`)
+// //   if (err) {
+// //     process.exit(1)
+// //   }
+// // })
 
 // ###################################################################### handling promise rejection
 process.on("unhandledRejection", (err) => {
   d(unhan(" UNHANDLED PROMISE REJECTION "))
   d(er(err.stack))
-  server.close(() => {
+  // server.close(() => {
     process.exit(1)
-  })
+  // })
 })

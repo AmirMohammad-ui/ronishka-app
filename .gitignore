@@ -4,3 +4,4 @@ access.log
 .eslintignore
 .cache/
 .vscode/
+.env
