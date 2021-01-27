@@ -284,7 +284,6 @@ const fullnameContact = document.getElementById("fullnameContactForm")
 const emailContact = document.getElementById("emailContactForm")
 const textMessageContact = document.getElementById("textMessageContactForm")
 contactUsFormBtn.addEventListener("submit",(e)=>{
-	e.preventDefault();
 	let contactErrorMsg = [];
 	if(fullnameContact.value.trim() === "") contactErrorMsg.push("وارد کردن نام ضروری است.") 
 	if(emailContact.value.trim() === "") contactErrorMsg.push("وارد کردن ایمیل برای ارتباط با شما ضروری است.") 
@@ -294,10 +293,11 @@ contactUsFormBtn.addEventListener("submit",(e)=>{
 	contactFormData.append("email",emailContact.value.trim())
 	contactFormData.append("textMessage",textMessageContact.value.trim())
 	axios.post("/new/message",contactFormData)
-		.then(res=>{
-			show_alert(res.data.message,"success")
-		})
-		.catch(err=>{
-			console.log(err)
-		})
+	.then(res=>{
+		show_alert(res.data.message,"success")
+	})
+	.catch(err=>{
+		console.log(err)
+	})
+	e.preventDefault();
 })

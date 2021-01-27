@@ -3,7 +3,6 @@ const {
 } = require("../models/contents")
 
 exports.search = async (req, res) => {
-    console.log(req.query)
     const q = req.query.q.trim();
     Content.find({
         topic: {
