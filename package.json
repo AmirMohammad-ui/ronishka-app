@@ -7,7 +7,7 @@
 		"start": "node server.js",
 		"scss:linux": "node-sass -w ./public/scss/main.scss ./public/css/main.css",
 		"scss:windows": "node-sass --watch ./public/scss -o ./public/css",
-		"webpack:dev": "webpack serve --open --config webpack.config.dev.js",
+		"webpack:dev": "webpack --config webpack.config.dev.js",
 		"webpack:build": "webpack --config webpack.config.prod.js",
 		"postcss": "postcss ./public/css/*.css --dir ./public/css/"
 	},

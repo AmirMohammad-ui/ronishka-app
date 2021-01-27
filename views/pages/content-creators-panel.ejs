@@ -13,6 +13,9 @@
 	<meta name="msapplication-TileColor" content="#ffc40d">
 	<meta name="theme-color" content="#ffffff">
 	<link rel="stylesheet" href="/css/managment.css">
+	<script src="/scripts/jquery.min.js" defer></script>
+	<script src="/dist/bundle.js" defer></script>
+
 </head>
 
 <body
@@ -218,16 +221,17 @@
 			</div>
 		</div>
 		<div class="tab-content" id="nav-tabContent">
-		<%- include("./content-management-system/content-creating.ejs") %>
-		<%- include("./content-management-system/content-uploading.ejs") %>
-		<%- include("./content-management-system/content-editing.ejs") %>
-		<%- include("./content-management-system/content-deleting.ejs") %>
-		<%- include("./content-management-system/content-all.ejs") %>
-		<%- include("./content-management-system/product-all.ejs") %>
-		<%- include("./content-management-system/coments.ejs") %>
-		<%- include("./content-management-system/ads.ejs") %>
-		<%- include("./content-management-system/requests.ejs") %>
-		<%- include("./content-management-system/messages.ejs") %>
+			<%- include("./content-management-system/content-creating.ejs") %>
+			<%- include("./content-management-system/content-uploading.ejs") %>
+			<%- include("./content-management-system/content-editing.ejs") %>
+			<%- include("./content-management-system/content-deleting.ejs") %>
+			<%- include("./content-management-system/content-all.ejs") %>
+			<%- include("./content-management-system/product-all.ejs") %>
+			<%- include("./content-management-system/coments.ejs") %>
+			<%- include("./content-management-system/ads.ejs") %>
+			<%- include("./content-management-system/requests.ejs") %>
+			<%- include("./content-management-system/messages.ejs") %>
+		</div>
 	</div>
 	</header>
 	<%- include("../partials/loader.ejs") %>
