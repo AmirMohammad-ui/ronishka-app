@@ -1,1 +1,11 @@
-body{background-color:#f0f8ff!important}
+.alert__failed {
+    transform: translateX(-50%) !important;
+}
+
+.alert__success {
+    transform: translateX(-50%) !important;
+}
+
+body {
+    background-color: aliceblue !important;
+}
