@@ -49,7 +49,7 @@ const productSchema = new Schema({
   },
   image: {
     type: String,
-    default: 'placeholder.jpg',
+    default: 'placeholder.webp',
     trim: true
   },
   category: {
