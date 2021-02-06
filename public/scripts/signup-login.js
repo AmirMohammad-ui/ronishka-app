@@ -12,16 +12,16 @@ export const show_alert = (msg, type) => {
 				massages += `${message}</br>`;
 			}
 		})
-		const template = `<div id="alert" class="alert__${type}">${massages}</div>`;
+		const template = `<div id="alert" class="${type === 'success' ? 'alert__success':(type === 'failed' ? 'alert__failed':'alert__notfound')}">${massages}</div>`;
 		document.querySelector("body").insertAdjacentHTML('afterbegin', template)
 		return window.setTimeout(hideAlert, 7000)
 	}
 	if (msg instanceof Array && msg.length < 1 && msg.length === 1) {
-		const template = `<div id="alert" class="alert__${type}">${msg[0]}</div>`;
+		const template = `<div id="alert" class="${type === 'success' ? 'alert__success':(type === 'failed' ? 'alert__failed':'alert__notfound')}">${msg[0]}</div>`;
 		document.querySelector("body").insertAdjacentHTML('afterbegin', template)
 		window.setTimeout(hideAlert, 4000)
 	}
-	const template = `<div id="alert" class="alert__${type}">${msg}</div>`;
+	const template = `<div id="alert" class="${type === 'success' ? 'alert__success':(type === 'failed' ? 'alert__failed':'alert__notfound')}">${msg}</div>`;
 	document.querySelector("body").insertAdjacentHTML('afterbegin', template)
 	window.setTimeout(hideAlert, 4000)
 }

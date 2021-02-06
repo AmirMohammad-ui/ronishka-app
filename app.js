@@ -29,11 +29,11 @@ const messages = require("./routes/messages")
 const fs = require("fs")
 const accessLogStream = fs.createWriteStream(path.join(__dirname, "access.log"), {flags:'a'})
 const app = express()
-// if (process.env.NODE_ENV === 'production') {
-// 	const morgan = require("morgan")
-// 	app.use(morgan("combined",{stream:accessLogStream}))
-// 	app.use(morgan("dev"))
-// }
+if (process.env.NODE_ENV === 'production') {
+	const morgan = require("morgan")
+	app.use(morgan("combined",{stream:accessLogStream}))
+	app.use(morgan("dev"))
+}
 app.use(fileupload())
 app.get("/accepting-policy-confirmed", (req, res) => {
 	res.cookie("policy", "accpeted");
@@ -70,6 +70,13 @@ app.use('/', (req, res, next) => {
 	} else {
 		req.session.loggedIn = 0;
 	}
+	if(!req.session.contentImages) req.session.contentImages = []
+	if(!req.session.pathToSave) req.session.pathToSave = ''
+	if(!req.session.content_id) req.session.content_id = ''
+	if(!req.session.imageName) req.session.imageName = ''
+	if(!req.session.contentFiles) req.session.contentFiles = []
+	if(!req.session.pathToFileLocation_temp) req.session.pathToFileLocation_temp = ''
+	if(!req.session.fileName_temp) req.session.fileName_temp = ''
 	next();
 })
 // ###################################################################### view engine
