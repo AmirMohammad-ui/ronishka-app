@@ -18,7 +18,7 @@
 							<% if (isCreator && isCreator === "admin") { %>
 								<div class="p-2 text-center text-white w-100 zIndex-1000 bg-black-transparent-7 Balsamiq font-small pos-absolute-top"><%- adStar._id %></div>
 							<% } %>
-							<a href="<%- adStar.adLink %>" target="_blank">
+							<a href="<%- adStar.adLink %>" rel="nofollow" target="_blank">
 								<img src="/uploads/ads/<%- adStar.image %>" class="lazy animate__animated animate__fadeInUp cover w-100" alt="<%- adStar.name %>">
 								<% if (adStar.name !== "" && adStar.name) { %>
 									<div class="p-2 text-right text-white bg-black-transparent-7 w-100 font-small pos-absolute-bottom"><%- adStar.name %></div>
@@ -33,7 +33,7 @@
 							<% if (isCreator && isCreator === "admin") { %>
 								<div class="p-2 text-center text-white w-100 zIndex-1000 bg-black-transparent-7 Balsamiq font-small pos-absolute-top"><%- adStar2._id %></div>
 							<% } %>
-							<a href="<%- adStar2.adLink %>" target="_blank">
+							<a href="<%- adStar2.adLink %>" rel="nofollow" target="_blank">
 								<img src="/uploads/ads/<%- adStar2.image %>" class="lazy animate__animated animate__fadeInUp cover w-100" alt="<%- adStar2.name %>">
 								<% if (adStar2.name !== "" && adStar2.name) { %>
 									<div class="p-2 text-right text-white bg-black-transparent-7 w-100 font-small pos-absolute-bottom"><%- adStar2.name %></div>
@@ -138,14 +138,17 @@
 									<%- content.summary %>
 								</p>
 							</article>
-							<article>
+							<article id="theArticle">
 								<% if (content.post.length > 0) { %>
 									<% content.post.forEach(el => { %>
 									<% if (el.type === "image") { %>
 										<% if (el.data.file.url) { %>
 											<img class="w-100 lazy animate__animated animate__fadeInUp cover"
 												data-src="/uploads/images/content/image-content-<%- el.data.file.url.split("image-content-")[1] %>"
-												alt="<%- content.topic %>">
+												alt="<%- el.data.title !== '' ? el.data.title : content.topic %>">
+											<div class="text-right w-100">
+												<span class="m-2 font-small text-muted"><%- el.data.title %></span>
+											</div>
 										<% } %>
 									<% } else if (el.type === "header") { %>
 									<% if (el.data.level == 2) { %>
@@ -251,21 +254,41 @@
 										</table>
 									</div>
 									<% }else if(el.type === "attaches"){%>
-										<div class="mx-4 my-4 rounded shadow row"> 	
-										<div class="py-2 pr-4 text-right col-sm-8 bg-black-transparent-1 col-12"> 
-										<span class="font-small text-muted">نام فایل :</span>
-											<%- el.data.title %> 
-										</div>
-										<a href="/new/download/<%- el.data.file.url.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1] %>/<%- el.data.title %>.<%- el.data.file.extension %>" class="p-2 text-center text-success col-sm-4 bg-black-transparent-2 col-12 w-100">
-											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mx-2 bi bi-download" viewBox="0 0 16 16">
-												<path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-												<path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
-											</svg>
-											<span class="text-success">
-											دانلود
-											</span>
-										</a>
-										</div>
+										<% if (el.data.file.extension.match(/(wav|mp3|webm|wma|mpeg)/i)) { %>
+											<div class="m-3 text-right">
+												<div class="text-center">
+													<audio controls class="w-100">
+														<source src="/uploads/files/<%- el.data.file.url.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1] %>" type="audio/<%- el.data.file.extension %>">
+													</audio>
+												</div>
+												<span class="m-2 font-small text-muted"><%- el.data.title %></span>
+											</div>
+										<% } else if(el.data.file.extension.match(/(ogg|flv|webm|mkv|mp4|wmv|m4p)/i)) {%>
+											<div class="m-3 text-right">
+												<div class="text-center">
+													<video width="100%" controls>
+														<source src="/uploads/files/<%- el.data.file.url.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1] %>" type="video/<%- el.data.file.extension%>">
+													</video>
+													<caption class="m-2 font-small text-muted"><%- el.data.title %></caption>
+												</div>
+											</div>
+										<% } else {%>
+											<div class="mx-4 my-4 rounded shadow row"> 	
+											<div class="py-2 pr-4 text-right col-sm-8 bg-black-transparent-1 col-12"> 
+											<span class="font-small text-muted">نام فایل :</span>
+												<%- el.data.title %> 
+											</div>
+											<a href="/new/download/<%- el.data.file.url.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1] %>/<%- el.data.title %>.<%- el.data.file.extension %>" class="p-2 text-center text-success col-sm-4 bg-black-transparent-2 col-12 w-100">
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mx-2 bi bi-download" viewBox="0 0 16 16">
+													<path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+													<path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+												</svg>
+												<span class="text-success">
+												دانلود
+												</span>
+											</a>
+											</div>
+										<% } %>
 									<% }%>
 									<% }) %>
 									<div class="mx-4 my-3 text-right ">
@@ -465,7 +488,7 @@
 												<% if (isCreator && isCreator === "admin") { %>
 													<div class="p-2 text-center text-white w-100 zIndex-1000 bg-black-transparent-7 Balsamiq font-small pos-absolute-top"><%- adsMiddle[i]._id %></div>
 												<% } %>
-												<a href="<%- adsMiddle[i].adLink %>" target="_blank">
+												<a href="<%- adsMiddle[i].adLink %>" rel="nofollow" target="_blank">
 													<img src="/uploads/ads/<%- adsMiddle[i].image %>" class="lazy animate__animated animate__fadeInUp cover w-100" alt="<%- adsMiddle[i].name %>">
 													<% if (adsMiddle[i].name !== "" && adsMiddle[i].name) { %>
 														<div class="p-2 text-right text-white bg-black-transparent-7 w-100 font-small pos-absolute-bottom"><%- adsMiddle[i].name %></div>
@@ -635,7 +658,7 @@
 										<% if (isCreator && isCreator === "admin") { %>
 											<div class="p-2 text-center text-white w-100 zIndex-1000 bg-black-transparent-7 Balsamiq font-small pos-absolute-top"><%- adsTop[i]._id %></div>
 										<% } %>
-										<a href="<%- adsTop[i].adLink %>" target="_blank">
+										<a href="<%- adsTop[i].adLink %>" rel="nofollow" target="_blank">
 											<img src="/uploads/ads/<%- adsTop[i].image %>" class="lazy animate__animated animate__fadeInUp cover w-100" alt="<%- adsTop[i].name %>">
 											<% if (adsTop[i].name !== "" && adsTop[i].name) { %>
 												<div class="p-2 text-right text-white bg-black-transparent-7 w-100 font-small pos-absolute-bottom"><%- adsTop[i].name %></div>
@@ -683,7 +706,7 @@
 							<% if (isCreator && isCreator === "admin") { %>
 								<div class="p-2 text-center text-white w-100 zIndex-1000 bg-black-transparent-7 Balsamiq font-small pos-absolute-top"><%- adStar._id %></div>
 							<% } %>
-							<a href="<%- adStar.adLink %>" target="_blank">
+							<a href="<%- adStar.adLink %>" rel="nofollow" target="_blank">
 								<img src="/uploads/ads/<%- adStar.image %>" class="lazy animate__animated animate__fadeInUp cover w-100" alt="<%- adStar.name %>">
 								<% if (adStar.name !== "" && adStar.name) { %>
 									<div class="p-2 text-right text-white bg-black-transparent-7 w-100 font-small pos-absolute-bottom"><%- adStar.name %></div>
@@ -780,7 +803,7 @@
 							<% if (isCreator && isCreator === "admin") { %>
 								<div class="p-2 text-center text-white w-100 zIndex-1000 bg-black-transparent-7 Balsamiq font-small pos-absolute-top"><%- adStar._id %></div>
 							<% } %>
-							<a href="<%- adStar2.adLink %>" target="_blank">
+							<a href="<%- adStar2.adLink %>" rel="nofollow" target="_blank">
 								<img src="/uploads/ads/<%- adStar2.image %>" class="lazy animate__animated animate__fadeInUp cover w-100" alt="<%- adStar2.name %>">
 								<% if (adStar2.name !== "" && adStar2.name) { %>
 									<div class="p-2 text-right text-white bg-black-transparent-7 w-100 font-small pos-absolute-bottom"><%- adStar2.name %></div>
@@ -796,7 +819,7 @@
 										<% if (isCreator && isCreator === "admin") { %>
 											<div class="p-2 text-center text-white w-100 zIndex-1000 bg-black-transparent-7 Balsamiq font-small pos-absolute-top"><%- adsTop[i]._id %></div>
 										<% } %>
-										<a href="<%- adsTop[i].adLink %>" target="_blank">
+										<a href="<%- adsTop[i].adLink %>" rel="nofollow" target="_blank">
 											<img src="/uploads/ads/<%- adsTop[i].image %>" class="lazy animate__animated animate__fadeInUp cover w-100" alt="<%- adsTop[i].name %>">
 											<% if (adsTop[i].name !== "" && adsTop[i].name) { %>
 												<div class="p-2 text-right text-white bg-black-transparent-7 w-100 font-small pos-absolute-bottom"><%- adsTop[i].name %></div>
@@ -824,7 +847,6 @@
 			</li>
 		</ul>
 	</div> -->
-	<%- include("../partials/loader.ejs") %>
 	<%- include("../partials/privacy-policy.ejs") %>
 	<%- include("../partials/scripts.ejs") %>
 </body>

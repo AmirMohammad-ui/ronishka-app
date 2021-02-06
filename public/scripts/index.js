@@ -16,11 +16,13 @@ import {
 $('.carousel').carousel({
 	interval: 1000 * 10
 });
-let loader = document.getElementById("loader-container")
-window.addEventListener("load", function () {
-	loader.style.display = "none";
-	loader.style.zIndex = "-10";
-})
+if(document.getElementById("loader-container")){
+	let loader = document.getElementById("loader-container")
+	window.addEventListener("load", function () {
+		loader.style.display = "none";
+		loader.style.zIndex = "-10";
+	})
+}
 const policyBtn = document.getElementById("policy-accepted");
 const policy_show = document.getElementById('policy-agreement')
 if (document.cookie.includes("policy") && document.getElementById('policy-agreement')) {
@@ -181,6 +183,11 @@ if (document.getElementById("searchOperation")) {
 }
 
 if (location.href.includes("/content/")) {
+	const articleDom = document.getElementById("theArticle")
+	const allLinks = articleDom.getElementsByTagName('a')
+	for(const el of allLinks ){
+		el.setAttribute('rel','nofollow')
+	}
 	const sendComment = document.getElementById("leaveComment");
 	const fullName_Filed = document.getElementById("full-name-comment");
 	const email_Filed = document.getElementById("email-comment");

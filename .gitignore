@@ -1,4 +1,7 @@
 node_modules/
+public/uploads/images/*.
+public/uploads/files/*.
+public/uploads/ads/*.
 access.log
 .eslintrc.js
 .eslintignore

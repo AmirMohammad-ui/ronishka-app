@@ -1,6 +1,4 @@
-const d = require("debug")("app:pages-route-handler")
 const catchAsync = require("../middlewares/catchAsync")
-const ERR = require("../utilities/ERR")
 const Pages = require("../controllers/pages")
 const User = require("../controllers/users")
 const express = require("express")
@@ -20,7 +18,7 @@ router
 	.route("/complaint")
 	.get(catchAsync(Pages.getComplaint))
 router
-	.route("/category/:slug/:page")
+	.route("/category/:slug")
 	.get(catchAsync(Pages.getCategory))
 router
 	.route("/rules")

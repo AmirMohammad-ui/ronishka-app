@@ -22,16 +22,11 @@ const {
 const {
 	User
 } = require("../models/users")
-
-let imageName;
-let pathToSave;
-let contentImages = [];
-let fileName_temp;
-let pathToFileLocation_temp;
-let contentFiles = [];
-let content_id;
-
 exports.uploadingImage = async (req, res, next) => {
+	let contentImages = req.session.contentImages;
+	let pathToSave = req.session.pathToSave;
+	let content_id = req.session.content_id;
+	let imageName = req.session.imageName;
 	const content = await Content.findById(content_id) 
 	if (!content) return next(new ERR("محتوایی با این آیدی وجود ندارد.", 404))
 	console.log("uploadingImage",contentImages)
@@ -58,7 +53,10 @@ exports.uploadingImage = async (req, res, next) => {
 	})
 }
 exports.uploadingFile = async(req,res,next)=>{
-	if (req.files.file.size > 5000000) return next(new ERR('حجم فایل نباید بیشتر از 5 مگابایت باشد.', 400))
+	let contentFiles = req.session.contentFiles;
+	let pathToFileLocation_temp = req.session.pathToFileLocation_temp;
+	let fileName_temp = req.session.fileName_temp;
+	if (req.files.file.size > 50000000) return next(new ERR('حجم فایل نباید بیشتر از 5 مگابایت باشد.', 400))
 	fileName_temp = `file-${Date.now()}.${(req.files.file.mimetype).split("/")[1]}`;
 	pathToFileLocation_temp = path.join(__dirname, '../public', 'uploads', 'files', 'temp', fileName_temp);
 	await req.files.file.mv(pathToFileLocation_temp);
@@ -135,18 +133,48 @@ exports.createContent = async (req, res, next) => {
 	})
 }
 exports.checkContent = async (req, res, next) => {
-	contentFiles = [];
-	contentImages = [];
+	if(req.session.contentImages && req.session.contentImages.length > 0) {
+		req.session.contentImages = [];
+		req.session.contentImages.forEach(el=>{
+			fs.unlinkSync(path.join(__dirname,'../public','uploads','images','temp',el))
+		})
+	}
+	if(req.session.contentFiles && req.session.contentFiles.length > 0) {
+		req.session.contentFiles = [];
+		req.session.contentFiles.forEach(el=>{
+			fs.unlinkSync(path.join(__dirname,'../public','uploads','files','temp',el))
+		})
+	}
 	const content = await Content.findById(req.body.contentID.trim());
-	if (!content) return next(new ERR("محتوایی با این آیدی وجود ندارد.", 404))
-	content_id = content._id;
+	if (!content) {
+		return next(new ERR("محتوایی با این آیدی وجود ندارد.", 404)) 
+	} 
+	if(content.post.length > 0) {
+		await Content.findByIdAndUpdate(req.body.contentID.trim(),{post: []})
+		if(content.images.length > 0) {
+			try {
+				await Content.findByIdAndUpdate(req.body.contentID.trim(),{images: [],files: []})
+				content.images.forEach(el=>{
+					fs.unlinkSync(path.join(__dirname,'../public','uploads','images','content',el))
+				})
+				content.files.forEach(el=>{
+					fs.unlinkSync(path.join(__dirname,'../public','uploads','files',el))
+				})
+			}catch(err){
+				console.log("ERROR Images have already been deleted. ",err)
+			}
+		}
+	}
+	req.session.content_id = content._id;
 	res.status(200).json({
 		status: "success",
 		message: 'محتوا با موفقیت پیدا شد.'
 	})
 }
 exports.createPost = async (req, res, next) => {
-	console.log("createPost",contentImages)
+	let contentFiles = req.session.contentFiles 
+	let contentImages = req.session.contentImages;
+	let content_id = req.session.content_id;
 
 	const checkIDIndex = req.body.blocks.length - 1;
 	const content = await Content.findById(content_id);
@@ -157,12 +185,12 @@ exports.createPost = async (req, res, next) => {
 	}	
 	try {
 		const mv = promisify(fs.rename);
-		if (contentImages.length > 0) {
+		if (contentImages && contentImages.length > 0) {
 			contentImages.forEach(async contImage => {
 				await mv(path.join(__dirname, '../public', 'uploads', 'images', 'temp', contImage), path.join(__dirname, '../public', 'uploads', 'images', 'content', contImage));
 			})
 		}
-		if (contentFiles.length > 0) {
+		if (contentImages && contentFiles.length > 0) {
 			contentFiles.forEach(async contFile => {
 				await mv(path.join(__dirname, '../public', 'uploads', 'files','temp', contFile), path.join(__dirname, '../public', 'uploads', 'files', contFile));
 			})
@@ -475,9 +503,13 @@ exports.deleteTheContent = async(req,res,next)=>{
 		return;
 	}
 	try{
+		await Content.findByIdAndUpdate(req.params.id,{images: [],files: []})
 		fs.unlinkSync(path.join(__dirname,'../public','uploads','images','content-cover-images',content.coverImage))
 		content.images.forEach(el=>{
 			fs.unlinkSync(path.join(__dirname,'../public','uploads','images','content',el))
+		})
+		content.files.forEach(el=>{
+			fs.unlinkSync(path.join(__dirname,'../public','uploads','files',el))
 		})
 	} catch(err){
 		if(err.message.includes("no such file")){

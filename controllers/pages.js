@@ -75,6 +75,7 @@ exports.getHome = async (req, res) => {
     contentsMostViews,
     sportCategory,
     healthCategory,
+    page:'',
     beautyCategory,
     techCategory,
     adsTop: ads1,
@@ -133,6 +134,7 @@ exports.getContent = async (req, res, next) => {
     adsTop:ads1,
     adsMiddle:ads2,
     isCreator: req.session.role,
+    page:'',
     description: `رونیشکا | ${
       content.metaDescription
     }`,
@@ -151,6 +153,7 @@ exports.getAbout = async (req, res) => {
     contents,
     title: "رونیشکا | درباره ما",
     isCreator: req.session.role,
+    page:'',
     description: "مجله اینترنتی رونیشکا گرد آورنده ی مطالب مفید و متنوع در موضوع هایی چون: ورزشی،تفریحی،سلامت،تکنولوژی،زیبایی،مدوپوشاک و",
     author: 'امیرمحمد میرزائی راد',
     keywords: 'رونیشکا،وبسایت رونیشکا،مجله اینترنتی رونیشکا،ورزشی رونیشکا،زیبایی رونیشکا،تفریحی رونیشکا،سلامت رونیشکا،ابزار سلامت رونیشکا،مد رونیشکا،پوشاک رونیشکا'
@@ -163,6 +166,7 @@ exports.getComplaint = async (req, res) => {
     contents,
     title: "رونیشکا | ثبت شکایت",
     isCreator: req.session.role,
+    page:'',
     description: 'مجله اینترنتی رونیشکا گرد آورنده ی مطالب مفید و متنوع در موضوع هایی چون: ورزشی،تفریحی،سلامت،تکنولوژی،زیبایی،مدوپوشاک و',
     author: 'امیرمحمد میرزائی راد',
     keywords: 'رونیشکا،وبسایت رونیشکا،مجله اینترنتی رونیشکا،ورزشی رونیشکا،زیبایی رونیشکا،تفریحی رونیشکا،سلامت رونیشکا،ابزار سلامت رونیشکا،مد رونیشکا،پوشاک رونیشکا'
@@ -170,8 +174,6 @@ exports.getComplaint = async (req, res) => {
 }
 exports.getCategory = async (req, res) => {
   let slug = req.params.slug;
-  const page = req.params.page;
-  const skipThisMuch = (page - 1) * 9;
   let findRelativeAds = [];
   if(slug.includes("ورزشی")){
     findRelativeAds = await Ads.find({sportCategory:true,inCategoryPage:true,confirmed:true}).sort({dateCreated: -1}).limit(12);
@@ -187,15 +189,17 @@ exports.getCategory = async (req, res) => {
     findRelativeAds = await Ads.find({digitalCategory:true,inCategoryPage:true,confirmed:true}).sort({dateCreated: -1}).limit(12);
   }
   const contents = await Content.find({isConfirmed: true, isPublished: true, category: slug}).sort({dateCreated: -1}).populate({path: "products", select: "name price discount image discountPercentage linkToProductPage explanation views"}).select('slug coverImage timeCreated views persianDate reviews summary products topic').limit(5);
-  const newestCategory = await Content.find({category: slug}).sort({dateCreated: -1}).limit(9).skip(skipThisMuch).select("topic summary slug persianDate coverImage dateCreated");
-  const ourSuggestion = await Content.find({category: slug}).sort({isUseful: -1}).limit(9).skip(skipThisMuch).select("topic summary slug isUseful coverImage");
-  const mostViewed = await Content.find({category: slug}).sort({views: -1}).limit(9).skip(skipThisMuch).select("topic summary slug views coverImage");
-  const highestDiscountProducts = await Product.find({isConfirmed: true, isPublished: true, category: slug}).select("name explanation persianDate views image discount discountPercentage price linkToProductPage").sort({discount: -1}).limit(9).skip(skipThisMuch);
-  const bestProducts = await Product.find({isConfirmed: true, isPublished: true, category: slug}).select("name explanation persianDate views image discount discountPercentage price linkToProductPage").sort({views: -1}).limit(9).skip(skipThisMuch);
+  const newestCategory = await Content.find({category: slug}).sort({dateCreated: -1}).select("topic summary slug persianDate coverImage dateCreated");
+  const ourSuggestion = await Content.find({category: slug}).sort({isUseful: -1}).select("topic summary slug isUseful coverImage");
+  const mostViewed = await Content.find({category: slug}).sort({views: -1}).select("topic summary slug views coverImage");
+  const highestDiscountProducts = await Product.find({isConfirmed: true, isPublished: true, category: slug}).select("name explanation persianDate views image discount discountPercentage price linkToProductPage").sort({discount: -1});
+  const bestProducts = await Product.find({isConfirmed: true, isPublished: true, category: slug}).select("name explanation persianDate views image discount discountPercentage price linkToProductPage").sort({views: -1});
   slug = slug.split('-').join(" ");
+  const page = slug;
   res.render("pages/categories", {
     isLoggedIn: req.session.loggedIn,
     contents,
+    page,
     ads:findRelativeAds,
     title: `رونیشکا | ${slug}`,
     newestCategory,
@@ -214,6 +218,7 @@ exports.getRules = async (req, res) => {
   res.render("pages/rules-of-use", {
     isLoggedIn: req.session.loggedIn,
     contents,
+    page:'',
     title: "رونیشکا | قوانین و مقررات",
     isCreator: req.session.role,
     description: 'مجله اینترنتی رونیشکا گرد آورنده ی مطالب مفید و متنوع در موضوع هایی چون: ورزشی،تفریحی،سلامت،تکنولوژی،زیبایی،مدوپوشاک و',
@@ -225,6 +230,7 @@ exports.getSignup = async (req, res) => {
   res.render("pages/signup", {
     title: "به رونیشکا | ثبت نام و ورود به حساب کاربری",
     isCreator: req.session.role,
+    page:'',
     description: 'شما میتوانید به عنوان کاربر عادی و تولید کننده محتوا در وبسایت رونیشکا ثبت نام کنید.',
     author: 'امیرمحمد میرزائی راد',
     keywords: 'ثبت نام در رونیشکا ، ثبت نام در سایت رونیشکا ، ثبت نام رونیشکا،ورود رونیشکا،ورود به رونیشکا'
@@ -233,6 +239,7 @@ exports.getSignup = async (req, res) => {
 exports.getCreateYourPostnow = async (req, res) => {
   res.render("pages/createYourPostnow", {
     title: "رونیشکا | پستت رو بساز",
+    page:'',
     description: 'مجله اینترنتی رونیشکا گرد آورنده ی مطالب مفید و متنوع در موضوع هایی چون: ورزشی،تفریحی،سلامت،تکنولوژی،زیبایی،مدوپوشاک و',
     author: 'امیرمحمد میرزائی راد',
     keywords: 'ساخت پست،ساخت محتوا برای رونیشکا،ساخت پست برای رونیشکا'
@@ -256,6 +263,7 @@ exports.getContentCreatorsPanel = async (req, res) => {
     reviews,
     ads,
     requests,
+    page:'',
     messages,
     approved:approvedAds,
     description: 'مجله اینترنتی رونیشکا گرد آورنده ی مطالب مفید و متنوع در موضوع هایی چون: ورزشی،تفریحی،سلامت،تکنولوژی،زیبایی،مدوپوشاک و',

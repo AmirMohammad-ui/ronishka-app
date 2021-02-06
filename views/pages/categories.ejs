@@ -18,7 +18,7 @@
 								<% if (isCreator && isCreator === "admin") { %>
 									<div class="p-2 text-center text-white w-100 zIndex-1000 bg-black-transparent-7 Balsamiq font-small pos-absolute-top"><%- ads[i]._id %></div>
 								<% } %>
-								<a href="<%- ads[i].adLink %>" target="_blank">
+								<a href="<%- ads[i].adLink %>" rel="nofollow" target="_blank">
 									<img src="/uploads/ads/<%- ads[i].image %>" class="lazy animate__animated animate__fadeInUp cover w-100" alt="<%- ads[i].name %>">
 									<% if (ads[i].name !== "" && ads[i].name) { %>
 										<div class="p-2 text-right text-white bg-black-transparent-7 w-100 font-small pos-absolute-bottom"><%- ads[i].name %></div>
@@ -174,7 +174,7 @@
 										<% if (isCreator && isCreator === "admin") { %>
 											<div class="p-2 text-center text-white w-100 zIndex-1000 bg-black-transparent-7 Balsamiq font-small pos-absolute-top"><%- ads[i]._id %></div>
 										<% } %>
-										<a href="<%- ads[i].adLink %>" target="_blank">
+										<a href="<%- ads[i].adLink %>" rel="nofollow" target="_blank">
 											<img src="/uploads/ads/<%- ads[i].image %>" class="lazy animate__animated animate__fadeInUp cover w-100" alt="<%- ads[i].name %>">
 											<% if (ads[i].name !== "" && ads[i].name) { %>
 												<div class="p-2 text-right text-white bg-black-transparent-7 w-100 font-small pos-absolute-bottom"><%- ads[i].name %></div>
@@ -458,7 +458,6 @@
 			</li>
 		</ul>
 	</div> -->
-	<%- include("../partials/loader.ejs") %>
 	<%- include("../partials/privacy-policy.ejs") %>
 	<%- include("../partials/scripts.ejs") %>
 </body>
