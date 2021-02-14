@@ -47,19 +47,41 @@ const devErrors = (err, res) => {
 }
 // ###################################################################### Prod Errors
 const prodErrors = (err, res) => {
-	if (err.isOperational) {
-		res.render("pages/error", {
+	if (err.statusCode === 403 || err.statusCode === 400 && err.message.includes("مسیر") ? true : (err.message.includes("صفحه") ? true : (err.message.includes("یافت") ? true : false))) {
+		res.render('pages/error', {
+			title: err.statusCode === 403 ? 'دسترسی محدود' : 'یافت نشد',
+			statusCode: err.statusCode,
+			message: err.message,
+			name: err.name,
+			stack: err.stack,
+			ERROR: err
+		});
+	} else if (err.statusCode === 52356) {
+		res.render('pages/error', {
 			title: 'خطای داخلی از سرور',
+			statusCode: err.statusCode,
+			message: err.message,
+			name: 'مشکل در تایید توکن رخ داده است.',
+			stack: err.stack,
+			ERROR: err
+		});
+	} else if (err.statusCode === 4369) {
+		res.render('pages/error', {
+			title: 'خطای داخلی از سرور',
+			statusCode: err.statusCode,
+			message: err.message,
+			name: 'مشکل در محل ذخیره فایل ها یا تصاویر رخ داده است.',
+			stack: err.stack,
+			ERROR: err
+		});
+	} else {
+		res.status(err.statusCode).json({
 			status: err.status,
 			statusCode: err.statusCode,
-			message: err.message
-		})
-	} else {
-		res.render("pages/error", {
-			title: 'خطای داخلی از سرور',
-			status: "خطای داخلی از سرور",
-			statusCode: 500,
-			message: 'خطای داخلی از سرور ، لطفا بعدا دوباره امتحان کنید.'
+			message: err.message,
+			name: err.name,
+			stack: err.stack,
+			ERROR: err
 		})
 	}
 }

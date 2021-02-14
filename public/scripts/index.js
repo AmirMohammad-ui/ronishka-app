@@ -286,25 +286,28 @@ if (location.href.includes("/content/")) {
 		})
 	}
 }
-const contactUsFormBtn = document.getElementById("contactUsForm")
-const fullnameContact = document.getElementById("fullnameContactForm")
-const emailContact = document.getElementById("emailContactForm")
-const textMessageContact = document.getElementById("textMessageContactForm")
-contactUsFormBtn.addEventListener("submit",(e)=>{
-	let contactErrorMsg = [];
-	if(fullnameContact.value.trim() === "") contactErrorMsg.push("وارد کردن نام ضروری است.") 
-	if(emailContact.value.trim() === "") contactErrorMsg.push("وارد کردن ایمیل برای ارتباط با شما ضروری است.") 
-	if(textMessageContact.value.trim() === "") contactErrorMsg.push("وارد کردن متن پیام ضروری است.") 
-	let contactFormData = new FormData()
-	contactFormData.append("fullname",fullnameContact.value.trim())
-	contactFormData.append("email",emailContact.value.trim())
-	contactFormData.append("textMessage",textMessageContact.value.trim())
-	axios.post("/new/message",contactFormData)
-	.then(res=>{
-		show_alert(res.data.message,"success")
+if(document.getElementById("textMessageContactForm")){
+	const contactUsFormBtn = document.getElementById("contactUsForm")
+	const fullnameContact = document.getElementById("fullnameContactForm")
+	const emailContact = document.getElementById("emailContactForm")
+	
+	const textMessageContact = document.getElementById("textMessageContactForm")
+	contactUsFormBtn.addEventListener("submit",(e)=>{
+		let contactErrorMsg = [];
+		if(fullnameContact.value.trim() === "") contactErrorMsg.push("وارد کردن نام ضروری است.") 
+		if(emailContact.value.trim() === "") contactErrorMsg.push("وارد کردن ایمیل برای ارتباط با شما ضروری است.") 
+		if(textMessageContact.value.trim() === "") contactErrorMsg.push("وارد کردن متن پیام ضروری است.") 
+		let contactFormData = new FormData()
+		contactFormData.append("fullname",fullnameContact.value.trim())
+		contactFormData.append("email",emailContact.value.trim())
+		contactFormData.append("textMessage",textMessageContact.value.trim())
+		axios.post("/new/message",contactFormData)
+		.then(res=>{
+			show_alert(res.data.message,"success")
+		})
+		.catch(err=>{
+			console.log(err)
+		})
+		e.preventDefault();
 	})
-	.catch(err=>{
-		console.log(err)
-	})
-	e.preventDefault();
-})
+}

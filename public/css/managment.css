@@ -1,4 +1,6 @@
 body{background-color:#e1dbd5}.max-width-1300{max-width:1300px;margin:0 auto}#editorjs{overflow-x:hidden!important}#editorjsContainer{display:none}.eng-font{font-family:Balsamiq,sans-serif!important}
+.alert__success {position: fixed;top: 15px;left: 50%;right: 50%;background-color: #5cd65c;width: auto;max-width: 750px;min-width: 300px;color: #145214;margin: 20px auto;padding: 20px;text-align: center;box-shadow: 3px 3px 5px -2px;z-index: 1200; }
+.alert__failed {position: fixed;top: 15px;left: 50%;right: 50%;background-color: #ff4d4d;width: auto;max-width: 750px;min-width: 300px;color: #990000;margin: 20px auto;padding: 20px;text-align: center;z-index: 1200;box-shadow: 3px 3px 5px -2px; }
 
 .contentID__box span::-moz-selection {
   background-color: bisque;
