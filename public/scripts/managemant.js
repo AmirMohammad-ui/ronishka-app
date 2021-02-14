@@ -305,18 +305,12 @@ if (location.href.includes("creators-panel")) {
 				'Content-Type': 'multipart/form-data'
 			}
 		}).then(res => {
-			try{
 				console.log(res)
 				show_alert(`محتوای شما به شماره ${res.data.content._id}  با موفقیت ذخیره شد.`, 'success')
 				addContentID(res.data.content._id);
 				sendData.reset();
-			}catch(err){
-				console.log(err)
-			}
 		}).catch(err => {
-			if(err){
-				show_alert(err.response.data.message, 'failed')
-			}
+			show_alert(err.response.data.message, 'failed')
 		})
 	});
 	// ================================================ getting the product form data
