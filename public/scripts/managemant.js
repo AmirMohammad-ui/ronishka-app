@@ -304,12 +304,18 @@ if (location.href.includes("creators-panel")) {
 			headers: {
 				'Content-Type': 'multipart/form-data'
 			}
-		}).then((res) => {
-			show_alert(`محتوای شما به شماره ${res.data.content._id}  با موفقیت ذخیره شد.`, 'success')
-			addContentID(res.data.content._id);
-			sendData.reset();
+		}).then(res => {
+			try{
+				show_alert(`محتوای شما به شماره ${res.data.content._id}  با موفقیت ذخیره شد.`, 'success')
+				addContentID(res.data.content._id);
+				sendData.reset();
+			}catch(err){
+				console.log(err)
+			}
 		}).catch(err => {
-			show_alert(err.response.data.message, 'failed')
+			if(err){
+				show_alert(err.response.data.message, 'failed')
+			}
 		})
 	});
 	// ================================================ getting the product form data
