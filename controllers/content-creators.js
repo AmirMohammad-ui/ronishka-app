@@ -123,6 +123,7 @@ exports.createContent = async (req, res, next) => {
 			contents: content._id
 		}
 	});
+	console.log(content)
 	if (!categ) return next(new ERR("مشکلی در این قسمت از جانب سایت رخ داده است لطفا زمانی دیگر امتحان کنید.", 500))
 	await coverImageFile.mv(saveCoverImgTo);
 	await content.save();
