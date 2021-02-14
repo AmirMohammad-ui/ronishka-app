@@ -306,6 +306,7 @@ if (location.href.includes("creators-panel")) {
 			}
 		}).then(res => {
 			try{
+				console.log(res)
 				show_alert(`محتوای شما به شماره ${res.data.content._id}  با موفقیت ذخیره شد.`, 'success')
 				addContentID(res.data.content._id);
 				sendData.reset();
