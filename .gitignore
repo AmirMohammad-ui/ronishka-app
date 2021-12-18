@@ -1,7 +1,5 @@
 node_modules/
 access.log
-.eslintrc.js
-.eslintignore
 .cache/
 .vscode/
 .env
