@@ -5,3 +5,4 @@ access.log
 .cache/
 .vscode/
 .env
+config

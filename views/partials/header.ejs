@@ -60,25 +60,25 @@
 				<ul
 					class="p-0 mb-0 text-center justify-content-center animate__animated animate__backInRight list-unstyled d-lg-flex">
 					<li class="py-2 d-lg-inline-block">
-						<a class="px-3 py-2 text-white h-100 nav-link-hover-effect <%- page.includes('دیجیتال') ? 'activeCategory':'' %>" href="/category/دیجیتال">دیجیتال</a>
+						<a class="px-3 py-2 text-white h-100 nav-link-hover-effect <%- page.includes('دیجیتال') ? 'activeCategory':'' %>" href="/blog/category/دیجیتال">دیجیتال</a>
 					</li>
 					<li class="py-2 d-lg-inline-block">
-						<a class="px-3 py-2 text-white h-100 nav-link-hover-effect <%- page.includes('پوشاک') ? 'activeCategory':'' %>" href="/category/مد-و-پوشاک">مد و
+						<a class="px-3 py-2 text-white h-100 nav-link-hover-effect <%- page.includes('پوشاک') ? 'activeCategory':'' %>" href="/blog/category/مد-و-پوشاک">مد و
 							پوشاک</a>
 					</li>
 					<li class="py-2 d-lg-inline-block">
-						<a class="px-3 py-2 text-white h-100 nav-link-hover-effect <%- page.includes('نوشیدنی') ? 'activeCategory':'' %>" href="/category/خوراکی-نوشیدنی">خوراکی
+						<a class="px-3 py-2 text-white h-100 nav-link-hover-effect <%- page.includes('نوشیدنی') ? 'activeCategory':'' %>" href="/blog/category/خوراکی-نوشیدنی">خوراکی
 							نوشیدنی</a>
 					</li>
 					<li class="py-2 d-lg-inline-block">
-						<a class="px-3 py-2 text-white h-100 nav-link-hover-effect <%- page.includes('زیبایی') ? 'activeCategory':'' %>" href="/category/زیبایی">زیبایی</a>
+						<a class="px-3 py-2 text-white h-100 nav-link-hover-effect <%- page.includes('زیبایی') ? 'activeCategory':'' %>" href="/blog/category/زیبایی">زیبایی</a>
 					</li>
 					<li class="py-2 d-lg-inline-block">
-						<a class="px-3 py-2 text-white h-100 nav-link-hover-effect <%- page.includes('سلامت') ? 'activeCategory':'' %>" href="/category/ابزار-سلامت">ابزار
+						<a class="px-3 py-2 text-white h-100 nav-link-hover-effect <%- page.includes('سلامت') ? 'activeCategory':'' %>" href="/blog/category/ابزار-سلامت">ابزار
 							سلامت</a>
 					</li>
 					<li class="py-2 d-lg-inline-block">
-						<a class="px-3 py-2 text-white h-100 nav-link-hover-effect <%- page.includes('تفریحی') ? 'activeCategory':'' %>" href="/category/تفریحی-ورزشی">ورزشی
+						<a class="px-3 py-2 text-white h-100 nav-link-hover-effect <%- page.includes('تفریحی') ? 'activeCategory':'' %>" href="/blog/category/تفریحی-ورزشی">ورزشی
 							تفریحی</a>
 					</li>
 				</ul>
@@ -96,11 +96,11 @@
 							<% if (i===0) { %>
 							<div class="h-0 carousel-item active">
 								<% }else {%>
-								<div class="h-0 carousel-item">
+								<div class="h-0 text-right carousel-item">
 									<% } %>
-									<a href="/content/<%- contents[i].slug %>">
+									<a href="/blog/content/<%- contents[i].slug %>">
 										<p class="mb-0 text-white">
-											<%- contents[i].summary %>
+											<%- contents[i].summary.split('1').join('۱').split('2').join('۲').split('3').join('۳').split('4').join('۴').split('5').join('۵').split('6').join('۶').split('7').join('۷').split('8').join('۸').split('9').join('۹').split('0').join('۰') %>
 										</p>
 									</a>
 								</div>

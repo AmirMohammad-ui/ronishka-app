@@ -77,7 +77,9 @@ exports.deleteAd = async(req,res)=>{
   if(!theAd) return res.status(404).send("<h1>تبلیغی با این آیدی پیدا نشد</h1>")
   await Ads.findByIdAndDelete(id)
   try{
-    fs.unlinkSync(path.join(__dirname , "../public","uploads","ads",theAd.image))
+    if(fs.existsSync(path.join(__dirname , "../public","uploads","ads",theAd.image))){
+      fs.unlinkSync(path.join(__dirname , "../public","uploads","ads",theAd.image))
+    }
   }catch(err){
     return res.status(500).send("<h1>تصویری برای این تبلیغ وجود ندارد ، احتمالا قبلا حذف شده</h1>")
   }

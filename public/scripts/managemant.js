@@ -17,154 +17,186 @@ import List from '@editorjs/list';
 import Quote from '@editorjs/quote';
 import validator from 'validator';
 if (document.getElementById("editorjs") && location.href.includes("create-content-post")) {
-	const editorjs = new EditorJS({
-		holder: 'editorjs',
-		tools: {
-			header: {
-				class: Header,
-				inlineToolbar: true,
-				shortcut: 'CMD+SHIFT+H', 
-				config: {
-					placeholder: 'لطفا تیتر خود را وارد کنید . . .',
-					levels: [2, 3, 4, 5, 6], 
-					defaultLevel: 2
+	let editorjs;
+	function showEditor(contentBlock){
+		editorjs = new EditorJS({
+			holder: 'editorjs',
+			tools: {
+				header: {
+					class: Header,
+					inlineToolbar: true,
+					shortcut: 'CMD+SHIFT+H', 
+					config: {
+						placeholder: 'لطفا تیتر خود را وارد کنید . . .',
+						levels: [2, 3, 4, 5, 6], 
+						defaultLevel: 2
+					}
+				},
+				paragraph: {
+					class: Paragraph,
+					inlineToolbar: true,
+				},
+				warning: {
+					class: Warning,
+					inlineToolbar: true,
+					shortcut: 'CMD+SHIFT+W',
+					config: {
+						titlePlaceholder: 'Title',
+						messagePlaceholder: 'Message',
+					},
+				},
+				marker: {
+					class: Marker, 
+					shortcut: 'CMD+SHIFT+M',
+				},
+				attaches:{
+					class: Attaches,
+					config:{
+						buttonText: 'فایل را انتخاب کنید.',
+						errorMessage: 'آپلود فایل با مشکل مواجه شد.',
+						endpoint: "/new/upload-files"
+					}
+				},
+				underline: Underline, 
+				delimiter: Delimiter, 
+				table: {
+					class: Table,
+					inlineToolbar: true,
+					config: {
+						rows: 2,
+						cols: 3,
+					},
+				},
+				quote: {
+					class: Quote,
+					inlineToolbar: true,
+					shortcut: 'CMD+SHIFT+O',
+					config: {
+						quotePlaceholder: 'نفل خود را اینجا بنویسید . . . ',
+						captionPlaceholder: 'کپشن نقل قول ',
+					},
+				},
+				list: {
+					class: List,
+					inlineToolbar: true,
+				},
+				inlineCode: {
+					class: InlineCode,
+					shortcut: 'CMD+SHIFT+M',
+				},
+				image: {
+					class: Image,
+					config: {
+						uploader:{
+							uploadByFile(file){
+								const editorjsImageFile = new FormData()
+								editorjsImageFile.append("image",file)
+								return axios.post("/new/upload-images",editorjsImageFile, {
+									headers: {
+										'Content-Type': 'multipart/form-data'
+									}
+								})
+								.then((res)=>{
+									if(typeof res.data === 'string' &&res.data.startsWith("<!DOCTYPE")){
+										show_alert("لطفا دوباره وارد شوید و مجددا امتحان کنید.","failed")
+										return
+									}
+									return res.data;
+								}).catch((err)=>{
+									show_alert(err.response.data.message,"failed")
+								})
+							}
+						},
+						buttonText: 'تصویر خود را انتخاب کنید.',
+						errorMessage: 'آپلود تصویر با مشکل روبه رو شد.',
+						field: "image"
+					}
 				}
 			},
-			paragraph: {
-				class: Paragraph,
-				inlineToolbar: true,
+			data: {
+				time: Date.now(),
+				blocks: contentBlock.post,
+				version: "2.11.10"
 			},
-			warning: {
-				class: Warning,
-				inlineToolbar: true,
-				shortcut: 'CMD+SHIFT+W',
-				config: {
-					titlePlaceholder: 'Title',
-					messagePlaceholder: 'Message',
-				},
-			},
-			marker: {
-				class: Marker, 
-				shortcut: 'CMD+SHIFT+M',
-			},
-			attaches:{
-				class: Attaches,
-				config:{
-					buttonText: 'فایل را انتخاب کنید.',
-					errorMessage: 'آپلود فایل با مشکل مواجه شد.',
-					endpoint: "/new/upload-files"
-				}
-			},
-			underline: Underline, 
-			delimiter: Delimiter, 
-			table: {
-				class: Table,
-				inlineToolbar: true,
-				config: {
-					rows: 2,
-					cols: 3,
-				},
-			},
-			quote: {
-				class: Quote,
-				inlineToolbar: true,
-				shortcut: 'CMD+SHIFT+O',
-				config: {
-					quotePlaceholder: 'نفل خود را اینجا بنویسید . . . ',
-					captionPlaceholder: 'کپشن نقل قول ',
-				},
-			},
-			list: {
-				class: List,
-				inlineToolbar: true,
-			},
-			inlineCode: {
-				class: InlineCode,
-				shortcut: 'CMD+SHIFT+M',
-			},
-			image: {
-				class: Image,
-				config: {
-					uploader:{
-						uploadByFile(file){
-							const editorjsImageFile = new FormData()
-							editorjsImageFile.append("image",file)
-							return axios.post("/new/upload-images",editorjsImageFile, {
-								headers: {
-									'Content-Type': 'multipart/form-data'
-								}
-							})
-							.then((res)=>{
-								return res.data;
-							}).catch((err)=>{
-								show_alert(err.response.data.message,"failed")
-							})
+			i18n: {
+				messages: {
+					ui: {
+					},
+					toolNames: {
+						"Text": "متن",
+						"Heading": "تیتر",
+						"List": "لیست",
+						"Warning": "اخطار | نکته",
+						"Checklist": "چک لیست",
+						"Quote": "نقل قول",
+						"Code": "کد",
+						"Delimiter": "جدا کننده",
+						"Raw HTML": "HTML",
+						"Table": "جدول",
+						"Link": "لینک",
+						"Marker": "ماژیک",
+						"Bold": "فونت ضخیم",
+						"Italic": "Italic",
+						"InlineCode": "inline code",
+						"Image": "اضافه کردن تصویر"
+					},
+					tools: {
+						"list": {
+							"Ordered": "بدون ترتیب",
+							"Unordered": "با ترتیب"
+						},
+						"warning": { 
+							"Title": "موضوع اخطار",
+							"Message": "متن اخطار",
+						},
+						"link": {
+							"Add a link": "یک لینک اضافه کنید"
+						},
+						"stub": {
+							'The block can not be displayed correctly.': 'فاصله به طور صحیح نمایش داده نمی شود.'
 						}
 					},
-					buttonText: 'تصویر خود را انتخاب کنید.',
-					errorMessage: 'آپلود تصویر با مشکل روبه رو شد.',
-					field: "image"
+					blockTunes: {
+						"delete": {
+							"Delete": "حذف"
+						},
+						"moveUp": {
+							"Move up": "انتقال به بالا"
+						},
+						"moveDown": {
+							"Move down": "انتقال به پایین"
+						}
+					},
 				}
-			}
-		},
-		i18n: {
-			messages: {
-				ui: {
-				},
-				toolNames: {
-					"Text": "متن",
-					"Heading": "تیتر",
-					"List": "لیست",
-					"Warning": "اخطار | نکته",
-					"Checklist": "چک لیست",
-					"Quote": "نقل قول",
-					"Code": "کد",
-					"Delimiter": "جدا کننده",
-					"Raw HTML": "HTML",
-					"Table": "جدول",
-					"Link": "لینک",
-					"Marker": "ماژیک",
-					"Bold": "فونت ضخیم",
-					"Italic": "Italic",
-					"InlineCode": "inline code",
-					"Image": "اضافه کردن تصویر"
-				},
-				tools: {
-					"list": {
-						"Ordered": "بدون ترتیب",
-						"Unordered": "با ترتیب"
-					},
-					"warning": { 
-						"Title": "موضوع اخطار",
-						"Message": "متن اخطار",
-					},
-					"link": {
-						"Add a link": "یک لینک اضافه کنید"
-					},
-					"stub": {
-						'The block can not be displayed correctly.': 'فاصله به طور صحیح نمایش داده نمی شود.'
+			},
+			placeholder: 'پست خود را اینجا بسازید . . .',
+			logLevel: 'VERBOSE', // VERBOSE , INFO , WARN , ERROR
+		});
+		addEventListener("beforeunload",()=>{
+			
+			editorjs.save().then(async (post) => {
+				axios.post('/new/create-content-post', post, {
+					headers: {
+						'Content-Type': 'application/json'
 					}
-				},
-				blockTunes: {
-					"delete": {
-						"Delete": "حذف"
-					},
-					"moveUp": {
-						"Move up": "انتقال به بالا"
-					},
-					"moveDown": {
-						"Move down": "انتقال به پایین"
+				}).then((res) => {
+					if(typeof res.data === 'string' &&res.data.startsWith("<!DOCTYPE")){
+						show_alert("لطفا دوباره وارد شوید و مجددا امتحان کنید.","failed")
+						return
 					}
-				},
-			}
-		},
-		placeholder: 'پست خود را اینجا بسازید . . .',
-		logLevel: 'VERBOSE', // VERBOSE , INFO , WARN , ERROR
-	});
+					show_alert(`محتوای شما به آیدی ${res.data.content._id}  با موفقیت آپدیت شد.`, 'success')
+				}).catch(err => {
+					show_alert(err.response.data.message, 'failed')
+				})
+			}).catch((error) => {
+				show_alert(error, 'failed')
+			});
+		})
+	}
+
 	const checkContainer = document.getElementById("check-container");
 	const checkContentButton = document.getElementById("checkContentIdButton");
 	const checkContent_field = document.getElementById("checkContentId");
-	const content_isPublished_field = document.getElementById("content_isPublished");
 	checkContentButton.addEventListener("click", (e) => {
 		e.preventDefault();
 		if (checkContent_field.value.trim() === null || checkContent_field.value.trim() === '' || !checkContent_field.value.trim()) {
@@ -173,11 +205,26 @@ if (document.getElementById("editorjs") && location.href.includes("create-conten
 		let checkContentId = checkContent_field.value.trim();
 		axios.post("/new/checkContentId", {
 				contentID: checkContentId
-			}) 
+			})
 			.then((res) => {
+				if(typeof res.data === 'string' &&res.data.startsWith("<!DOCTYPE")){
+					show_alert("لطفا دوباره وارد شوید و مجددا امتحان کنید.","failed")
+					return
+				}
 				show_alert(res.data.message, "success");
-				document.getElementById("editorjsContainer").style.display = "block";
 				checkContainer.parentElement.removeChild(checkContainer);
+				axios.get("/new/getContentToPrefill",{
+					params: {
+						id:checkContentId
+					}
+				}).then(res=>{
+					if(typeof res.data === 'string' &&res.data.startsWith("<!DOCTYPE")){
+						show_alert("لطفا دوباره وارد شوید و مجددا امتحان کنید.","failed")
+						return
+					}
+					showEditor(res.data.content)
+					document.getElementById("editorjsContainer").style.display = "block";
+				}).catch(err=>{console.log(err);show_alert(err.response.data.message,"failed")})
 			})
 			.catch(err => {
 				show_alert(err.response.data.message, "failed");
@@ -190,18 +237,17 @@ if (document.getElementById("editorjs") && location.href.includes("create-conten
 			return show_alert('لطفا آیدی را وارد کنید.', "failed")
 		}
 		editorjs.save().then(async (post) => {
-			if (content_isPublished_field.checked) {
-				await post.blocks.push({
-					upladThis: content_isPublished_field.value.trim()
-				})
-			}
 			axios.post('/new/create-content-post', post, {
 				headers: {
 					'Content-Type': 'application/json'
 				}
 			}).then((res) => {
+				if(typeof res.data === 'string' &&res.data.startsWith("<!DOCTYPE")){
+					show_alert("لطفا دوباره وارد شوید و مجددا امتحان کنید.","failed")
+					return
+				}
 				show_alert(`محتوای شما به آیدی ${res.data.content._id}  با موفقیت آپدیت شد.`, 'success')
-				location.assign("/")
+				location.assign("/creators-panel")
 			}).catch(err => {
 				show_alert(err.response.data.message, 'failed')
 			})
@@ -305,7 +351,10 @@ if (location.href.includes("creators-panel")) {
 				'Content-Type': 'multipart/form-data'
 			}
 		}).then(res => {
-				console.log(res)
+				if(typeof res.data === 'string' &&res.data.startsWith("<!DOCTYPE")){
+					show_alert("لطفا دوباره وارد شوید و مجددا امتحان کنید.","failed")
+					return
+				}
 				show_alert(`محتوای شما به شماره ${res.data.content._id}  با موفقیت ذخیره شد.`, 'success')
 				addContentID(res.data.content._id);
 				sendData.reset();
@@ -365,6 +414,10 @@ if (location.href.includes("creators-panel")) {
 				}
 			})
 			.then((res) => {
+				if(typeof res.data === 'string' &&res.data.startsWith("<!DOCTYPE")){
+					show_alert("لطفا دوباره وارد شوید و مجددا امتحان کنید.","failed")
+					return
+				}
 				show_alert(res.data.message, "success");
 				ProductForm.reset();
 			})
@@ -704,6 +757,10 @@ delete_product_by_id_btn.addEventListener("click", function(e){
 			params: {q:inputValue}
 		}) 
 		.then((res) => {
+			if(typeof res.data === 'string' && res.data.startsWith("<!DOCTYPE")){
+					show_alert("لطفا دوباره وارد شوید و مجددا امتحان کنید.","failed")
+					return
+				}
 			show_alert(res.data.message,"success")
 			thatFunction(res.data.result,container,typeOfOperation);
 		})
@@ -771,6 +828,10 @@ delete_product_by_id_btn.addEventListener("click", function(e){
 		e.preventDefault()
 		axios.get("/new/allmycontents") 
 		.then((res) => {
+			if(typeof res.data === 'string' &&res.data.startsWith("<!DOCTYPE")){
+					show_alert("لطفا دوباره وارد شوید و مجددا امتحان کنید.","failed")
+					return
+				}
 			document.getElementById("numberOfContents").innerHTML = res.data.allResults;
 			document.getElementById("numberOfUploadedContents").innerHTML = res.data.uploadedContents;
 			document.getElementById("numberOfApprovedContents").innerHTML = res.data.approvedContents;
@@ -836,6 +897,10 @@ delete_product_by_id_btn.addEventListener("click", function(e){
 		e.preventDefault()
 		axios.get("/new/allmyproducts") 
 		.then((res) => {
+			if(typeof res.data === 'string' &&res.data.startsWith("<!DOCTYPE")){
+					show_alert("لطفا دوباره وارد شوید و مجددا امتحان کنید.","failed")
+					return
+				}
 			document.getElementById("numberOfProducts").innerHTML = res.data.results.length;
 			document.getElementById("numberOfUploadedProducts").innerHTML = res.data.uploadedProducts;
 			document.getElementById("numberOfApprovedProducts").innerHTML = res.data.approvedProducts;
@@ -901,6 +966,10 @@ delete_product_by_id_btn.addEventListener("click", function(e){
 			}
 		})
 		.then((res)=>{
+			if(typeof res.data === 'string' &&res.data.startsWith("<!DOCTYPE")){
+					show_alert("لطفا دوباره وارد شوید و مجددا امتحان کنید.","failed")
+					return
+				}
 			show_alert("کامنت پیدا شد.","success")
 			showCommentResult(res.data.result,resultContainer)
 		})
@@ -999,6 +1068,10 @@ delete_product_by_id_btn.addEventListener("click", function(e){
 				"Content-Type":"multipart/formdata"
 			}
 		}).then((res)=>{
+			if(typeof res.data === 'string' &&res.data.startsWith("<!DOCTYPE")){
+					show_alert("لطفا دوباره وارد شوید و مجددا امتحان کنید.","failed")
+					return
+				}
 			show_alert("تبلیغ شما ثبت شد.","success")
 		}).catch(err=>{
 			show_alert(err.response.data.message,"failed")
@@ -1093,15 +1166,243 @@ delete_product_by_id_btn.addEventListener("click", function(e){
 	const findTheAdBtn = document.getElementById("findTheAdBtn")
 	findTheAdBtn.addEventListener("click",function(){
 		if(searchForAd_field.value === "" || searchForAd_field.value === null) return show_alert("لطفا آیدی تبلیغ مورد نظر را وارد کنید.","failed")
-		axios.get("/new/search-ad",{
-			params:{
-				id:searchForAd_field.value.trim()
-			}
-		}).then((res)=>{
-			show_alert(res.data.message,"success")
-			showAdResult(res.data.result,adSearchBox)
-		}).catch(err=>{
-			show_alert(err.response.data.message,"failed")
+			axios.get("/new/search-ad",{
+				params:{
+					id:searchForAd_field.value.trim()
+				}
+			}).then((res)=>{
+				if(typeof res.data === 'string' &&res.data.startsWith("<!DOCTYPE")){
+					show_alert("لطفا دوباره وارد شوید و مجددا امتحان کنید.","failed")
+					return
+				}
+				show_alert(res.data.message,"success")
+				showAdResult(res.data.result,adSearchBox)
+			}).catch(err=>{
+				show_alert(err.response.data.message,"failed")
+			})
 		})
-	})
+	{
+		const findContentToEditByTopic_Form = document.getElementById("search_for_post_by_topic_edit_form")
+		const findContentToEditByID_Form = document.getElementById("search_for_post_by_id_edit_form")
+		const findContentToEditByTopic_Input = document.getElementById("search_for_post_by_topic_edit")
+		const findContentToEditByID_Input = document.getElementById("search_for_post_by_id_edit")
+		const resultofsearchforediting = document.getElementById("resultofsearchforediting")
+		findContentToEditByID_Form.addEventListener("submit", function(e){
+			e.preventDefault()
+			if(findContentToEditByID_Input.value.trim() === null  || findContentToEditByID_Input.value.trim() === "") {
+				show_alert("لطفا آیدی محتوایی را که می خواهید ویرایش کنیم وارد کنید.","failed")
+				return;
+			} 
+			const findContentToEdit_Value = {id:findContentToEditByID_Input.value.trim()};
+			sendDataToFindTheContentToEdit(findContentToEdit_Value)
+		})
+		findContentToEditByTopic_Form.addEventListener("submit", function(e){
+			e.preventDefault()
+			if(findContentToEditByTopic_Input.value.trim() === null  || findContentToEditByTopic_Input.value.trim() === "") {
+				show_alert("لطفا موضوع محتوایی را که می خواهید ویرایش کنیم وارد کنید.","failed")
+				return;
+			} 
+			const findContentToEdit_Value = {topic:findContentToEditByTopic_Input.value.trim()};
+			sendDataToFindTheContentToEdit(findContentToEdit_Value)
+		})
+		function sendDataToFindTheContentToEdit(data){
+			axios.get("/new/findContentToEdit",{
+				params: data
+			})
+				.then( res => {
+					if(typeof res.data === 'string' &&res.data.startsWith("<!DOCTYPE")){
+					show_alert("لطفا دوباره وارد شوید و مجددا امتحان کنید.","failed")
+					return
+				}
+					displayContentToEdit(resultofsearchforediting,res.data.content)
+				})
+				.catch(err => {
+					show_alert(err.response.data.message,"failed")
+				})
+		}
+		function displayContentToEdit(resultContainerToEdit,contentToEdit){
+			let kws = ''
+			for(let i =0;i < contentToEdit.keywords.length; i++){
+				if(i===contentToEdit.keywords.length-1){
+					kws+= contentToEdit.keywords[i]
+				}else{
+					kws+= contentToEdit.keywords[i] + ' ، '
+				}
+			}
+			const template = `
+				<h1 class="mt-4 text-center">ویرایش پست</h1>
+				<form id="editForm" class="needs-validation was-validated" enctype="multipart/form-data" novalidate>
+					<div class="text-right row max-width-1300">
+						<div class="my-2 col-lg-6">
+							<label for="post_topic_Edit" class="m-0">موضوع اصلی پست : </label>
+							<input name="post_topic_Edit" type="text" id="post_topic_Edit"
+								class="py-2 my-2 form-control bg-white-transparent-7 custom-input input-border-bottom-black rounded-0 w-100 "
+								placeholder="برنامه منظم برای پیاده روی و لاغری" value="${contentToEdit.topic}" maxlength="80" required>
+							<div class="invalid-feedback text-danger">
+								پر کردن این فیلد ضروریست.
+							</div>
+							<div class="valid-feedback text-success">
+								صحیح
+							</div>
+						</div>
+						<div class="my-2 col-lg-6">
+							<label for="post_resource_Edit" class="m-0">منبع : </label>
+							<input name="post_resource_Edit" type="text" id="post_resource_Edit"
+								class="py-2 my-2 form-control custom-input bg-white-transparent-7 Parastoo input-border-bottom-black rounded-0 w-100 "
+								placeholder="www.digikala.com یا ${contentToEdit.resource} " maxlength="30"
+								value="${contentToEdit.resource}">
+							<br>
+							<div class="valid-feedback text-success">
+								صحیح
+							</div>
+							<div class="invalid-feedback text-danger">
+								پر کردن این فیلد ضروریست.
+							</div>
+						</div>
+						<div class="my-2 col-lg-6">
+							<label for="post_keywords_Edit" class="m-0">کلمات کلیدی و مرتبط با محتوا : </label>
+							<input name="post_keywords_Edit" type="text" id="post_keywords_Edit"
+								class="py-2 my-2 form-control custom-input Parastoo input-border-bottom-black rounded-0 w-100 bg-white-transparent-7"
+								placeholder="ورزشی ، پیاده روی ،پیاده روی سریع ، پیاده روی روزانه ،کفش مخصوص پیاده روی ، مدت زمان پیاده روی ..."
+								value="${kws}" required>
+							<small class="text-info">
+								کلمات کلیدی را با ویرگول از هم جدا کنید.
+							</small>
+							<br>
+							<small class="text-info">
+								حداقل 5 و حداکثر 20 کلمه کلیدی ، محتوایی با بیشتر یا کمتر ازاین مقادیر در سایت
+								منتشر
+								نخواهد شد.
+							</small>
+							<br>
+							<div class="invalid-feedback text-danger">
+								پر کردن این فیلد ضروریست.
+							</div>
+							<div class="valid-feedback text-success">
+								صحیح
+							</div>
+						</div>
+						<div class="my-2 col-12">
+							<div class="custom-file">
+								<label for="post_main_picture_Edit" class="m-0 text-center custom-file-label bg-white-transparent-7">تصویر اصلی
+									پست را انتخاب
+									کنید</label>
+								<input name="post_main_picture_Edit" type="file" id="post_main_picture_Edit"
+									class="py-2 my-2 form-control custom-file-input rounded-0 w-100 "data-browse="جستجو" required>
+								<div class="invalid-feedback text-danger">
+									انتخاب این عکس الزامیست.
+								</div>
+								<div class="valid-feedback text-success">
+									تصویر انتخاب شد.
+								</div>
+							</div>
+						</div>
+						<div class="mt-3 text-right col-12">
+							<label for="post_summary_Edit" class="m-0">خلاصه متن : </label>
+							<textarea name="post_summary_Edit" id="post_summary_Edit" class="py-2 my-2 border bg-white-transparent-8 form-control"
+								rows="8" placeholder="حداکثر 500 حرف و حداقل 100 حرف" minlength="100" maxlength="500" required></textarea>
+							<div class="invalid-feedback text-danger">
+								پر کردن این فیلد ضروریست.
+							</div>
+							<div class="valid-feedback text-success">
+								صحیح
+							</div>
+						</div>
+						<div class="mt-3 text-right col-12">
+							<label for="post_metaTagDescription_Edit" class="m-0">توضیح برای تگ متا در نتایج گوگل : </label>
+							<textarea name="post_metaTagDescription_Edit" id="post_metaTagDescription_Edit"
+								class="py-2 my-2 border bg-white-transparent-8 form-control" rows="8" placeholder="حداکثر 150 و حداقل 60 حرف"
+								minlength="60" maxlength="150" required></textarea>
+							<div class="invalid-feedback text-danger">
+								پر کردن این فیلد ضروریست.
+							</div>
+							<div class="valid-feedback text-success">
+								صحیح
+							</div>
+						</div>
+					</div>
+					<input id="contentId_Edit" value="${contentToEdit._id}" hidden>
+					<div class="mt-4">
+						<div class="my-2 text-center col-12">
+							<button id="saveChanges_Edit" type="submit" class="btn btn-success w-50">ذخیره</button>
+						</div>
+					</div>
+				</form>		
+			`;
+			resultContainerToEdit.innerHTML = template; 
+			document.getElementById("post_summary_Edit").value = contentToEdit.summary 
+			document.getElementById("post_metaTagDescription_Edit").value = contentToEdit.metaDescription 
+			document.getElementById("saveChanges_Edit").addEventListener("click",function(e){
+				e.preventDefault()
+				checkTheInputs()
+			})
+		}
+		  let contentId_Edit;
+			let topic_ToEdit;
+			let resource_ToEdit;
+			let keywords_ToEdit;
+			let mailPicture_ToEdit;
+			let summary_ToEdit;
+			let metaTageDescription_ToEdit;
+			function checkTheInputs(){
+				contentId_Edit = document.getElementById("contentId_Edit")
+				topic_ToEdit = document.getElementById("post_topic_Edit")
+				resource_ToEdit = document.getElementById("post_resource_Edit")
+				keywords_ToEdit = document.getElementById("post_keywords_Edit")
+				mailPicture_ToEdit = document.getElementById("post_main_picture_Edit")
+				summary_ToEdit = document.getElementById("post_summary_Edit")
+				metaTageDescription_ToEdit = document.getElementById("post_metaTagDescription_Edit")
+				let errorMessages_ToEdit = [];
+				if(contentId_Edit.value.trim() === null || contentId_Edit.value.trim() === "") errorMessages_ToEdit.push("آیدی دستکاری شده لطفا دوباره برای این محتوا جستجو کنید.")
+				if(topic_ToEdit.value.trim() === null || topic_ToEdit.value.trim() === "") errorMessages_ToEdit.push("لطفا موضوع محتوا را وارد کنید.")
+				if(resource_ToEdit.value.trim() === null || resource_ToEdit.value.trim() === "") errorMessages_ToEdit.push("لطفا منبع محتوا را مشخص کنید.")
+				if(mailPicture_ToEdit.value.trim() === null || mailPicture_ToEdit.value.trim() === "") errorMessages_ToEdit.push("لطفا تصویررا برای محتوا وارد کنید.")
+				if (!keywords_ToEdit.value.trim() || keywords_ToEdit.value.trim() === '' || keywords_ToEdit.value.trim() === null) errorMessages_ToEdit.push("وارد کردن کلمات کلیدی برای محتوا حداقل10 کلمه ضروری است.")
+				if (keywords_ToEdit.value.includes("،")) {
+					if (keywords_ToEdit.value.split("،").length < 10)
+						errorMessages_ToEdit.push("تعداد کلمات کلیدی باید حداقل 10 تا باشد.")
+				} else if (keywords_ToEdit.value.includes(",")) {
+					if (keywords_ToEdit.value.split(",").length < 10)
+						errorMessages_ToEdit.push("تعداد کلمات کلیدی باید حداقل 10 تا باشد.")
+				} else {
+					if (keywords_ToEdit.value.split(",").length < 10)
+						errorMessages_ToEdit.push("تعداد کلمات کلیدی باید حداقل 10 تا باشد.")
+				}
+				if (!summary_ToEdit.value.trim() || summary_ToEdit.value.trim() === '' || summary_ToEdit.value.trim() === null) errorMessages_ToEdit.push("وارد کردن خلاصه ای از محتوا حداقل 3 خط ضروری است.")
+				if (summary_ToEdit.value.trim().length < 100) errorMessages_ToEdit.push("وارد کردن خلاصه ای از محتوا حداقل 100 حرف خط ضروری است.")
+				if (summary_ToEdit.value.trim().length > 500) errorMessages_ToEdit.push("محتوا حداکثر باید 500 حرف باشد.")
+				if (!metaTageDescription_ToEdit.value.trim() || metaTageDescription_ToEdit.value.trim() === '' || metaTageDescription_ToEdit.value.trim() === null) errorMessages_ToEdit.push("وارد کردن خلاصه ای از محتوا حداقل60 حرف برای قرارگرفتن در تگ متا است.")
+				if (metaTageDescription_ToEdit.value.trim().length < 60) errorMessages_ToEdit.push("وارد کردن خلاصه ای از محتوا حداقل60 حرف برای قرارگرفتن در تگ متا ضروری است.")
+				if (metaTageDescription_ToEdit.value.trim().length > 150) errorMessages_ToEdit.push("توضیح متا تگ باید حداکثر150 حرف باشد.")		
+				if(errorMessages_ToEdit.length > 0){
+					show_alert(errorMessages_ToEdit,"failed")
+					return
+				}
+				applyTheChanges()
+			}
+			function applyTheChanges(){
+				const data = new FormData()
+				data.append("id",contentId_Edit.value.trim())
+				data.append("topic",topic_ToEdit.value.trim())
+				data.append("resource",resource_ToEdit.value.trim())
+				data.append("keywords",keywords_ToEdit.value.trim())
+				data.append("image",mailPicture_ToEdit.files[0])
+				data.append("summary",summary_ToEdit.value.trim())
+				data.append("metaDescription",metaTageDescription_ToEdit.value.trim())
+				axios.post("/new/applyChanges",data,{
+					headers:{
+						"Content-Type":"multipart/form-data"
+					}
+				})
+				.then(res => {
+					if(typeof res.data === 'string' &&res.data.startsWith("<!DOCTYPE")){
+						show_alert("لطفا دوباره وارد شوید و مجددا امتحان کنید.","failed")
+						return
+					}
+					show_alert(res.data.message,"success")
+				})
+				.catch(err=> show_alert(err.response.data.message,"failed"))
+			}
+		
+		}
 }

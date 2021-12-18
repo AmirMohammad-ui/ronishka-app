@@ -8,9 +8,9 @@ export const show_alert = (msg, type) => {
 	if (msg instanceof Array && msg.length > 1) {
 		let massages = '';
 		msg.forEach(message => {
-			if (message) {
+			if (message) {  
 				massages += `${message}</br>`;
-			}
+			} 
 		})
 		const template = `<div id="alert" class="${type === 'success' ? 'alert__success':(type === 'failed' ? 'alert__failed':'alert__notfound')}">${massages}</div>`;
 		document.querySelector("body").insertAdjacentHTML('afterbegin', template)
@@ -172,7 +172,7 @@ const signUp_login = (url, formData) => {
 			window.setTimeout(() => {
 				hideAlert();
 			}, 1500)
-			window.location.assign("/")
+			window.location.assign("/creators-panel")
 		}).catch(err => {
 			show_alert(err.response.data.message, 'failed');
 		})

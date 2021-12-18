@@ -1,5 +1,31 @@
 <div class="collapse fade" id="section-edit" data-parent="#accordion">
-	<div class="container">
-		<h1 class="text-center">فعلا امکان ویرایش وجود ندارد، شما باید محتوا را حذف کرده و از نو بسازید.</h1>
+	<h2 class="pr-4 mt-5 text-right max-width-1300"> جستجو برای پست </h2>
+	<div class="text-right row max-width-1300 ">
+		<div class="my-2 col-lg-6">
+			<form id="search_for_post_by_topic_edit_form" class="needs-validation was-validated" novalidate>
+				<label for="search_for_post_by_topic_edit" class="m-0">موضوع پست : </label>
+				<input name="search_for_post_by_topic_edit" type="text" id="search_for_post_by_topic_edit"
+					class="py-2 my-2 form-control custom-input input-border-bottom-black rounded-0 w-100 "
+					placeholder="برنامه منظم برای پیاده روی و لاغری" required>
+				<div class="invalid-feedback text-danger"> پر کردن این فیلد ضروریست.</div>
+				<button type="submit" class="my-2 btn btn-secondary btn-block">
+					جستجو </button>
+			</form>
+		</div>
+		<div class="my-2 col-lg-6">
+			<form id="search_for_post_by_id_edit_form" class="needs-validation was-validated" novalidate>
+				<label for="search_for_post_by_id_edit" class="m-0">آیدی پست :
+				</label>
+				<input name="search_for_post_by_id_edit" type="text" id="search_for_post_by_id_edit"
+					class="py-2 my-2 form-control custom-input input-border-bottom-black rounded-0 w-100 "
+					placeholder="کفش مخصوص پیاده روی آلپاچینو" required>
+				<div class="invalid-feedback text-danger">
+					پر کردن این فیلد ضروریست.
+				</div>
+				<button type="submit" type="button" class="my-2 btn btn-secondary btn-block">جستجو</button>
+			</form>
+		</div>
 	</div>
+	<div class="my-4 divider"></div>
+	<div id="resultofsearchforediting"></div>
 </div>

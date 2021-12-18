@@ -4,11 +4,14 @@
 	<%- include("../partials/meta.ejs") %>
 	<%- include("../partials/links.ejs") %>
 	<link rel="stylesheet" href="/css/persian-calendar.css">
+	<script src="/scripts/convertingDate.js" defer></script>
 </head>
 <body
 	style="background-image: url('/img/welcom-to-ronishka.webp');background-position: center;background-repeat: no-repeat;background-size: cover;">
-	<div class="row no-gutters my-5">
-		<div class="col-md-8 col-lg-6 col-12 mx-auto">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KB9B9HP"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<div class="my-5 row no-gutters">
+		<div class="mx-auto col-md-8 col-lg-6 col-12">
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
 				<li class="nav-item" role="presentation">
 					<a class="nav-link nav-link-signlogin active" id="signup-tab" data-toggle="tab" href="#signup"
@@ -38,6 +41,8 @@
 	<%- include("../partials/loader.ejs") %>
 	<%- include("../partials/privacy-policy.ejs") %>
 	<script src="/scripts/persian-calendar.js"></script>
+	<script src="/scripts/convertingDate.js" defer></script>
+	
 	<%- include("../partials/scripts.ejs") %>
 </body>
 

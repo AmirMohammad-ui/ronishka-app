@@ -9,7 +9,7 @@ import axios from 'axios';
 import "./persian-calendar";
 import "./signup-login";
 import "./managemant.js";
-import {
+import {   
 	show_alert,
 	hideAlert
 } from './signup-login';
@@ -112,8 +112,8 @@ if (document.getElementById("searchOperation")) {
 	}
 
 	function openSearchBox(data) {
-		loader.style.display = "block";
-		loader.style.zIndex = "4444";
+		// loader.style.display = "block";
+		// loader.style.zIndex = "4444";
 		const template = `
 		<div id="search-box-container-header" class="animate__animated animate__fadeIn search-box-container scrollify-search">
 			<div id="close-btn-header">
@@ -134,7 +134,7 @@ if (document.getElementById("searchOperation")) {
 		data.forEach(data => {
 			resultsTemplate += `
 			<div class="result--card">
-				<a href="/content/${data.slug}">
+				<a href="/blog/content/${data.slug}">
 					<div style="background-image: url('/uploads/images/content-cover-images/${data.coverImage}');"
 						class="card--image">
 					</div>
@@ -147,14 +147,14 @@ if (document.getElementById("searchOperation")) {
 						${data.summary}
 					</div>
 					<div class="card--body__link">
-						<a href="/content/${data.slug}" class="link">برو به این صفحه</a>
+						<a href="/blog/content/${data.slug}" class="link">برو به این صفحه</a>
 					</div>
 				</div>
 			</div>`
 		});
 		setTimeout(()=>{
-			loader.style.display = "none";
-			loader.style.zIndex = "-10";
+			// loader.style.display = "none";
+			// loader.style.zIndex = "-10";
 			document.body.insertAdjacentHTML('afterbegin', template);
 			const searchBox = document.getElementById("search-box-container-header");
 			const results = document.getElementById("results-search");
@@ -182,17 +182,22 @@ if (document.getElementById("searchOperation")) {
 	}
 }
 
-if (location.href.includes("/content/")) {
+if (location.href.includes("/blog/content/")) {
 	const articleDom = document.getElementById("theArticle")
 	const allLinks = articleDom.getElementsByTagName('a')
 	for(const el of allLinks ){
 		el.setAttribute('rel','nofollow')
 	}
+
 	const sendComment = document.getElementById("leaveComment");
 	const fullName_Filed = document.getElementById("full-name-comment");
 	const email_Filed = document.getElementById("email-comment");
 	const review_Field = document.getElementById("comment");
 	const triggerContentIdReview = document.getElementById("triggerContentIdReview")
+	setTimeout(()=>{
+		axios.get("/new-view",{params:{id:triggerContentIdReview.value}}).then(()=>{}).catch((err)=>console.log(err))
+	},2*60*1000)
+	console.log(1)
 	sendComment.addEventListener("submit", (e) => {
 		e.preventDefault();
 		let errorMessages = [];
@@ -215,8 +220,9 @@ if (location.href.includes("/content/")) {
 	});
 	const wasnotusefulBtn = document.getElementById("minusonescore");
 	const wasusefulBtn = document.getElementById("addonescore");
-	const usefulContainer = document.getElementById("usefulnessContainer");
 	wasusefulBtn.addEventListener("click", function () {
+	const slug = document.getElementById("theContentSlug").value
+		
 		axios.get("/wasituseful", {
 			params: {
 				usefulRate: 1,
@@ -224,12 +230,16 @@ if (location.href.includes("/content/")) {
 			}
 		}).then((res) => {
 			show_alert("از شما بابت ارسال نظر متشکریم.", 'success');
-			usefulContainer.parentElement.removeChild(usefulContainer)
 		}).catch(err => {
-			show_alert('مشکلی در ارسال نظر شما بوجود آمده است لطفا این موضوع را با پشتیبانی در میان بگذارید.', 'failed')
+			if(err){
+				show_alert(err.response.data.message,"failed")
+			} else {
+				show_alert('مشکلی در ارسال نظر شما بوجود آمده است لطفا این موضوع را با پشتیبانی در میان بگذارید.', 'failed')
+			}
 		});
 	})
 	wasnotusefulBtn.addEventListener("click", function () {
+	const slug = document.getElementById("theContentSlug").value
 		axios.get("/wasituseful", {
 			params: {
 				usefulRate: -1,
@@ -237,9 +247,12 @@ if (location.href.includes("/content/")) {
 			}
 		}).then(()=>{
 			show_alert("از شما بابت ارسال نظر متشکریم.", 'success');
-			usefulContainer.parentElement.removeChild(usefulContainer)
 		}).catch(err=>{
-			show_alert('مشکلی در ارسال نظر شما بوجود آمده است لطفا این موضوع را با پشتیبانی در میان بگذارید.', 'failed')
+			if(err){
+				show_alert(err.response.data.message,"failed")
+			} else {
+				show_alert('مشکلی در ارسال نظر شما بوجود آمده است لطفا این موضوع را با پشتیبانی در میان بگذارید.', 'failed')
+			}
 		});
 	});
 	if(document.getElementById("comments_section")){

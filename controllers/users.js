@@ -27,7 +27,7 @@ function createSendToken(user, req, res) {
 		cookieOptions.maxAge = config.get("CookieExpires") * 60 * 60 * 1000 * 24;
 		req.session.cookie.originalMaxAge = config.get("session.expires") * 60 * 60 * 24 * 1000;
 	}
-	if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+	// if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
 	res.cookie('x-jwt-token', `Bearer ${token}`, cookieOptions);
 }
 // ############################################################ success response
