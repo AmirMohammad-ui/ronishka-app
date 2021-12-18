@@ -7,6 +7,8 @@
 </head>
 
 <body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KB9B9HP"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<%- include("../partials/header.ejs") %>
   <div class="container mx-auto my-4 row">
     <% data.forEach(el => { %>
@@ -45,7 +47,7 @@
               </div>
               <div class="row">
                 <div class="col-12">
-                  <a href="/content/<%- el.slug %>"
+                  <a href="/blog/content/<%- el.slug %>"
                     class="btn btn-outline-dark mt-md-0 rounded-0 w-100">ادامه</a>
                 </div>
               </div>

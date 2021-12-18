@@ -1,6 +1,5 @@
 const error = require('./middlewares/errors')
 const config = require("config")
-// const https = require("https")
 const ERR = require("./utilities/ERR")
 const express = require("express")
 const fileupload = require("express-fileupload")
@@ -41,13 +40,10 @@ app.get("/accepting-policy-confirmed", (req, res) => {
 		cookie_accepted: "yes"
 	})
 })
-// const privateKey = fs.readFileSync("server.key")
-// const certKey = fs.readFileSync("server.cert")
-// https.createServer({key:privateKey, cert:certKey},app).listen(port)
 let sessOptions = {
 	store: new MongoStore({
 		mongooseConnection: mongoose.connection,
-		ttl: 60 * 60 * 1000
+		ttl: 10 * 24 * 60 * 60 * 1000
 	}),
 	name: 'rid',
 	secret: `${config.get("session.secret")}`,
@@ -55,13 +51,10 @@ let sessOptions = {
 	sameSite: true,
 	saveUninitialized: true,
 	cookie: {
+		// secure: process.env.NODE_ENV === 'production',
 		httpOnly: true,
-		maxAge: 60 * 60 * 1000
+		maxAge: 10 * 24 * 60 * 60 * 1000
 	}
-}
-if (process.env.NODE_ENV === 'production') {
-	app.set('trust proxy', 1) // trust first proxy
-	sessOptions.cookie.secure = true // serve secure cookies
 }
 app.use(session(sessOptions))
 app.use('/', (req, res, next) => {
@@ -70,6 +63,9 @@ app.use('/', (req, res, next) => {
 	} else {
 		req.session.loggedIn = 0;
 	}
+	
+    
+	if(!req.session.ratedContents) req.session.ratedContents = []
 	if(!req.session.contentImages) req.session.contentImages = []
 	if(!req.session.pathToSave) req.session.pathToSave = ''
 	if(!req.session.content_id) req.session.content_id = ''
@@ -93,7 +89,7 @@ app.use(express.urlencoded({
 }))
 // ###################################################################### security
 const limitter = rateLimit({
-	max: 100,
+	max: 200,
 	windowMs: 60 * 60 * 1000,
 	message: "Too many request please try an hour later"
 })

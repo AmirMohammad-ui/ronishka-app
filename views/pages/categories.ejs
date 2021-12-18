@@ -7,6 +7,8 @@
 </head>
 
 <body>
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KB9B9HP"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<%- include("../partials/header.ejs") %>
 	<main class="container py-3">
 		<div class="m-0 mb-2 col-12 row">
@@ -21,7 +23,7 @@
 								<a href="<%- ads[i].adLink %>" rel="nofollow" target="_blank">
 									<img src="/uploads/ads/<%- ads[i].image %>" class="lazy animate__animated animate__fadeInUp cover w-100" alt="<%- ads[i].name %>">
 									<% if (ads[i].name !== "" && ads[i].name) { %>
-										<div class="p-2 text-right text-white bg-black-transparent-7 w-100 font-small pos-absolute-bottom"><%- ads[i].name %></div>
+										<div class="p-2 text-right text-white bg-black-transparent-7 w-100 font-small pos-absolute-bottom"><%- ads[i].name.split('1').join('۱').split('2').join('۲').split('3').join('۳').split('4').join('۴').split('5').join('۵').split('6').join('۶').split('7').join('۷').split('8').join('۸').split('9').join('۹').split('0').join('۰') %></div>
 									<% } %>
 								</a>
 							</div>
@@ -48,10 +50,10 @@
 													<div
 														class="px-3 py-2 mt-4 mr-4 text-right rounded shadow bg-black-transparent-6 w-75 pos-absolute-right-top row text-light">
 														<h1 class="text-right font-3">
-															<%- contents[i].topic %>
+															<%- contents[i].topic.split('1').join('۱').split('2').join('۲').split('3').join('۳').split('4').join('۴').split('5').join('۵').split('6').join('۶').split('7').join('۷').split('8').join('۸').split('9').join('۹').split('0').join('۰') %>
 														</h1>
 													</div>
-													<a href="/content/<%- contents[i].slug %>">
+													<a href="/blog/content/<%- contents[i].slug %>">
 														<img src="/uploads/images/content-cover-images/<%- contents[i].coverImage %> "
 															class="card-img h-100 img-cover"
 															alt="<%- contents[i].topic %>" />
@@ -60,10 +62,10 @@
 												<div class="text-right col-lg-12">
 													<div
 														class="p-2 pb-0 my-3 text-justify card-body">
-														<a href="/content/<%- contents[i].slug %>" class="text-info">
+														<a href="/blog/content/<%- contents[i].slug %>" class="text-info">
 														</a>
 														<p class="mx-3 overflow-hidden text-justify card-text line-clamp font-small-3">
-															<%- contents[i].summary %>
+															<%- contents[i].summary.split('1').join('۱').split('2').join('۲').split('3').join('۳').split('4').join('۴').split('5').join('۵').split('6').join('۶').split('7').join('۷').split('8').join('۸').split('9').join('۹').split('0').join('۰') %>
 														</p>
 														<div
 															class="px-3 py-2 mx-2 mt-5 text-right shadow bg-black-transparent-1 row text-dark">
@@ -84,7 +86,7 @@
 															</div>
 															<div class="my-2 text-center col-6 col-md-3">
 																<a class="rounded-0"
-																	href="/content/<%- contents[i].slug %>">
+																	href="/blog/content/<%- contents[i].slug %>">
 																	<span class="text-danger">ادامه</span>
 																	<span class="text-dark">&larr;</span>
 																</a>
@@ -119,10 +121,10 @@
 																		</div>
 																		<% } %>
 																		<h5 class="px-2 pt-3 card-title font-1">
-																			<%- contents[i].products[contents[i].products.length -1].name %>
+																			<%- contents[i].products[contents[i].products.length -1].name.split('1').join('۱').split('2').join('۲').split('3').join('۳').split('4').join('۴').split('5').join('۵').split('6').join('۶').split('7').join('۷').split('8').join('۸').split('9').join('۹').split('0').join('۰') %>
 																		</h5>
 																		<p class="p-3 text-justify font-small-3 card-text">
-																			<%- contents[i].products[contents[i].products.length -1].explanation %>
+																			<%- contents[i].products[contents[i].products.length -1].explanation.split('1').join('۱').split('2').join('۲').split('3').join('۳').split('4').join('۴').split('5').join('۵').split('6').join('۶').split('7').join('۷').split('8').join('۸').split('9').join('۹').split('0').join('۰') %>
 																		</p>
 																	</div>
 																</div>
@@ -177,7 +179,7 @@
 										<a href="<%- ads[i].adLink %>" rel="nofollow" target="_blank">
 											<img src="/uploads/ads/<%- ads[i].image %>" class="lazy animate__animated animate__fadeInUp cover w-100" alt="<%- ads[i].name %>">
 											<% if (ads[i].name !== "" && ads[i].name) { %>
-												<div class="p-2 text-right text-white bg-black-transparent-7 w-100 font-small pos-absolute-bottom"><%- ads[i].name %></div>
+												<div class="p-2 text-right text-white bg-black-transparent-7 w-100 font-small pos-absolute-bottom"><%- ads[i].name.split('1').join('۱').split('2').join('۲').split('3').join('۳').split('4').join('۴').split('5').join('۵').split('6').join('۶').split('7').join('۷').split('8').join('۸').split('9').join('۹').split('0').join('۰') %></div>
 											<% } %>
 										</a>
 									</div>
@@ -198,15 +200,15 @@
 									class="p-0 card-img-top lazy card-image-height cover animate__animated animate__fadeInUp " alt="<%- newestCategory[i].topic %>" />
 								<div class="p-0 card-body ">
 									<h5 class="px-3 pt-4 overflow-hidden card-title card-text-height line-clamp-2">
-										<%- newestCategory[i].topic %></h5>
+										<%- newestCategory[i].topic.split('1').join('۱').split('2').join('۲').split('3').join('۳').split('4').join('۴').split('5').join('۵').split('6').join('۶').split('7').join('۷').split('8').join('۸').split('9').join('۹').split('0').join('۰') %></h5>
 									<p class="px-3 overflow-hidden card-text line-clamp">
-										<%- newestCategory[i].summary %>
+										<%- newestCategory[i].summary.split('1').join('۱').split('2').join('۲').split('3').join('۳').split('4').join('۴').split('5').join('۵').split('6').join('۶').split('7').join('۷').split('8').join('۸').split('9').join('۹').split('0').join('۰') %>
 									</p>
 									<div class="w-100 position-relative">
 										<div class="m-0 divider w-100 bg-dark"></div>
 										<div class="py-2 text-right bg-black-transparent-3 text-dark">
 											<div class="row">
-												<div class="pr-5 col-6">
+												<div class="pr-5 col-12">
 													<span class="text-dark">تاریخ : </span>
 													<span
 														class="mr-3 text-white Parastoo"><%- newestCategory[i].persianDate %></span>
@@ -223,7 +225,7 @@
 									</div>
 									<div class="row">
 										<div class="col-12">
-											<a href="/content/<%- newestCategory[i].slug %>"
+											<a href="/blog/content/<%- newestCategory[i].slug %>"
 												class="btn btn-outline-dark mt-md-0 rounded-0 w-100">ادامه</a>
 										</div>
 									</div>
@@ -241,15 +243,15 @@
 									class="p-0 card-img-top lazy card-image-height cover animate__animated animate__fadeInUp " alt="<%- mostViewed[i].topic %>" />
 								<div class="p-0 card-body ">
 									<h5 class="px-3 pt-4 overflow-hidden card-title card-text-height line-clamp-2">
-										<%- mostViewed[i].topic %></h5>
+										<%- mostViewed[i].topic.split('1').join('۱').split('2').join('۲').split('3').join('۳').split('4').join('۴').split('5').join('۵').split('6').join('۶').split('7').join('۷').split('8').join('۸').split('9').join('۹').split('0').join('۰') %></h5>
 									<p class="px-3 overflow-hidden card-text line-clamp">
-										<%- mostViewed[i].summary %>
+										<%- mostViewed[i].summary.split('1').join('۱').split('2').join('۲').split('3').join('۳').split('4').join('۴').split('5').join('۵').split('6').join('۶').split('7').join('۷').split('8').join('۸').split('9').join('۹').split('0').join('۰') %>
 									</p>
 									<div class="w-100 position-relative">
 										<div class="m-0 divider w-100 bg-dark"></div>
 										<div class="py-2 text-right bg-black-transparent-3 text-dark">
 											<div class="row">
-												<div class="pr-5 col-6">
+												<div class="pr-5 col-12">
 													<span class="text-dark">بازدید : </span>
 													<span
 														class="mr-3 text-white Parastoo"><%- mostViewed[i].views %></span>
@@ -266,7 +268,7 @@
 									</div>
 									<div class="row">
 										<div class="col-12">
-											<a href="/content/<%- mostViewed[i].slug %>"
+											<a href="/blog/content/<%- mostViewed[i].slug %>"
 												class="btn btn-outline-dark mt-md-0 rounded-0 w-100">ادامه</a>
 										</div>
 									</div>
@@ -284,15 +286,15 @@
 									class="p-0 card-img-top lazy card-image-height cover animate__animated animate__fadeInUp " alt="<%- ourSuggestion[i].topic %>" />
 								<div class="p-0 card-body ">
 									<h5 class="px-3 pt-4 overflow-hidden card-title card-text-height line-clamp-2">
-										<%- ourSuggestion[i].topic %></h5>
+										<%- ourSuggestion[i].topic.split('1').join('۱').split('2').join('۲').split('3').join('۳').split('4').join('۴').split('5').join('۵').split('6').join('۶').split('7').join('۷').split('8').join('۸').split('9').join('۹').split('0').join('۰') %></h5>
 									<p class="px-3 overflow-hidden card-text line-clamp">
-										<%- ourSuggestion[i].summary %>
+										<%- ourSuggestion[i].summary.split('1').join('۱').split('2').join('۲').split('3').join('۳').split('4').join('۴').split('5').join('۵').split('6').join('۶').split('7').join('۷').split('8').join('۸').split('9').join('۹').split('0').join('۰') %>
 									</p>
 									<div class="w-100 position-relative">
 										<div class="m-0 divider w-100 bg-dark"></div>
 										<div class="py-2 text-right bg-black-transparent-3 text-dark">
 											<div class="row">
-												<div class="pr-5 col-6">
+												<div class="pr-5 col-12">
 													<span class="text-dark">رضایت : </span>
 													<span
 														class="mr-3 text-white Parastoo"><%- ourSuggestion[i].isUseful %></span>
@@ -309,7 +311,7 @@
 									</div>
 									<div class="row">
 										<div class="col-12">
-											<a href="/content/<%- ourSuggestion[i].slug %>"
+											<a href="/blog/content/<%- ourSuggestion[i].slug %>"
 												class="btn btn-outline-dark mt-md-0 rounded-0 w-100">ادامه</a>
 										</div>
 									</div>
@@ -345,9 +347,9 @@
 										<span class="text-danger font-4"><%- product.discountPercentage %> %</span>
 									</div>
 									<% } %>
-									<h5 class="card-title font-3"><%- product.name %></h5>
+									<h5 class="card-title font-3"><%- product.name.split('1').join('۱').split('2').join('۲').split('3').join('۳').split('4').join('۴').split('5').join('۵').split('6').join('۶').split('7').join('۷').split('8').join('۸').split('9').join('۹').split('0').join('۰') %></h5>
 									<p class="text-justify card-text font-small-3">
-										<%- product.explanation %>
+										<%- product.explanation.split('1').join('۱').split('2').join('۲').split('3').join('۳').split('4').join('۴').split('5').join('۵').split('6').join('۶').split('7').join('۷').split('8').join('۸').split('9').join('۹').split('0').join('۰') %>
 									</p>
 								</div>
 							</div>
@@ -407,9 +409,9 @@
 										<span class="text-danger font-4"><%- product.discountPercentage %> %</span>
 									</div>
 									<% } %>
-									<h5 class="card-title font-3"><%- product.name %></h5>
+									<h5 class="card-title font-3"><%- product.name.split('1').join('۱').split('2').join('۲').split('3').join('۳').split('4').join('۴').split('5').join('۵').split('6').join('۶').split('7').join('۷').split('8').join('۸').split('9').join('۹').split('0').join('۰') %></h5>
 									<p class="text-justify card-text font-small-3">
-										<%- product.explanation %>
+										<%- product.explanation.split('1').join('۱').split('2').join('۲').split('3').join('۳').split('4').join('۴').split('5').join('۵').split('6').join('۶').split('7').join('۷').split('8').join('۸').split('9').join('۹').split('0').join('۰') %>
 									</p>
 								</div>
 							</div>

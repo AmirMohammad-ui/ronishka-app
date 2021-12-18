@@ -6,6 +6,8 @@ const {Category} = require("../models/categories")
 const { Review } = require("../models/reviews")
 const { Message } = require("../models/messages")
 const { Ads } = require("../models/ads")
+const path = require('path')
+const fs = require("fs")
 const ERR = require("../utilities/ERR")
 
 exports.getHome = async (req, res) => {
@@ -92,30 +94,26 @@ exports.getHome = async (req, res) => {
     author: "امیرمحمد میرزائی راد"
   })
 }
-exports.getContent = async (req, res, next) => {
+exports.getContent = async (req, res) => {
   const contentSlug = req.params.slug;
-  if(!(await Content.findOne({slug: contentSlug}))) return next (new ERR("این صفحه یافت نشد.",404))
-  await Content.findOneAndUpdate({
-    slug: contentSlug
-  },{
-    $inc: {
-      views: 1
-    }
-  });
+  if(!(await Content.findOne({slug: contentSlug,isConfirmed: true,isPublished: true}))) return next (new ERR("این صفحه یافت نشد.",404))
+  
   const user = await User.findOne({_id: req.session.user}).select("fname lname email role")
-  const content = await Content.findOne({slug: contentSlug}).select("-isConfirmed -isPublished").populate("products");
+  const content = await Content.findOne({slug: contentSlug,isConfirmed: true,isPublished: true}).select("-isConfirmed -isPublished").populate("products");
 	const reviews = await Review.find({forContent:content._id,isConfirmed:true}).sort({dateCreated: -1}).populate('replies');
-  const contents = await Content.find({isConfirmed: true, isPublished: true}).sort({dateCreated: -1}).select('summary slug').limit(5);
+  const contents = await Content.find({isConfirmed: true, isPublished: true}).sort({dateCreated: -1}).select('summary slug').limit(9);
   const relativeContents = await Content.find({
+    isConfirmed: true,
+    isPublished: true,
     keywords: {
       $regex: new RegExp(content.keywords[0])
     }
   }).sort({dateCreated: -1}).select("coverImage topic persianDate slug summary").limit(9);
-  const suggestedContents = await Category.find({slug: content.category}).populate('contents', "coverImage topic isUseful slug summary").limit(9);
+  const suggestedContents = await Content.find({category: content.category,isConfirmed: true,isPublished: true}).select("coverImage topic isUseful slug summary").limit(9);
   let keywords = '';
   content.keywords.forEach(el => {
-    keywords += `${el},`;
-  });
+    keywords += `${el},`; 
+  }); 
   const ads1 = await Ads.find({forContent: content._id,confirmed:true}).sort({dateCreated: -1}).limit(6)
   const ads2 = await Ads.find({forContent: content._id,confirmed:true}).sort({dateCreated: -1}).skip(6).limit(6)
   const adStar = await Ads.findOne({forContent:content._id,star:true,confirmed:true}).sort({dateCreated: -1})
@@ -147,7 +145,7 @@ exports.getContent = async (req, res, next) => {
   })
 }
 exports.getAbout = async (req, res) => {
-  const contents = await Content.find({isConfirmed: true, isPublished: true}).sort({dateCreated: -1}).select('summary slug').limit(5);
+  const contents = await Content.find({isConfirmed: true, isPublished: true}).sort({dateCreated: -1}).select('summary slug').limit(9);
   res.render("pages/about", {
     isLoggedIn: req.session.loggedIn,
     contents,
@@ -160,7 +158,7 @@ exports.getAbout = async (req, res) => {
   })
 }
 exports.getComplaint = async (req, res) => {
-  const contents = await Content.find({isConfirmed: true, isPublished: true}).sort({dateCreated: -1}).select('summary slug').limit(5);
+  const contents = await Content.find({isConfirmed: true, isPublished: true}).sort({dateCreated: -1}).select('summary slug').limit(9);
   res.render("pages/complaint", {
     isLoggedIn: req.session.loggedIn,
     contents,
@@ -189,9 +187,9 @@ exports.getCategory = async (req, res) => {
     findRelativeAds = await Ads.find({digitalCategory:true,inCategoryPage:true,confirmed:true}).sort({dateCreated: -1}).limit(12);
   }
   const contents = await Content.find({isConfirmed: true, isPublished: true, category: slug}).sort({dateCreated: -1}).populate({path: "products", select: "name price discount image discountPercentage linkToProductPage explanation views"}).select('slug coverImage timeCreated views persianDate reviews summary products topic').limit(5);
-  const newestCategory = await Content.find({category: slug}).sort({dateCreated: -1}).select("topic summary slug persianDate coverImage dateCreated");
-  const ourSuggestion = await Content.find({category: slug}).sort({isUseful: -1}).select("topic summary slug isUseful coverImage");
-  const mostViewed = await Content.find({category: slug}).sort({views: -1}).select("topic summary slug views coverImage");
+  const newestCategory = await Content.find({category: slug,isConfirmed: true,isPublished: true}).sort({dateCreated: -1}).select("topic summary slug persianDate coverImage dateCreated");
+  const ourSuggestion = await Content.find({category: slug,isConfirmed: true,isPublished: true}).sort({isUseful: -1}).select("topic summary slug isUseful coverImage");
+  const mostViewed = await Content.find({category: slug,isConfirmed: true,isPublished: true}).sort({views: -1}).select("topic summary slug views coverImage");
   const highestDiscountProducts = await Product.find({isConfirmed: true, isPublished: true, category: slug}).select("name explanation persianDate views image discount discountPercentage price linkToProductPage").sort({discount: -1});
   const bestProducts = await Product.find({isConfirmed: true, isPublished: true, category: slug}).select("name explanation persianDate views image discount discountPercentage price linkToProductPage").sort({views: -1});
   slug = slug.split('-').join(" ");
@@ -214,7 +212,7 @@ exports.getCategory = async (req, res) => {
   })
 }
 exports.getRules = async (req, res) => {
-  const contents = await Content.find({isConfirmed: true, isPublished: true}).sort({dateCreated: -1}).select('summary slug').limit(5);
+  const contents = await Content.find({isConfirmed: true, isPublished: true}).sort({dateCreated: -1}).select('summary slug').limit(9);
   res.render("pages/rules-of-use", {
     isLoggedIn: req.session.loggedIn,
     contents,

@@ -7,6 +7,8 @@
 </head>
 
 <body>
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KB9B9HP"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<%- include("./partials/header.ejs") %>
 	<main class="container py-3">
 		<div class="row">
@@ -20,7 +22,7 @@
 							<a href="<%- adStar.adLink %>" rel="nofollow" target="_blank">
 								<img src="/uploads/ads/<%- adStar.image %>" class="lazy animate__animated animate__fadeInUp cover w-100" alt="<%- adStar.name %>">
 								<% if (adStar.name !== "" && adStar.name) { %>
-									<div class="p-2 text-right text-white bg-black-transparent-7 w-100 font-small pos-absolute-bottom"><%- adStar.name %></div>
+									<div class="p-2 text-right text-white bg-black-transparent-7 w-100 font-small pos-absolute-bottom"><%- adStar.name.split('1').join('۱').split('2').join('۲').split('3').join('۳').split('4').join('۴').split('5').join('۵').split('6').join('۶').split('7').join('۷').split('8').join('۸').split('9').join('۹').split('0').join('۰') %></div>
 								<% } %>
 							</a>
 						</div>
@@ -35,7 +37,7 @@
 							<a href="<%- adStar2.adLink %>" rel="nofollow" target="_blank">
 								<img src="/uploads/ads/<%- adStar2.image %>" class="lazy animate__animated animate__fadeInUp cover w-100" alt="<%- adStar2.name %>">
 								<% if (adStar2.name !== "" && adStar2.name) { %>
-									<div class="p-2 text-right text-white bg-black-transparent-7 w-100 font-small pos-absolute-bottom"><%- adStar2.name %></div>
+									<div class="p-2 text-right text-white bg-black-transparent-7 w-100 font-small pos-absolute-bottom"><%- adStar2.name.split('1').join('۱').split('2').join('۲').split('3').join('۳').split('4').join('۴').split('5').join('۵').split('6').join('۶').split('7').join('۷').split('8').join('۸').split('9').join('۹').split('0').join('۰') %></div>
 								<% } %>
 							</a>
 						</div>
@@ -48,18 +50,18 @@
 						<div class="carousel-inner">
 							<% for(let i =0;i<contents.length;i++) { %>
 							<% if (i===0) { %>
-							<a href="/content/<%- contents[i].slug %>" class="carousel-item active">
+							<a href="/blog/content/<%- contents[i].slug %>" class="carousel-item active">
 								<% }else{ %>
-								<a href="/content/<%- contents[i].slug %>" class="carousel-item">
+								<a href="/blog/content/<%- contents[i].slug %>" class="carousel-item">
 									<% } %>
 									<div class="homeContentCarousel--image">
 										<img src="/uploads/images/content-cover-images/<%- contents[i].coverImage %>"
 											class="d-block lazy animate__animated animate__fadeInUp cover w-100" alt="<%- contents[i].topic %>" />
 										<div
 											class="float-right overflow-hidden text-right carousel-caption-right w-75">
-											<h5><%- contents[i].topic %></h5>
+											<h5><%- contents[i].topic.split('1').join('۱').split('2').join('۲').split('3').join('۳').split('4').join('۴').split('5').join('۵').split('6').join('۶').split('7').join('۷').split('8').join('۸').split('9').join('۹').split('0').join('۰') %></h5>
 											<p class="overflow-hidden text-justify w-100 line-clamp">
-												<%- contents[i].summary %>
+												<%- contents[i].summary.split('1').join('۱').split('2').join('۲').split('3').join('۳').split('4').join('۴').split('5').join('۵').split('6').join('۶').split('7').join('۷').split('8').join('۸').split('9').join('۹').split('0').join('۰') %>
 												<span class="float-left mx-2 "> ادامه &larr;</span>
 											</p>
 										</div>
@@ -75,7 +77,7 @@
 				<section class="mt-3 rounded box-shadow-muted box-main">
 					<div class="container p-0 text-center">
 						<div class="m-0 mb-3 font-3">ورزشی تفریحی</div>
-						<div class="row max-height-903 w-100">
+						<div class="m-0 row max-height-903 w-100">
 							<!-- cards -->
 							<% sportCategory.forEach(el => {%>
 							<div class="mt-2 col-md-6 index-100">
@@ -115,7 +117,7 @@
 										</div>
 										<div class="row">
 											<div class="col-12">
-												<a href="/content/<%- el.slug %>"
+												<a href="/blog/content/<%- el.slug %>"
 													class="btn btn-outline-dark mt-md-0 rounded-0 w-100">ادامه</a>
 											</div>
 										</div>
@@ -126,13 +128,13 @@
 						</div>
 					</div>
 					<div class="mt-4 text-left text-center">
-						<a href="/category/تفریحی-ورزشی" class="text-dark w-50"> بیشتر <span
+						<a href="/blog/category/تفریحی-ورزشی" class="text-dark w-50"> بیشتر <span
 								class="mx-2">&larr;</span></a>
 					</div>
 					<div class="divider w-100"></div>
 					<div class="container p-0 mt-3 text-center">
 						<div class="m-0 mb-3 font-3">ابزار سلامت</div>
-						<div class="row max-height-903 w-100">
+						<div class="m-0 row max-height-903 w-100">
 							<!-- cards -->
 							<% healthCategory.forEach(el => {%>
 							<div class="mt-2 col-md-6 index-100">
@@ -172,7 +174,7 @@
 										</div>
 										<div class="row">
 											<div class="col-12">
-												<a href="/content/<%- el.slug %>"
+												<a href="/blog/content/<%- el.slug %>"
 													class="btn btn-outline-dark mt-md-0 rounded-0 w-100">ادامه</a>
 											</div>
 										</div>
@@ -183,13 +185,13 @@
 						</div>
 					</div>
 					<div class="mt-4 text-left text-center">
-						<a href="/category/ابزار-سلامت" class="text-dark w-50"> بیشتر <span
+						<a href="/blog/category/ابزار-سلامت" class="text-dark w-50"> بیشتر <span
 								class="mx-2">&larr;</span></a>
 					</div>
 					<div class="divider w-100"></div>
 					<div class="container p-0 mt-3 text-center">
 						<div class="m-0 mb-3 font-3">زیبایی</div>
-						<div class="row max-height-903 w-100">
+						<div class="m-0 row max-height-903 w-100">
 							<!-- cards -->
 							<% beautyCategory.forEach(el => {%>
 							<div class="mt-2 col-md-6 index-100">
@@ -229,7 +231,7 @@
 										</div>
 										<div class="row">
 											<div class="col-12">
-												<a href="/content/<%- el.slug %>"
+												<a href="/blog/content/<%- el.slug %>"
 													class="btn btn-outline-dark mt-md-0 rounded-0 w-100">ادامه</a>
 											</div>
 										</div>
@@ -240,12 +242,12 @@
 						</div>
 					</div>
 					<div class="mt-4 text-left text-center">
-						<a href="/category/زیبایی" class="text-dark w-50"> بیشتر <span class="mx-2">&larr;</span></a>
+						<a href="/blog/category/زیبایی" class="text-dark w-50"> بیشتر <span class="mx-2">&larr;</span></a>
 					</div>
 					<div class="divider w-100"></div>
 					<div class="container p-0 mt-3 text-center">
 						<div class="m-0 mb-3 font-3">دیجیتال</div>
-						<div class="row max-height-903 w-100">
+						<div class="m-0 row max-height-903 w-100">
 							<!-- cards -->
 							<% techCategory.forEach(el => {%>
 							<div class="mt-2 col-md-6 index-100">
@@ -285,7 +287,7 @@
 										</div>
 										<div class="row">
 											<div class="col-12">
-												<a href="/content/<%- el.slug %>"
+												<a href="/blog/content/<%- el.slug %>"
 													class="btn btn-outline-dark mt-md-0 rounded-0 w-100">ادامه</a>
 											</div>
 										</div>
@@ -296,12 +298,12 @@
 						</div>
 					</div>
 					<div class="mt-4 text-left text-center">
-						<a href="/category/دیجیتال" class="text-dark w-50"> بیشتر <span class="mx-2">&larr;</span></a>
+						<a href="/blog/category/دیجیتال" class="text-dark w-50"> بیشتر <span class="mx-2">&larr;</span></a>
 					</div>
 					<div class="divider w-100"></div>
 					<div class="container p-0 mt-3 text-center w-100">
 						<div class="m-0 mb-3 font-3">نوشیدنی و خوراکی</div>
-						<div class="row max-height-903 w-100">
+						<div class="m-0 row max-height-903 w-100">
 							<!-- cards -->
 							<% foodCategory.forEach(el => {%>
 							<div class="mt-2 col-md-6 index-100">
@@ -341,7 +343,7 @@
 										</div>
 										<div class="row">
 											<div class="col-12">
-												<a href="/content/<%- el.slug %>"
+												<a href="/blog/content/<%- el.slug %>"
 													class="btn btn-outline-dark mt-md-0 rounded-0 w-100">ادامه</a>
 											</div>
 										</div>
@@ -352,13 +354,13 @@
 						</div>
 					</div>
 					<div class="mt-4 text-left text-center">
-						<a href="/category/خوراکی-نوشیدنی" class="text-dark w-50"> بیشتر <span
+						<a href="/blog/category/خوراکی-نوشیدنی" class="text-dark w-50"> بیشتر <span
 								class="mx-2">&larr;</span></a>
 					</div>
 					<div class="divider w-100"></div>
 					<div class="container p-0 mt-3 text-center w-100">
 						<div class="m-0 mb-3 font-3">مد و پوشاک</div>
-						<div class="row max-height-903 w-100">
+						<div class="m-0 row max-height-903 w-100">
 							<!-- cards -->
 							<% fashionCategory.forEach(el => {%>
 							<div class="mt-2 col-md-6 index-100">
@@ -398,7 +400,7 @@
 										</div>
 										<div class="row">
 											<div class="col-12">
-												<a href="/content/<%- el.slug %>"
+												<a href="/blog/content/<%- el.slug %>"
 													class="btn btn-outline-dark mt-md-0 rounded-0 w-100">ادامه</a>
 											</div>
 										</div>
@@ -409,7 +411,7 @@
 						</div>
 					</div>
 					<div class="mt-3 text-left text-center">
-						<a href="/category/مد-و-پوشاک" class="text-dark w-50"> بیشتر <span
+						<a href="/blog/category/مد-و-پوشاک" class="text-dark w-50"> بیشتر <span
 								class="mx-2">&larr;</span></a>
 					</div>
 					<div class="divider w-100"></div>
@@ -503,7 +505,7 @@
 										</div>
 										<div class="row">
 											<div class="col-12">
-												<a href="/content/<%- el.slug %>"
+												<a href="/blog/content/<%- el.slug %>"
 													class="mt-2 btn btn-outline-dark mt-md-0 rounded-0 w-100">ادامه</a>
 											</div>
 										</div>
@@ -537,7 +539,7 @@
 										</div>
 										<div class="row">
 											<div class="col-12">
-												<a href="/content/<%- el.slug %>"
+												<a href="/blog/content/<%- el.slug %>"
 													class="mt-2 btn btn-outline-dark mt-md-0 rounded-0 w-100">ادامه</a>
 											</div>
 										</div>

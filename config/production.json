@@ -1,18 +1,18 @@
 {
 	"Name": "Ronishka-production",
 	"database": {
-		"host": "bgm0ithcbbfx6wb-mongodb.services.clever-cloud.com",
-    "db": "bgm0ithcbbfx6wb",
-    "username": "u8auavb7xgtcyczpndzi",
+		"host": "91.98.96.174",
+    "db": "ronishka_db",
+    "username": "ronishka_AmirMirza",
     "port": "27017",
-		"pass": "MONGODB_PASS"
+		"pass": "chA=w]C4dD6Fb_Hr&.qxGj,e&P9Yg&gZ"
 	},
 	"email": {
-		"from": "Ronishka <support@ronishka.com>",
-		"host": "smtp.mailtrap.io",
-		"port": 2525,
+		"from": "Ronishka <info@ronishka.com>",
+		"host": "zohal.pws-dns.net",
+		"port": 465,
 		"auth": {
-			"user": "34c039a84fbfb4",
+			"user": "info@ronishka.com",
 			"pass": "MAIL_PASS"
 		}
 	}

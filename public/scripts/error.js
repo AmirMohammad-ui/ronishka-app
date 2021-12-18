@@ -69,7 +69,7 @@ function openSearchBox(data) {
 	data.forEach(data => {
 		resultsTemplate += `
 		<div class="result--card">
-			<a href="/content/${data.slug}">
+			<a href="/blog/content/${data.slug}">
 				<div style="background-image: url('/uploads/images/content-cover-images/${data.coverImage}');"
 					class="card--image">
 				</div>
@@ -82,17 +82,17 @@ function openSearchBox(data) {
 					${data.summary}
 				</div>
 				<div class="card--body__link">
-					<a href="/content/${data.slug}" class="link">برو به این صفحه</a>
+					<a href="/blog/content/${data.slug}" class="link">برو به این صفحه</a>
 				</div>
 			</div>
 		</div>`
 	});
 	setTimeout(()=>{
 		document.body.insertAdjacentHTML('afterbegin', template);
-		const searchBox = document.getElementById("search-box-container-header");
+		const searchBox = document.getElementById("search-box-container");
 		const results = document.getElementById("results");
 		results.insertAdjacentHTML("beforeend", resultsTemplate);
-		const closeBtn = document.getElementById("close-btn-header");
+		const closeBtn = document.getElementById("close-btn");
 
 		closeBtn.addEventListener("click", closeSeachBox);
 		function closeSearchBoxOnClickOutside(e){

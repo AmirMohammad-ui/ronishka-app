@@ -1,3 +1,4 @@
+const {Miladi_Jalali} = require("../utilities/convertDate")
 const {
 	Content
 } = require("../models/contents")
@@ -22,6 +23,28 @@ const {
 const {
 	User
 } = require("../models/users")
+function dateJustNow () {
+		const dateObj = new Date;
+		const year = dateObj.getFullYear().toString() * 1;
+		const month = dateObj.getMonth().toString() * 1 === 0 ? 1: dateObj.getMonth().toString() * 1;
+		const day = dateObj.getDate().toString() * 1;
+		return Miladi_Jalali(year, month, day);
+	}
+function timeJustNow () {
+	const dateO = new Date;
+	const hour = dateO.getHours();
+	const minute = dateO.getMinutes();
+	const second = dateO.getSeconds();
+	return `${
+		hour <= 12 ? (hour < 6 ? 'بامداد':'صبح'):"بعداز ظهر"
+	}   ${
+		hour.toString()
+	}:${
+		minute.toString()
+	}:${
+		second.toString()
+	}`;
+}
 exports.uploadingImage = async (req, res, next) => {
 	let contentImages = req.session.contentImages;
 	let pathToSave = req.session.pathToSave;
@@ -29,7 +52,6 @@ exports.uploadingImage = async (req, res, next) => {
 	let imageName = req.session.imageName;
 	const content = await Content.findById(content_id) 
 	if (!content) return next(new ERR("محتوایی با این آیدی وجود ندارد.", 404))
-	console.log("uploadingImage",contentImages)
 	let image = req.files.image;
 	if (image.size > 1000000) return next(new ERR("تصاویر باید کمتر از 1 مگابایت حجم داشته باشند.", 400))
 	imageName = `image-content-${Date.now()}.${image.mimetype.split("/")[1]}`;
@@ -87,6 +109,7 @@ exports.createContent = async (req, res, next) => {
 	});
 	if (IsContentExist) return next(new ERR("این موضوع قبلا استفاده شده لطفا موضوع دیگری انتخاب کنید.", 400))
 	const coverImageFile = req.files.coverImage;
+	if (coverImageFile.size > 1000000) return res.status(400).json({message:"تصاویر باید کمتر از 1 مگابایت حجم داشته باشند."})
 	let coverImageName;
 	let saveCoverImgTo;
 	coverImageName = `image-cover-${Date.now()}.${coverImageFile.mimetype.split("/")[1]}`;
@@ -132,39 +155,31 @@ exports.createContent = async (req, res, next) => {
 		User: req.user
 	})
 }
-exports.checkContent = async (req, res, next) => {
-	if(req.session.contentImages && req.session.contentImages.length > 0) {
-		req.session.contentImages = [];
-		req.session.contentImages.forEach(el=>{
-			fs.unlinkSync(path.join(__dirname,'../public','uploads','images','temp',el))
-		})
-	}
-	if(req.session.contentFiles && req.session.contentFiles.length > 0) {
-		req.session.contentFiles = [];
-		req.session.contentFiles.forEach(el=>{
-			fs.unlinkSync(path.join(__dirname,'../public','uploads','files','temp',el))
-		})
-	}
+exports.checkContent = async (req, res) => {
 	const content = await Content.findById(req.body.contentID.trim());
 	if (!content) {
-		return next(new ERR("محتوایی با این آیدی وجود ندارد.", 404)) 
-	} 
-	if(content.post.length > 0) {
-		await Content.findByIdAndUpdate(req.body.contentID.trim(),{post: []})
-		if(content.images.length > 0) {
-			try {
-				await Content.findByIdAndUpdate(req.body.contentID.trim(),{images: [],files: []})
-				content.images.forEach(el=>{
-					fs.unlinkSync(path.join(__dirname,'../public','uploads','images','content',el))
-				})
-				content.files.forEach(el=>{
-					fs.unlinkSync(path.join(__dirname,'../public','uploads','files',el))
-				})
-			}catch(err){
-				console.log("ERROR Images have already been deleted. ",err)
-			}
-		}
+		return res.status(404).json({message:"محتوایی با این آیدی وجود ندارد."}) 
 	}
+	let contentImages = req.session.contentImages;
+	let contentFiles = req.session.contentFiles;
+	if(content.post.length > 0||content.images.length > 0||content.files.length > 0) {
+		content.post.forEach(el=>{
+			if(el.type === "image"){
+				const imageName = el.data.file.url.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1]
+				contentImages.push(imageName)
+				if(fs.existsSync(path.join(__dirname,"../public","uploads","images","content",imageName))){
+					fs.renameSync(path.join(__dirname,"../public","uploads","images","content",imageName),path.join(__dirname,'../public','uploads','images','temp',imageName))
+				}
+			}else if(el.type === "attaches"){
+				const fileName = el.data.file.url.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1]
+				contentFiles.push(fileName)
+				if(fs.existsSync(path.join(__dirname,"../public","uploads","files",fileName))){
+					fs.renameSync(path.join(__dirname,"../public","uploads","files",fileName),path.join(__dirname,'../public','uploads','files','temp',fileName))
+				}
+			}
+		})
+	}
+
 	req.session.content_id = content._id;
 	res.status(200).json({
 		status: "success",
@@ -183,37 +198,85 @@ exports.createPost = async (req, res, next) => {
 		contentImages = [];
 		return next(new ERR("پستی با آیدی وارد شده پیدا نشد، لطفا صفحه را رفرش و دوباره امتحان کنید.", 404))
 	}	
-	try {
-		const mv = promisify(fs.rename);
-		if (contentImages && contentImages.length > 0) {
-			contentImages.forEach(async contImage => {
+	let unUsedImages = []
+	req.body.blocks.forEach(el=>{
+		if(el.type === 'image'){
+			unUsedImages.push(el.data.file.url.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1])
+		}
+	})
+	const unUsedImagesArray = req.session.contentImages.filter(e => !unUsedImages.includes(e))
+	unUsedImagesArray.forEach(el=>{
+		if(fs.existsSync(path.join(__dirname,'../public','uploads','images','temp',el))){
+			fs.unlinkSync(path.join(__dirname,'../public','uploads','images','temp',el))
+		}
+	})
+	let unUsedFiles = []
+	req.body.blocks.forEach(el=>{
+		if(el.type === 'attaches'){
+			unUsedFiles.push(el.data.file.url.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1])
+		}
+	})
+	const unUsedFilesArray = req.session.contentFiles.filter(e => !unUsedFiles.includes(e))
+	unUsedFilesArray.forEach(el => {
+		if(fs.existsSync(path.join(__dirname,'../public','uploads','files','temp',el))){
+			fs.unlinkSync(path.join(__dirname,'../public','uploads','files','temp',el))
+		}
+	})
+	const mv = promisify(fs.rename);
+	if (contentImages && contentImages.length > 0) {
+		contentImages.forEach(async contImage => {
+			if(fs.existsSync(path.join(__dirname, '../public', 'uploads', 'images', 'temp', contImage))){
 				await mv(path.join(__dirname, '../public', 'uploads', 'images', 'temp', contImage), path.join(__dirname, '../public', 'uploads', 'images', 'content', contImage));
-			})
-		}
-		if (contentImages && contentFiles.length > 0) {
-			contentFiles.forEach(async contFile => {
+				contentImages = [];
+			}
+		})
+	}
+	if (contentImages && contentFiles.length > 0) {
+		contentFiles.forEach(async contFile => {
+			if(fs.existsSync(path.join(__dirname, '../public', 'uploads', 'files','temp', contFile))){
 				await mv(path.join(__dirname, '../public', 'uploads', 'files','temp', contFile), path.join(__dirname, '../public', 'uploads', 'files', contFile));
-			})
-		}
-	} catch (err) {
-		next(new ERR('در انتقال فایل ها اشکالی بوجود آمده است.', 500))
+				contentFiles = [];
+			}
+		})
 	}
-	if (req.body.blocks[checkIDIndex].upladThis && req.body.blocks[checkIDIndex].upladThis === 'yes') {
-		content.isPublished = true;
-	}
+
+	const persianDate = dateJustNow()
+  const timeCreated = timeJustNow()
 	await Content.findByIdAndUpdate(content_id,{
 		$set: {
 			images: contentImages,
 			files: contentFiles,
 			post: req.body.blocks,
-			dateCreated: Date.now()
+			dateCreated: Date.now(),
+			persianDate,
+			timeCreated
 		}
 	})
+	if(req.session.contentImages && req.session.contentImages.length > 0) {
+		req.session.contentImages.forEach(el=>{
+			if(fs.existsSync(path.join(__dirname,'../public','uploads','images','temp',el))){
+				fs.unlinkSync(path.join(__dirname,'../public','uploads','images','temp',el))
+			}
+		})
+		req.session.contentImages = [];
+	}
+	if(req.session.contentFiles && req.session.contentFiles.length > 0) {
+		req.session.contentFiles.forEach(el=>{
+			if(fs.existsSync(path.join(__dirname,'../public','uploads','files','temp',el))){
+				fs.unlinkSync(path.join(__dirname,'../public','uploads','files','temp',el))
+			}
+		})
+		req.session.contentFiles = [];
+	}
 	res.status(200).json({
 		content
 	})
 }
 exports.getContentByTopic = async (req, res, next) => {
+	if((await Content.find({})).length === 0){
+		res.status(404).json({message: "هنوز هیچ محتوایی ثبت نشده است."})
+		return
+	}
 	if(req.user.role === "content-creator"){
 		if(req.query.q === ''||req.query.q ===null||!req.query.q) return next(new ERR("لطفا موضوع مورد نظر را وارد کنید.",400))
 		let slug = slugify(`${req.query.q}`, {
@@ -260,6 +323,10 @@ exports.getContentByTopic = async (req, res, next) => {
 	}
 }
 exports.getContentById = async (req, res, next) => {
+	if((await Content.find({})).length === 0){
+		res.status(404).json({message: "هنوز هیچ محتوایی ثبت نشده است."})
+		return
+	}
 	if(req.user.role === "content-creator"){
 		if(req.query.q === ''||req.query.q ===null||!req.query.q) return next(new ERR("لطفا آیدی مورد نظر را وارد کنید.",400))
 		let id = req.query.q.trim();
@@ -298,6 +365,10 @@ exports.getContentById = async (req, res, next) => {
 	}
 }
 exports.getProductByTopic = async (req, res, next) => {
+	if((await Product.find({})).length === 0){
+		res.status(404).json({message: "هنوز هیچ محصولی ثبت نشده است."})
+		return
+	}
 	if(req.user.role === "content-creator"){
 		if(req.query.q === ''||req.query.q ===null||!req.query.q) return next(new ERR("لطفا نام محصول مورد نظر را وارد کنید.",400))
 
@@ -320,7 +391,10 @@ exports.getProductByTopic = async (req, res, next) => {
 			result:product
 		})
 	}else if(req.user.role === "admin"){
-		if(req.query.q === ''||req.query.q ===null||!req.query.q) return next(new ERR("لطفا نام محصول مورد نظر را وارد کنید.",400))
+		if(req.query.q === ''||req.query.q ===null||!req.query.q) {
+			next(new ERR("لطفا نام محصول مورد نظر را وارد کنید.",400))
+			return 
+		}
 		let slug = slugify(`${req.query.q}`, {
 			replacement: '-',
 			locale: 'fa',
@@ -339,6 +413,10 @@ exports.getProductByTopic = async (req, res, next) => {
 	}
 }
 exports.getProductById = async (req, res, next) => {
+	if((await Product.find({})).length === 0){
+		res.status(404).json({message: "هنوز هیچ محصولی ثبت نشده است."})
+		return
+	}
 	if(req.user.role === "content-creator"){
 		if(req.query.q === ''||req.query.q ===null||!req.query.q) return next(new ERR("لطفا آیدی محصول مورد نظر را وارد کنید.",400))
 
@@ -504,12 +582,18 @@ exports.deleteTheContent = async(req,res,next)=>{
 	}
 	try{
 		await Content.findByIdAndUpdate(req.params.id,{images: [],files: []})
-		fs.unlinkSync(path.join(__dirname,'../public','uploads','images','content-cover-images',content.coverImage))
+		if(fs.existsSync(path.join(__dirname,'../public','uploads','images','content-cover-images',content.coverImage))){
+			fs.unlinkSync(path.join(__dirname,'../public','uploads','images','content-cover-images',content.coverImage))		
+		}
 		content.images.forEach(el=>{
-			fs.unlinkSync(path.join(__dirname,'../public','uploads','images','content',el))
+			if(fs.existsSync(path.join(__dirname,'../public','uploads','images','content',el))){
+				fs.unlinkSync(path.join(__dirname,'../public','uploads','images','content',el))
+			}
 		})
 		content.files.forEach(el=>{
-			fs.unlinkSync(path.join(__dirname,'../public','uploads','files',el))
+			if(fs.existsSync(path.join(__dirname,'../public','uploads','files',el))){
+				fs.unlinkSync(path.join(__dirname,'../public','uploads','files',el))
+			}
 		})
 	} catch(err){
 		if(err.message.includes("no such file")){
@@ -546,7 +630,9 @@ exports.deleteTheProduct = async (req,res,next)=>{
 		return;
 	}
 	try{
-		fs.unlinkSync(path.join(__dirname,'../public','uploads','images','products',product.image))
+		if(fs.existsSync(path.join(__dirname,'../public','uploads','images','products',product.image))){
+			fs.unlinkSync(path.join(__dirname,'../public','uploads','images','products',product.image))
+		}
 	} catch(err){
 		res.status(500).send(`
 			<h1>.این محصول قبلا حذف شده</h1>
@@ -641,4 +727,88 @@ exports.uploadTheProduct = async(req,res)=>{
 	res.status(200).send(`
 		<h1>محتوا آپلود شد و بعد از تأیید بر روی وبسایت قرار خواهد گرفت . </h1>
 	`)
+}
+
+exports.findContentToEdit = async(req,res) => {
+	if(req.query.id) {
+		const id = req.query.id;
+		const content = await Content.findById(id).select("-post")
+		if(!content) {
+			res.status(404).json({
+				message:'محتوایی با این آیدی یافت نشد.'
+			})
+			return
+		}
+		res.status(200).json({
+			content
+		})
+	}else if(req.query.topic){
+		const topic = req.query.topic;
+		const content = await Content.findOne({topic}).select("-post")
+		if(!content) {
+			res.status(404).json({
+				message:'محتوایی با این موضوع یافت نشد.'
+			})
+			return
+		}
+		res.status(200).json({
+			content
+		})
+	} else {
+		res.status(400).json({
+			message: 'لطفا یکی از دو روش را برای جستجو انتخاب کنید.'
+		})
+	}
+}
+exports.editContent = async(req,res)=>{
+	const {id,summary,topic,metaDescription,resource,keywords} = req.body;
+	const content = await Content.findById(id)
+	if(!content) return res.status(404).json({message: "مشکلی در اعمال تغییرات به وجود آمده لطفا دوباره امتحان کنید."})
+	const oldImageName = content.coverImage
+	req.body.topic = req.body.topic.split("  ").join(" ");
+	let topicSlug = slugify(`${req.body.topic}`, {
+		replacement: '-',
+		locale: 'fa',
+		remove: /[*+~.,()'"!:@]/g
+	});
+	const IsContentExist = await Content.find({
+		slug: topicSlug
+	});
+	if (IsContentExist.length > 1) return res.status(500).json({message:"این موضوع قبلا استفاده شده لطفا موضوع دیگری انتخاب کنید"})
+	const coverImageFile = req.files.image;
+	if (coverImageFile.size > 1000000) return res.status(400).json({message:"تصاویر باید کمتر از 1 مگابایت حجم داشته باشند."})
+	let coverImageName;
+	let saveCoverImgTo;
+	coverImageName = `image-cover-${Date.now()}.${coverImageFile.mimetype.split("/")[1]}`;
+	saveCoverImgTo = path.join(__dirname, '../public', 'uploads', 'images', 'content-cover-images', coverImageName);
+	
+	const persianDate = dateJustNow()
+  const timeCreated = timeJustNow()
+	await Content.findByIdAndUpdate(id,{
+		$set:{
+			topic,
+			resource, 
+			coverImage: coverImageName,
+			keywords: keywords.includes("،") ? keywords.split("،") : keywords.split(","),
+			summary,
+			metaDescription,
+			slug:topicSlug,
+			dateCreated: Date.now(),
+			persianDate:persianDate,
+			timeCreated: timeCreated
+		}
+	},{runValidators:true})
+	await coverImageFile.mv(saveCoverImgTo)
+	fs.unlinkSync(path.join(__dirname,"../public","uploads","images",'content-cover-images',oldImageName))
+	res.status(200).json({
+		message: "تغییرات با موفقیت اعمال شد."
+	})
+}
+exports.findContentAndPreFill = async (req,res)=>{
+	const id = req.query.id
+	const content = await Content.findById(id).select("post dateCreated")
+	if(!content) return res.status(404).json({message:"محتوایی با این آیدی پیدا نشد ، لطفا صفحه را رفرش و دوباره امتحان کنید."})
+	res.status(200).json({
+		content
+	}) 
 }

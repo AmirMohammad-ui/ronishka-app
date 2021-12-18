@@ -31,4 +31,8 @@ router.route("/delete/product/:id").get(catchAsync(User.protect), catchAsync(Use
 router.route("/allmycontents").get(catchAsync(User.protect), catchAsync(User.restrictTo("admin","content-creator")), catchAsync(Content.getAllMyContents));
 router.route("/allmyproducts").get(catchAsync(User.protect), catchAsync(User.restrictTo("admin","content-creator")), catchAsync(Content.getAllMyProducts));
 
+router.route("/findContentToEdit").get(catchAsync(User.protect), catchAsync(User.restrictTo("admin","content-creator")), catchAsync(Content.findContentToEdit))
+router.route("/applyChanges").post(catchAsync(User.protect), catchAsync(User.restrictTo("admin","content-creator")), catchAsync(Content.editContent))
+
+router.route("/getContentToPrefill").get(catchAsync(User.protect), catchAsync(User.restrictTo("admin","content-creator")), catchAsync(Content.findContentAndPreFill))
 module.exports = router;

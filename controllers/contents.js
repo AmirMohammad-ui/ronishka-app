@@ -3,19 +3,47 @@ const ERR = require("../utilities/ERR");
 
 exports.wasituseful = async (req, res) => {
   const wasOrwasnt = req.query.usefulRate;
-  await Content.findOneAndUpdate({
-    slug: req.query.forContent
-  }, {
-    $inc: {
-      isUseful: wasOrwasnt
+  const ratedContents = req.session.ratedContents
+  const theContent = await Content.findOne({slug: req.query.forContent}).select("_id isUseful")
+  if(!theContent) return res.status(500).json({message:"مشکلی پیش آمده لطفا بعدا دوباره امتحان کنید."})
+  console.log(theContent.isUseful)
+  const isRated = ratedContents.find(el => el.for == theContent._id)
+  if(!isRated){
+    const rate = {for: theContent._id,rating:wasOrwasnt}
+    req.session.ratedContents.push(rate)
+    await Content.findByIdAndUpdate(theContent._id, {
+      $inc: {
+        isUseful: wasOrwasnt
+      }
+    })
+    res.status(200).json({status: "success"})
+  } else {
+    if(isRated && isRated.rating == -1 && wasOrwasnt == 1){
+      isRated.rating = 1
+      await Content.findByIdAndUpdate(theContent._id, {
+        $inc: {
+          isUseful: 2
+        }
+      })
+      res.status(200).json({status: "success"})
+    }else if(isRated && isRated.rating == 1 && wasOrwasnt == -1){
+      isRated.rating = -1
+      await Content.findByIdAndUpdate(theContent._id, {
+        $inc: {
+          isUseful: -2
+        }
+      })
+      res.status(200).json({status: "success"})
+    }else{
+      res.status(400).json({message: "شما قبلا برای این محتوا نظر خود را ثبت کرده اید، فقط میتوانید نظر خود را تغییر دهید."})
     }
-  })
-  res.status(200).json({status: "success"})
+  }
 }
 
 exports.lookForKeyword = async (req, res, next) => {
   const contents = await Content.find({isConfirmed: true, isPublished: true}).sort({dateCreated: -1}).select("slug coverImage persianDate summary topic").limit(5);
   const q = req.query.q.trim();
+  const page = ''
   Content.find({
     topic: {
       $regex: new RegExp(q)
@@ -40,6 +68,7 @@ exports.lookForKeyword = async (req, res, next) => {
         data, 
         isCreator: req.session.role,
         contents,
+        page,
         title: "رونیشکا",
         isLoggedIn: req.session.loggedIn,
         description: `مجله اینترنتی رونیشکا گرد آورنده ی مطالب مفید و متنوع در موضوع هایی چون: ورزشی،تفریحی،سلامت،تکنولوژی،زیبایی،مدوپوشاک و ...`,
@@ -72,6 +101,7 @@ exports.lookForKeyword = async (req, res, next) => {
         res.render("pages/content-keyword", {
           data, 
           contents,
+          page,
           isCreator: req.session.role,
           title: "رونیشکا",
           isLoggedIn: req.session.loggedIn,
@@ -82,4 +112,13 @@ exports.lookForKeyword = async (req, res, next) => {
       }
     }).limit(10)
   }
+}
+exports.newView = async(req,res)=>{
+  const id = req.query.id
+  await Content.findByIdAndUpdate(id,{
+    $inc: {
+      views: 1
+    }
+  });
+  res.status(200).json({status:"success"})
 }

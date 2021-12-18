@@ -9,7 +9,7 @@ router
 	.get(catchAsync(Pages.getHome))
 router
 router
-	.route("/content/:slug")
+	.route("/blog/content/:slug")
 	.get(catchAsync(Pages.getContent))
 router
 	.route("/about")
@@ -18,7 +18,7 @@ router
 	.route("/complaint")
 	.get(catchAsync(Pages.getComplaint))
 router
-	.route("/category/:slug")
+	.route("/blog/category/:slug")
 	.get(catchAsync(Pages.getCategory))
 router
 	.route("/rules")
