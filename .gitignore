@@ -4,3 +4,10 @@ access.log
 .vscode/
 .env
 config
+public/uploads/images/**/*.png
+public/uploads/images/**/*.jpeg
+public/uploads/images/**/*.jpg
+public/uploads/images/**/*.webp
+public/uploads/images/**/*.svg
+public/uploads/images/**/*.ttf
+public/uploads/images/**/*.gif
