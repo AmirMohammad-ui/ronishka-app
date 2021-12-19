@@ -4,8 +4,8 @@
 	"description": "Ronishka / this website provides you the most uptodated content in your field of intrests.",
 	"main": "server.js",
 	"scripts": {
-		"start": "node server.js",
-    "dev": "nodemon server.js",
+		"start": "export NODE_ENV=production && node server.js",
+    "dev": "export NODE_ENV=development && nodemon server.js",
 		"scss:linux": "node-sass -w ./public/scss/main.scss ./public/css/main.css",
 		"scss:windows": "node-sass --watch ./public/scss -o ./public/css",
 		"webpack:dev": "webpack --config webpack.config.dev.js",
