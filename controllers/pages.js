@@ -2,12 +2,12 @@
 const {User} = require("../models/users")
 const {Product} = require("../models/products")
 const {Content} = require("../models/contents")
-const {Category} = require("../models/categories")
+// const {Category} = require("../models/categories")
 const { Review } = require("../models/reviews")
 const { Message } = require("../models/messages")
 const { Ads } = require("../models/ads")
-const path = require('path')
-const fs = require("fs")
+// const path = require('path')
+// const fs = require("fs")
 const ERR = require("../utilities/ERR")
 
 exports.getHome = async (req, res) => {
@@ -94,7 +94,7 @@ exports.getHome = async (req, res) => {
     author: "امیرمحمد میرزائی راد"
   })
 }
-exports.getContent = async (req, res) => {
+exports.getContent = async (req, res,next) => {
   const contentSlug = req.params.slug;
   if(!(await Content.findOne({slug: contentSlug,isConfirmed: true,isPublished: true}))) return next (new ERR("این صفحه یافت نشد.",404))
   
