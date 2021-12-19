@@ -12,26 +12,27 @@ const {
 const {
     Product
 } = require("./models/products")
-// const {
-//     Content
-// } = require("./models/contents")
-// const {
-//     User
-// } = require("./models/users")
-// const {
-//     Review
-// } = require("./models/reviews")
-// const {
-//     TempUser
-// } = require("./models/temporaryUsers")
+const {
+    Content
+} = require("./models/contents")
+const {
+    User
+} = require("./models/users")
+const {
+    Review
+} = require("./models/reviews")
+const {
+    TempUser
+} = require("./models/temporaryUsers")
 const argv = process.argv;
 
-const db_user = config.get("database.username");
-const db_pass = config.get("database.pass");
-const db_host = config.get("database.host");
-const db_port = config.get("database.port");
-const db_name = config.get("database.db");
-const DB = process.env.NODE_ENV === 'production' ? `mongodb://${db_user}:${db_pass}@${db_host}:${db_port}/${db_name}` : 'mongodb://localhost/ronishka';
+// const db_user = config.get("database.username");
+// const db_pass = config.get("database.pass");
+// const db_host = config.get("database.host");
+// const db_port = config.get("database.port");
+// const db_name = config.get("database.db");
+// const DB = process.env.NODE_ENV === 'production' ? `mongodb://${db_user}:${db_pass}@${db_host}:${db_port}/${db_name}` : 'mongodb://localhost/ronishka_db';
+const DB = "mongodb://localhost/ronishka_db";
 mongoose
     .connect(DB, {
         useCreateIndex: true,
@@ -40,7 +41,7 @@ mongoose
         useNewUrlParser: true
     })
     .then(() => console.log(yellow('mongodb connected ...')))
-    .catch((err) => {
+    .catch(() => {
         ERROR("Couldn't connect to mongodb ...")
         exit();
     })

@@ -22,9 +22,8 @@ if(process.env.NODE_ENV === 'production') {
   let db_host = config.get("database.host");
   let db_port = config.get("database.port");
   let db_name = config.get("database.db");
-  const DB = process.env.NODE_ENV === 'production' ? `mongodb://${db_user}:${db_pass}@${db_host}:${db_port}/${db_name}` : 'mongodb://localhost/ronishka';
-  mongoose
-    .connect(DB, {
+  const DB = `mongodb://${db_user}:${db_pass}@${db_host}:${db_port}/${db_name}`;
+  mongoose.connect(DB, {
       useCreateIndex: true,
       useFindAndModify: false,
       useUnifiedTopology: true,
@@ -38,7 +37,7 @@ if(process.env.NODE_ENV === 'production') {
       process.exit(1)
     })
 } else if (process.env.NODE_ENV === 'development') {
-  mongoose.connect('mongodb://localhost:27017/ronishka',{
+  mongoose.connect('mongodb://localhost:27017/ronishka_db',{
     useCreateIndex:true,
     useUnifiedTopology:true,
     useFindAndModify:false,
@@ -49,11 +48,7 @@ if(process.env.NODE_ENV === 'production') {
 
 // ###################################################################### server connection
 
-let port = 9000
-if(process.env.NODE_ENV === 'production'){
-  // port = 
-}
-
+let port = process.env.PORT || 3033
 const server = app.listen(port, () => {
   console.log("running on port :" + port)
 })
