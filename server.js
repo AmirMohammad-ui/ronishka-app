@@ -17,12 +17,13 @@ process.on("uncaughtException", (err) => {
 })
 // ###################################################################### database connection
 if(process.env.NODE_ENV === 'production') {
-  let db_user = config.get("database.username");
-  let db_pass = config.get("database.pass");
-  let db_host = config.get("database.host");
-  let db_port = config.get("database.port");
-  let db_name = config.get("database.db");
-  const DB = `mongodb://${db_user}:${db_pass}@${db_host}:${db_port}/${db_name}`;
+  // let db_user = config.get("database.username");
+  // let db_pass = config.get("database.pass");
+  // let db_host = config.get("database.host");
+  // let db_port = config.get("database.port");
+  // let db_name = config.get("database.db");
+  // const DB = `mongodb://${db_user}:${db_pass}@${db_host}:${db_port}/${db_name}`;
+  const DB = `mongodb://localhost/ronishka_db`;
   mongoose.connect(DB, {
       useCreateIndex: true,
       useFindAndModify: false,
